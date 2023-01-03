@@ -6,6 +6,9 @@
   "bin": {
     "chii": "./bin/chii.js"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "files": [
     "bin",
     "public",
@@ -16,7 +19,7 @@
     "ci": "npm run lint && npm run build && npm run es5",
     "format": "npm run format:server && lsla prettier \"src/**/*.ts\" \"*.{js,json}\" \"bin/*.js\" \"test/*.{html,json,js,css}\" --write",
     "format:server": "lsla prettier \"server/**/*.js\" --write",
-    "build": "gulp clean && webpack --mode=production && npm run build:front_end",
+    "build": "gulp clean && webpack --mode=production",
     "build:front_end": "cd devtools/devtools-frontend && gn gen out/Default --args=\"is_debug=false\" && autoninja -C out/Default && gulp copy:release",
     "dev": "webpack --mode=development -w",
     "dev:front_end": "cd devtools/devtools-frontend && gn gen out/Default --args=\"is_debug=true\" && autoninja -C out/Default && gulp copy:dev",
@@ -24,21 +27,14 @@
     "lint:server": "eslint \"server/**/*.js\" \"bin/*.js\"",
     "lint:target": "eslint \"src/**/*.ts\"",
     "init:front_end": "cd devtools && rm -rf devtools-frontend && gclient sync --with_branch_heads --verbose && cd ../ && python3 script/apply_all_patches.py patches/config.json",
-    "es5": "es-check es5 public/target.js test/demo.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liriliri/chii.git"
+    "es5": "es-check es5 public/target.js test/demo.js",
+    "start": "node server/index.js"
   },
   "keywords": [
     "devtools"
   ],
-  "author": "redhoodsu",
+  "author": "Tungnt",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/liriliri/chii/issues"
-  },
-  "homepage": "https://github.com/liriliri/chii#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
@@ -67,6 +63,7 @@
     "koa-compress": "^4.0.1",
     "koa-router": "^8.0.8",
     "koa-send": "^5.0.0",
+    "koa-static": "^5.0.0",
     "licia": "^1.37.0",
     "request": "^2.88.2",
     "ws": "^7.2.3"
