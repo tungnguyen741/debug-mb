@@ -30,12 +30,12 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   });
 
   // if (cdn) {
-    // router.get(`${basePath}front_end/chii_app.html`, async ctx => {
-    //   const tpl = await readTpl('chii_app');
-    //   ctx.body = tpl({
-    //     cdn,
-    //   });
-    // });
+    router.get(`${basePath}front_end/chii_app.html`, async ctx => {
+      const tpl = await readTpl('chii_app');
+      ctx.body = tpl({
+        cdn,
+      });
+    });
   // }
 
   let timestamp = now();
@@ -71,7 +71,7 @@ module.exports = function (channelManager, domain, cdn, basePath) {
       console.log('folder', folder);
       console.log('____createStatic END____\n\n\n')
       await send(ctx, ctx.path.slice(basePath.length + prefix.length), {
-        root: path.resolve(__dirname, `../..${folder}`),
+        root: path.join(__dirname, `../..${folder}`),
         maxAge,
       });
     });
@@ -80,7 +80,7 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   function createStaticFile(file) {
     router.get(`${basePath}${file}`, async ctx => {
       await send(ctx, file, {
-        root: path.resolve(__dirname, '../../public'),
+        root: path.join(__dirname, '../../public'),
         maxAge,
       });
     });
