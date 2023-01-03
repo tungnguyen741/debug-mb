@@ -1,7 +1,5 @@
 const Koa = require('koa');
-const serve = require('koa-static')
 const https = require('https');
-const path = require('path');
 
 const router = require('./middle/router');
 const compress = require('./middle/compress');
