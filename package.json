@@ -6,6 +6,9 @@
   "bin": {
     "chii": "./bin/chii.js"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "files": [
     "bin",
     "public",
