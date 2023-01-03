@@ -63,8 +63,10 @@ module.exports = function (channelManager, domain, cdn, basePath) {
 
   function createStatic(prefix, folder) {
     console.log('___createStatic RUN___')
+    console.log('folder:', folder)
     console.log('GET PATH: ', `${basePath}${prefix}/*`)
     console.log('ROOT PATH',path.resolve(__dirname, `../..${folder}`));
+    console.log('ROOT PATH2',path.join(__dirname, `../..${folder}`));
     console.log('___END___')
 
     router.get(`${basePath}${prefix}/*`, async ctx => {
