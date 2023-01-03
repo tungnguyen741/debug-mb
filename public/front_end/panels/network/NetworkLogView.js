@@ -437,9 +437,14 @@ export class NetworkLogView extends Common.ObjectWrapper.eventMixin(UI.Widget.VB
         this.dataURLFilterUI = new UI.FilterBar.CheckboxFilterUI('hide-data-url', i18nString(UIStrings.hideDataUrls), true, this.networkHideDataURLSetting);
         this.dataURLFilterUI.addEventListener("FilterChanged" /* FilterChanged */, this.filterChanged.bind(this), this);
         UI.Tooltip.Tooltip.install(this.dataURLFilterUI.element(), i18nString(UIStrings.hidesDataAndBlobUrls));
-        filterBar.addFilter(this.dataURLFilterUI);
-        const filterItems = Object.values(Common.ResourceType.resourceCategories)
+        if (!globalThis.chii) {
+            filterBar.addFilter(this.dataURLFilterUI);
+        }
+        let filterItems = Object.values(Common.ResourceType.resourceCategories)
             .map(category => ({ name: category.title(), label: () => category.shortTitle(), title: category.title() }));
+        if (globalThis.chii) {
+            filterItems = filterItems.filter(item => item.label() === 'Fetch/XHR');
+        }
         this.resourceCategoryFilterUI =
             new UI.FilterBar.NamedBitSetFilterUI(filterItems, this.networkResourceTypeFiltersSetting);
         UI.ARIAUtils.setAccessibleName(this.resourceCategoryFilterUI.element(), i18nString(UIStrings.resourceTypesToInclude));
@@ -448,15 +453,21 @@ export class NetworkLogView extends Common.ObjectWrapper.eventMixin(UI.Widget.VB
         this.onlyIssuesFilterUI = new UI.FilterBar.CheckboxFilterUI('only-show-issues', i18nString(UIStrings.hasBlockedCookies), true, this.networkShowIssuesOnlySetting);
         this.onlyIssuesFilterUI.addEventListener("FilterChanged" /* FilterChanged */, this.filterChanged.bind(this), this);
         UI.Tooltip.Tooltip.install(this.onlyIssuesFilterUI.element(), i18nString(UIStrings.onlyShowRequestsWithBlocked));
-        filterBar.addFilter(this.onlyIssuesFilterUI);
+        if (!globalThis.chii) {
+            filterBar.addFilter(this.onlyIssuesFilterUI);
+        }
         this.onlyBlockedRequestsUI = new UI.FilterBar.CheckboxFilterUI('only-show-blocked-requests', i18nString(UIStrings.blockedRequests), true, this.networkOnlyBlockedRequestsSetting);
         this.onlyBlockedRequestsUI.addEventListener("FilterChanged" /* FilterChanged */, this.filterChanged.bind(this), this);
         UI.Tooltip.Tooltip.install(this.onlyBlockedRequestsUI.element(), i18nString(UIStrings.onlyShowBlockedRequests));
-        filterBar.addFilter(this.onlyBlockedRequestsUI);
+        if (!globalThis.chii) {
+            filterBar.addFilter(this.onlyBlockedRequestsUI);
+        }
         this.onlyThirdPartyFilterUI = new UI.FilterBar.CheckboxFilterUI('only-show-third-party', i18nString(UIStrings.thirdParty), true, this.networkOnlyThirdPartySetting);
         this.onlyThirdPartyFilterUI.addEventListener("FilterChanged" /* FilterChanged */, this.filterChanged.bind(this), this);
         UI.Tooltip.Tooltip.install(this.onlyThirdPartyFilterUI.element(), i18nString(UIStrings.onlyShowThirdPartyRequests));
-        filterBar.addFilter(this.onlyThirdPartyFilterUI);
+        if (!globalThis.chii) {
+            filterBar.addFilter(this.onlyThirdPartyFilterUI);
+        }
         this.filterParser = new TextUtils.TextUtils.FilterParser(searchKeys);
         this.suggestionBuilder =
             new UI.FilterSuggestionBuilder.FilterSuggestionBuilder(searchKeys, NetworkLogView.sortSearchValues);

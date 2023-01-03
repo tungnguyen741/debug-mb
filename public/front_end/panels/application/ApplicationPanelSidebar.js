@@ -208,7 +208,9 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         const manifestTreeElement = new AppManifestTreeElement(panel);
         this.applicationTreeElement.appendChild(manifestTreeElement);
         this.serviceWorkersTreeElement = new ServiceWorkersTreeElement(panel);
-        this.applicationTreeElement.appendChild(this.serviceWorkersTreeElement);
+        if (!globalThis.chii) {
+            this.applicationTreeElement.appendChild(this.serviceWorkersTreeElement);
+        }
         const clearStorageTreeElement = new ClearStorageTreeElement(panel);
         this.applicationTreeElement.appendChild(clearStorageTreeElement);
         const storageSectionTitle = i18nString(UIStrings.storage);
@@ -227,13 +229,17 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         storageTreeElement.appendChild(this.sessionStorageListTreeElement);
         this.indexedDBListTreeElement = new IndexedDBTreeElement(panel);
         this.indexedDBListTreeElement.setLink('https://developer.chrome.com/docs/devtools/storage/indexeddb/?utm_source=devtools');
-        storageTreeElement.appendChild(this.indexedDBListTreeElement);
+        if (!globalThis.chii) {
+            storageTreeElement.appendChild(this.indexedDBListTreeElement);
+        }
         this.databasesListTreeElement =
             new ExpandableApplicationPanelTreeElement(panel, i18nString(UIStrings.webSql), 'Databases');
         this.databasesListTreeElement.setLink('https://developer.chrome.com/docs/devtools/storage/websql/?utm_source=devtools');
         const databaseIcon = UI.Icon.Icon.create('mediumicon-database', 'resource-tree-item');
         this.databasesListTreeElement.setLeadingIcons([databaseIcon]);
-        storageTreeElement.appendChild(this.databasesListTreeElement);
+        if (!globalThis.chii) {
+            storageTreeElement.appendChild(this.databasesListTreeElement);
+        }
         this.cookieListTreeElement =
             new ExpandableApplicationPanelTreeElement(panel, i18nString(UIStrings.cookies), 'Cookies');
         this.cookieListTreeElement.setLink('https://developer.chrome.com/docs/devtools/storage/cookies/?utm_source=devtools');
@@ -241,14 +247,19 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         this.cookieListTreeElement.setLeadingIcons([cookieIcon]);
         storageTreeElement.appendChild(this.cookieListTreeElement);
         this.trustTokensTreeElement = new TrustTokensTreeElement(panel);
-        storageTreeElement.appendChild(this.trustTokensTreeElement);
+        if (!globalThis.chii) {
+            storageTreeElement.appendChild(this.trustTokensTreeElement);
+        }
         const cacheSectionTitle = i18nString(UIStrings.cache);
         const cacheTreeElement = this.addSidebarSection(cacheSectionTitle);
+        if (globalThis.chii) {
+            this.sidebarTree.removeChild(cacheTreeElement);
+        }
         this.cacheStorageListTreeElement = new ServiceWorkerCacheTreeElement(panel);
         cacheTreeElement.appendChild(this.cacheStorageListTreeElement);
         this.backForwardCacheListTreeElement = new BackForwardCacheTreeElement(panel);
         cacheTreeElement.appendChild(this.backForwardCacheListTreeElement);
-        if (Root.Runtime.experiments.isEnabled('backgroundServices')) {
+        if (!globalThis.chii && Root.Runtime.experiments.isEnabled('backgroundServices')) {
             const backgroundServiceSectionTitle = i18nString(UIStrings.backgroundServices);
             const backgroundServiceTreeElement = this.addSidebarSection(backgroundServiceSectionTitle);
             this.backgroundFetchTreeElement =
@@ -368,6 +379,9 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         if (cacheStorageModel) {
             cacheStorageModel.enable();
         }
+        if (globalThis.chii) {
+            return;
+        }
         const serviceWorkerCacheModel = this.target && this.target.model(SDK.ServiceWorkerCacheModel.ServiceWorkerCacheModel) || null;
         this.cacheStorageListTreeElement.initialize(serviceWorkerCacheModel);
         const backgroundServiceModel = this.target && this.target.model(BackgroundServiceModel) || null;
@@ -403,6 +417,9 @@ export class ApplicationPanelSidebar extends UI.Widget.VBox {
         this.reset();
     }
     resetWebSQL() {
+        if (globalThis.chii) {
+            return;
+        }
         for (const queryView of this.databaseQueryViews.values()) {
             queryView.removeEventListener(DatabaseQueryViewEvents.SchemaUpdated, event => {
                 this.updateDatabaseTables(event);

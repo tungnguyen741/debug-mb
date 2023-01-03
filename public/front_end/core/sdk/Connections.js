@@ -61,6 +61,30 @@ export class MainConnection {
         }
     }
 }
+export class EmbeddedConnection {
+    onMessage;
+    targetOrigin = '';
+    constructor(targetOrigin) {
+        this.targetOrigin = targetOrigin;
+        this.onMessage = null;
+        window.addEventListener('message', event => {
+            if (event.origin === this.targetOrigin && this.onMessage) {
+                this.onMessage(event.data);
+            }
+        });
+    }
+    setOnMessage(onMessage) {
+        this.onMessage = onMessage;
+    }
+    sendRawMessage(message) {
+        window.parent.postMessage(message, this.targetOrigin);
+    }
+    setOnDisconnect(onDisconnect) {
+    }
+    disconnect() {
+        return Promise.resolve();
+    }
+}
 export class WebSocketConnection {
     #socket;
     onMessage;
@@ -241,6 +265,10 @@ export async function initMainConnection(createMainTarget, websocketConnectionLo
 function createMainConnection(websocketConnectionLost) {
     const wsParam = Root.Runtime.Runtime.queryParam('ws');
     const wssParam = Root.Runtime.Runtime.queryParam('wss');
+    const embeddedParam = Root.Runtime.Runtime.queryParam('embedded');
+    if (embeddedParam) {
+        return new EmbeddedConnection(embeddedParam);
+    }
     if (wsParam || wssParam) {
         const ws = wsParam ? `ws://${wsParam}` : `wss://${wssParam}`;
         return new WebSocketConnection(ws, websocketConnectionLost);

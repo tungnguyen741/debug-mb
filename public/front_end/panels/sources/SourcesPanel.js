@@ -201,6 +201,9 @@ export class SourcesPanel extends UI.Panel.Panel {
             new UI.SplitWidget.SplitWidget(true, true, 'sourcesPanelSplitViewState', initialDebugSidebarWidth);
         this.splitWidget.enableShowModeSaving();
         this.splitWidget.show(this.element);
+        if (globalThis.chii) {
+            this.splitWidget.hideSidebar(true);
+        }
         // Create scripts navigator
         const initialNavigatorWidth = 225;
         this.editorView =
@@ -280,11 +283,13 @@ export class SourcesPanel extends UI.Panel.Panel {
         }
         if (!isInWrapper) {
             panel.sourcesViewInternal.leftToolbar().appendToolbarItem(panel.toggleNavigatorSidebarButton);
-            if (panel.splitWidget.isVertical()) {
-                panel.sourcesViewInternal.rightToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
-            }
-            else {
-                panel.sourcesViewInternal.bottomToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
+            if (!globalThis.chii) {
+                if (panel.splitWidget.isVertical()) {
+                    panel.sourcesViewInternal.rightToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
+                }
+                else {
+                    panel.sourcesViewInternal.bottomToolbar().appendToolbarItem(panel.toggleDebuggerSidebarButton);
+                }
             }
         }
     }
@@ -790,7 +795,9 @@ export class SourcesPanel extends UI.Panel.Panel {
             ctxMenuClipboardSection.appendItem(i18nString(UIStrings.copyS, { PH1: String(copyContextMenuTitle) }), copyDecodedValueHandler);
         }
         else if (remoteObject.type === 'function') {
-            contextMenu.debugSection().appendItem(i18nString(UIStrings.showFunctionDefinition), this.showFunctionDefinition.bind(this, remoteObject));
+            if (!globalThis.chii) {
+                contextMenu.debugSection().appendItem(i18nString(UIStrings.showFunctionDefinition), this.showFunctionDefinition.bind(this, remoteObject));
+            }
         }
         // TODO(crbug.com/1172300) Ignored during the jsdoc to ts migration)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

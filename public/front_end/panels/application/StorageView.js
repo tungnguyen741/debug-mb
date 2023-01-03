@@ -222,18 +222,24 @@ export class StorageView extends UI.ThrottledWidget.ThrottledWidget {
         const includeThirdPartyCookiesCheckbox = UI.SettingsUI.createSettingCheckbox(i18nString(UIStrings.includingThirdPartyCookies), this.includeThirdPartyCookiesSetting, true);
         includeThirdPartyCookiesCheckbox.classList.add('include-third-party-cookies');
         clearButtonSection.appendChild(includeThirdPartyCookiesCheckbox);
-        const application = this.reportView.appendSection(i18nString(UIStrings.application));
-        this.appendItem(application, i18nString(UIStrings.unregisterServiceWorker), "service_workers" /* Service_workers */);
-        application.markFieldListAsGroup();
+        if ((!globalThis).chii) {
+            const application = this.reportView.appendSection(i18nString(UIStrings.application));
+            this.appendItem(application, i18nString(UIStrings.unregisterServiceWorker), "service_workers" /* Service_workers */);
+            application.markFieldListAsGroup();
+        }
         const storage = this.reportView.appendSection(i18nString(UIStrings.storageTitle));
         this.appendItem(storage, i18nString(UIStrings.localAndSessionStorage), "local_storage" /* Local_storage */);
-        this.appendItem(storage, i18nString(UIStrings.indexDB), "indexeddb" /* Indexeddb */);
-        this.appendItem(storage, i18nString(UIStrings.webSql), "websql" /* Websql */);
+        if (!globalThis.chii) {
+            this.appendItem(storage, i18nString(UIStrings.indexDB), "indexeddb" /* Indexeddb */);
+            this.appendItem(storage, i18nString(UIStrings.webSql), "websql" /* Websql */);
+        }
         this.appendItem(storage, i18nString(UIStrings.cookies), "cookies" /* Cookies */);
         storage.markFieldListAsGroup();
-        const caches = this.reportView.appendSection(i18nString(UIStrings.cache));
-        this.appendItem(caches, i18nString(UIStrings.cacheStorage), "cache_storage" /* Cache_storage */);
-        caches.markFieldListAsGroup();
+        if (!globalThis.chii) {
+            const caches = this.reportView.appendSection(i18nString(UIStrings.cache));
+            this.appendItem(caches, i18nString(UIStrings.cacheStorage), "cache_storage" /* Cache_storage */);
+            caches.markFieldListAsGroup();
+        }
         SDK.TargetManager.TargetManager.instance().observeTargets(this);
     }
     appendItem(section, title, settingName) {

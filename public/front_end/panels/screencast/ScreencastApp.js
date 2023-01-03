@@ -22,7 +22,12 @@ export class ScreencastApp {
     screenCaptureModel;
     screencastView;
     constructor() {
-        this.enabledSetting = Common.Settings.Settings.instance().createSetting('screencastEnabled', true);
+        if (globalThis.chii) {
+            this.enabledSetting = Common.Settings.Settings.instance().createSetting('screencastEnabled', false);
+        }
+        else {
+            this.enabledSetting = Common.Settings.Settings.instance().createSetting('screencastEnabled', true);
+        }
         this.toggleButton = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.toggleScreencast), 'largeicon-phone');
         this.toggleButton.setToggled(this.enabledSetting.get());
         this.toggleButton.setEnabled(false);
