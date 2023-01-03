@@ -1,0 +1,1 @@
+{"compilerOptions":{"composite":true,"outDir":".","baseUrl":".","rootDir":"../../../../../../front_end/entrypoints/chii_app"},"files":["../../../../../../front_end/entrypoints/chii_app/main.ts"],"references":[{"path":"./main-tsconfig.json"}]}

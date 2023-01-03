@@ -87,6 +87,7 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   }
 
   createStatic('front_end', '/public/front_end');
+  createStatic('front_end', '/front_end');
   createStatic('test', '/test');
   createStaticFile('target.js');
   createStaticFile('index.js');
