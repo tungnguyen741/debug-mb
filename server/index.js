@@ -30,6 +30,10 @@ async function start({
   const wss = new WebSocketServer();
 
   app.use(compress()).use(router(wss.channelManager, process.env.NODE_ENV === 'production' ? domain : domainLogging, cdn, basePath));
+  app.use(serve(path.join(__dirname, '../../app/public')))
+  app.use(serve(path.join(__dirname, '../../app/public/front_end')))
+  app.use(serve(path.join(__dirname, '/app/public')))
+  app.use(serve(path.join(__dirname, '/app/public/front_end')))
   app.use(serve(path.join(__dirname, '../../public/front_end')))
   app.use(serve(path.join(__dirname, '/public')))
   app.use(serve(path.join(__dirname, '../public')))
