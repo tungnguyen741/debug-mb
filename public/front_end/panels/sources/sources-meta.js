@@ -1,1 +1,1652 @@
-import*as e from"../../core/common/common.js";import*as t from"../../core/i18n/i18n.js";import*as i from"../../core/root/root.js";import*as o from"../../core/sdk/sdk.js";import*as n from"../../models/workspace/workspace.js";import*as a from"../../ui/legacy/components/object_ui/object_ui.js";import*as s from"../../ui/legacy/components/quick_open/quick_open.js";import*as r from"../../ui/legacy/legacy.js";const c={showSources:"Show Sources",sources:"Sources",showFilesystem:"Show Filesystem",filesystem:"Filesystem",showSnippets:"Show Snippets",snippets:"Snippets",showSearch:"Show Search",search:"Search",showQuickSource:"Show Quick source",quickSource:"Quick source",showThreads:"Show Threads",threads:"Threads",showScope:"Show Scope",scope:"Scope",showWatch:"Show Watch",watch:"Watch",showBreakpoints:"Show Breakpoints",breakpoints:"Breakpoints",pauseScriptExecution:"Pause script execution",resumeScriptExecution:"Resume script execution",stepOverNextFunctionCall:"Step over next function call",stepIntoNextFunctionCall:"Step into next function call",step:"Step",stepOutOfCurrentFunction:"Step out of current function",runSnippet:"Run snippet",deactivateBreakpoints:"Deactivate breakpoints",activateBreakpoints:"Activate breakpoints",addSelectedTextToWatches:"Add selected text to watches",evaluateSelectedTextInConsole:"Evaluate selected text in console",switchFile:"Switch file",rename:"Rename",closeAll:"Close All",jumpToPreviousEditingLocation:"Jump to previous editing location",jumpToNextEditingLocation:"Jump to next editing location",closeTheActiveTab:"Close the active tab",goToLine:"Go to line",goToAFunctionDeclarationruleSet:"Go to a function declaration/rule set",toggleBreakpoint:"Toggle breakpoint",toggleBreakpointEnabled:"Toggle breakpoint enabled",toggleBreakpointInputWindow:"Toggle breakpoint input window",save:"Save",saveAll:"Save all",createNewSnippet:"Create new snippet",addFolderToWorkspace:"Add folder to workspace",previousCallFrame:"Previous call frame",nextCallFrame:"Next call frame",incrementCssUnitBy:"Increment CSS unit by {PH1}",decrementCssUnitBy:"Decrement CSS unit by {PH1}",searchInAnonymousAndContent:"Search in anonymous and content scripts",doNotSearchInAnonymousAndContent:"Do not search in anonymous and content scripts",automaticallyRevealFilesIn:"Automatically reveal files in sidebar",doNotAutomaticallyRevealFilesIn:"Do not automatically reveal files in sidebar",enableJavascriptSourceMaps:"Enable JavaScript source maps",disableJavascriptSourceMaps:"Disable JavaScript source maps",enableTabMovesFocus:"Enable tab moves focus",disableTabMovesFocus:"Disable tab moves focus",detectIndentation:"Detect indentation",doNotDetectIndentation:"Do not detect indentation",autocompletion:"Autocompletion",enableAutocompletion:"Enable autocompletion",disableAutocompletion:"Disable autocompletion",bracketMatching:"Bracket matching",enableBracketMatching:"Enable bracket matching",disableBracketMatching:"Disable bracket matching",codeFolding:"Code folding",enableCodeFolding:"Enable code folding",disableCodeFolding:"Disable code folding",showWhitespaceCharacters:"Show whitespace characters:",doNotShowWhitespaceCharacters:"Do not show whitespace characters",none:"None",showAllWhitespaceCharacters:"Show all whitespace characters",all:"All",showTrailingWhitespaceCharacters:"Show trailing whitespace characters",trailing:"Trailing",displayVariableValuesInlineWhile:"Display variable values inline while debugging",doNotDisplayVariableValuesInline:"Do not display variable values inline while debugging",enableCssSourceMaps:"Enable CSS source maps",disableCssSourceMaps:"Disable CSS source maps",allowScrollingPastEndOfFile:"Allow scrolling past end of file",disallowScrollingPastEndOfFile:"Disallow scrolling past end of file",goTo:"Go to",line:"Line",symbol:"Symbol",open:"Open",file:"File",disableAutoFocusOnDebuggerPaused:"Do not focus Sources panel when triggering a breakpoint",enableAutoFocusOnDebuggerPaused:"Focus Sources panel when triggering a breakpoint"},l=t.i18n.registerUIStrings("panels/sources/sources-meta.ts",c),g=t.i18n.getLazilyComputedLocalizedString.bind(void 0,l);let u;async function d(){return u||(u=await import("./sources.js")),u}function S(e){return void 0===u?[]:e(u)}r.ViewManager.registerViewExtension({location:"panel",id:"sources",commandPrompt:g(c.showSources),title:g(c.sources),order:30,loadView:async()=>(await d()).SourcesPanel.SourcesPanel.instance()}),r.ViewManager.registerViewExtension({location:"navigator-view",id:"navigator-files",commandPrompt:g(c.showFilesystem),title:g(c.filesystem),order:3,persistence:"permanent",loadView:async()=>(await d()).SourcesNavigator.FilesNavigatorView.instance()}),r.ViewManager.registerViewExtension({location:"navigator-view",id:"navigator-snippets",commandPrompt:g(c.showSnippets),title:g(c.snippets),order:6,persistence:"permanent",loadView:async()=>(await d()).SourcesNavigator.SnippetsNavigatorView.instance()}),r.ViewManager.registerViewExtension({location:"drawer-view",id:"sources.search-sources-tab",commandPrompt:g(c.showSearch),title:g(c.search),order:7,persistence:"closeable",loadView:async()=>(await d()).SearchSourcesView.SearchSourcesView.instance()}),r.ViewManager.registerViewExtension({location:"drawer-view",id:"sources.quick",commandPrompt:g(c.showQuickSource),title:g(c.quickSource),persistence:"closeable",order:1e3,loadView:async()=>(await d()).SourcesPanel.WrapperView.instance()}),r.ViewManager.registerViewExtension({id:"sources.threads",commandPrompt:g(c.showThreads),title:g(c.threads),persistence:"permanent",condition:i.Runtime.ConditionName.NOT_SOURCES_HIDE_ADD_FOLDER,loadView:async()=>(await d()).ThreadsSidebarPane.ThreadsSidebarPane.instance()}),r.ViewManager.registerViewExtension({id:"sources.scopeChain",commandPrompt:g(c.showScope),title:g(c.scope),persistence:"permanent",loadView:async()=>(await d()).ScopeChainSidebarPane.ScopeChainSidebarPane.instance()}),r.ViewManager.registerViewExtension({id:"sources.watch",commandPrompt:g(c.showWatch),title:g(c.watch),persistence:"permanent",loadView:async()=>(await d()).WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance(),hasToolbar:!0}),r.ViewManager.registerViewExtension({id:"sources.jsBreakpoints",commandPrompt:g(c.showBreakpoints),title:g(c.breakpoints),persistence:"permanent",loadView:async()=>(await d()).JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane.instance()}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.toggle-pause",iconClass:"largeicon-pause",toggleable:!0,toggledIconClass:"largeicon-resume",loadActionDelegate:async()=>(await d()).SourcesPanel.RevealingActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView,r.ShortcutRegistry.ForwardedShortcut])),options:[{value:!0,title:g(c.pauseScriptExecution)},{value:!1,title:g(c.resumeScriptExecution)}],bindings:[{shortcut:"F8",keybindSets:["devToolsDefault"]},{platform:"windows,linux",shortcut:"Ctrl+\\"},{shortcut:"F5",keybindSets:["vsCode"]},{shortcut:"Shift+F5",keybindSets:["vsCode"]},{platform:"mac",shortcut:"Meta+\\"}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.step-over",loadActionDelegate:async()=>(await d()).SourcesPanel.DebuggingActionDelegate.instance(),title:g(c.stepOverNextFunctionCall),iconClass:"largeicon-step-over",contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],bindings:[{shortcut:"F10",keybindSets:["devToolsDefault","vsCode"]},{platform:"windows,linux",shortcut:"Ctrl+'"},{platform:"mac",shortcut:"Meta+'"}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.step-into",loadActionDelegate:async()=>(await d()).SourcesPanel.DebuggingActionDelegate.instance(),title:g(c.stepIntoNextFunctionCall),iconClass:"largeicon-step-into",contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],bindings:[{shortcut:"F11",keybindSets:["devToolsDefault","vsCode"]},{platform:"windows,linux",shortcut:"Ctrl+;"},{platform:"mac",shortcut:"Meta+;"}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.step",loadActionDelegate:async()=>(await d()).SourcesPanel.DebuggingActionDelegate.instance(),title:g(c.step),iconClass:"largeicon-step",contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],bindings:[{shortcut:"F9",keybindSets:["devToolsDefault"]}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.step-out",loadActionDelegate:async()=>(await d()).SourcesPanel.DebuggingActionDelegate.instance(),title:g(c.stepOutOfCurrentFunction),iconClass:"largeicon-step-out",contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],bindings:[{shortcut:"Shift+F11",keybindSets:["devToolsDefault","vsCode"]},{platform:"windows,linux",shortcut:"Shift+Ctrl+;"},{platform:"mac",shortcut:"Shift+Meta+;"}]}),r.ActionRegistration.registerActionExtension({actionId:"debugger.run-snippet",category:r.ActionRegistration.ActionCategory.DEBUGGER,loadActionDelegate:async()=>(await d()).SourcesPanel.DebuggingActionDelegate.instance(),title:g(c.runSnippet),iconClass:"largeicon-play",contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{platform:"windows,linux",shortcut:"Ctrl+Enter"},{platform:"mac",shortcut:"Meta+Enter"}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.toggle-breakpoints-active",iconClass:"largeicon-deactivate-breakpoints",toggleable:!0,loadActionDelegate:async()=>(await d()).SourcesPanel.DebuggingActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),options:[{value:!0,title:g(c.deactivateBreakpoints)},{value:!1,title:g(c.activateBreakpoints)}],bindings:[{platform:"windows,linux",shortcut:"Ctrl+F8"},{platform:"mac",shortcut:"Meta+F8"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.add-to-watch",loadActionDelegate:async()=>(await d()).WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance(),category:r.ActionRegistration.ActionCategory.DEBUGGER,title:g(c.addSelectedTextToWatches),contextTypes:()=>S((e=>[e.UISourceCodeFrame.UISourceCodeFrame])),bindings:[{platform:"windows,linux",shortcut:"Ctrl+Shift+A"},{platform:"mac",shortcut:"Meta+Shift+A"}]}),r.ActionRegistration.registerActionExtension({actionId:"debugger.evaluate-selection",category:r.ActionRegistration.ActionCategory.DEBUGGER,loadActionDelegate:async()=>(await d()).SourcesPanel.DebuggingActionDelegate.instance(),title:g(c.evaluateSelectedTextInConsole),contextTypes:()=>S((e=>[e.UISourceCodeFrame.UISourceCodeFrame])),bindings:[{platform:"windows,linux",shortcut:"Ctrl+Shift+E"},{platform:"mac",shortcut:"Meta+Shift+E"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.switch-file",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.switchFile),loadActionDelegate:async()=>(await d()).SourcesView.SwitchFileActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{shortcut:"Alt+O"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.rename",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.rename),bindings:[{platform:"windows,linux",shortcut:"F2"},{platform:"mac",shortcut:"Enter"}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.SOURCES,actionId:"sources.close-all",loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),title:g(c.closeAll)}),r.ActionRegistration.registerActionExtension({actionId:"sources.jump-to-previous-location",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.jumpToPreviousEditingLocation),loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{shortcut:"Alt+Minus"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.jump-to-next-location",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.jumpToNextEditingLocation),loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{shortcut:"Alt+Plus"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.close-editor-tab",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.closeTheActiveTab),loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{shortcut:"Alt+w"},{shortcut:"Ctrl+W",keybindSets:["vsCode"]},{platform:"windows",shortcut:"Ctrl+F4",keybindSets:["vsCode"]}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.go-to-line",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.goToLine),loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{shortcut:"Ctrl+g",keybindSets:["devToolsDefault","vsCode"]}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.go-to-member",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.goToAFunctionDeclarationruleSet),loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{platform:"windows,linux",shortcut:"Ctrl+Shift+o",keybindSets:["devToolsDefault","vsCode"]},{platform:"mac",shortcut:"Meta+Shift+o",keybindSets:["devToolsDefault","vsCode"]},{platform:"mac",shortcut:"Meta+T",keybindSets:["vsCode"]},{platform:"windows,linux",shortcut:"Ctrl+T",keybindSets:["vsCode"]},{shortcut:"F12",keybindSets:["vsCode"]}]}),r.ActionRegistration.registerActionExtension({actionId:"debugger.toggle-breakpoint",category:r.ActionRegistration.ActionCategory.DEBUGGER,title:g(c.toggleBreakpoint),bindings:[{platform:"windows,linux",shortcut:"Ctrl+b"},{platform:"mac",shortcut:"Meta+b"},{shortcut:"F9",keybindSets:["vsCode"]}]}),r.ActionRegistration.registerActionExtension({actionId:"debugger.toggle-breakpoint-enabled",category:r.ActionRegistration.ActionCategory.DEBUGGER,title:g(c.toggleBreakpointEnabled),bindings:[{platform:"windows,linux",shortcut:"Ctrl+Shift+b"},{platform:"mac",shortcut:"Meta+Shift+b"}]}),r.ActionRegistration.registerActionExtension({actionId:"debugger.breakpoint-input-window",category:r.ActionRegistration.ActionCategory.DEBUGGER,title:g(c.toggleBreakpointInputWindow),bindings:[{platform:"windows,linux",shortcut:"Ctrl+Alt+b"},{platform:"mac",shortcut:"Meta+Alt+b"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.save",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.save),loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{platform:"windows,linux",shortcut:"Ctrl+s",keybindSets:["devToolsDefault","vsCode"]},{platform:"mac",shortcut:"Meta+s",keybindSets:["devToolsDefault","vsCode"]}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.save-all",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.saveAll),loadActionDelegate:async()=>(await d()).SourcesView.ActionDelegate.instance(),contextTypes:()=>S((e=>[e.SourcesView.SourcesView])),bindings:[{platform:"windows,linux",shortcut:"Ctrl+Shift+s"},{platform:"mac",shortcut:"Meta+Alt+s"},{platform:"windows,linux",shortcut:"Ctrl+K S",keybindSets:["vsCode"]},{platform:"mac",shortcut:"Meta+Alt+S",keybindSets:["vsCode"]}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.SOURCES,actionId:"sources.create-snippet",loadActionDelegate:async()=>(await d()).SourcesNavigator.ActionDelegate.instance(),title:g(c.createNewSnippet)}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.SOURCES,actionId:"sources.add-folder-to-workspace",loadActionDelegate:async()=>(await d()).SourcesNavigator.ActionDelegate.instance(),iconClass:"largeicon-add",title:g(c.addFolderToWorkspace),condition:i.Runtime.ConditionName.NOT_SOURCES_HIDE_ADD_FOLDER}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.previous-call-frame",loadActionDelegate:async()=>(await d()).CallStackSidebarPane.ActionDelegate.instance(),title:g(c.previousCallFrame),contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],bindings:[{shortcut:"Ctrl+,"}]}),r.ActionRegistration.registerActionExtension({category:r.ActionRegistration.ActionCategory.DEBUGGER,actionId:"debugger.next-call-frame",loadActionDelegate:async()=>(await d()).CallStackSidebarPane.ActionDelegate.instance(),title:g(c.nextCallFrame),contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],bindings:[{shortcut:"Ctrl+."}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.search",title:g(c.search),loadActionDelegate:async()=>(await d()).SearchSourcesView.ActionDelegate.instance(),category:r.ActionRegistration.ActionCategory.SOURCES,bindings:[{platform:"mac",shortcut:"Meta+Alt+F",keybindSets:["devToolsDefault"]},{platform:"windows,linux",shortcut:"Ctrl+Shift+F",keybindSets:["devToolsDefault","vsCode"]},{platform:"windows,linux",shortcut:"Ctrl+Shift+J",keybindSets:["vsCode"]},{platform:"mac",shortcut:"Meta+Shift+F",keybindSets:["vsCode"]},{platform:"mac",shortcut:"Meta+Shift+J",keybindSets:["vsCode"]}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.increment-css",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.incrementCssUnitBy,{PH1:1}),bindings:[{shortcut:"Alt+Up"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.increment-css-by-ten",title:g(c.incrementCssUnitBy,{PH1:10}),category:r.ActionRegistration.ActionCategory.SOURCES,bindings:[{shortcut:"Alt+PageUp"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.decrement-css",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.decrementCssUnitBy,{PH1:1}),bindings:[{shortcut:"Alt+Down"}]}),r.ActionRegistration.registerActionExtension({actionId:"sources.decrement-css-by-ten",category:r.ActionRegistration.ActionCategory.SOURCES,title:g(c.decrementCssUnitBy,{PH1:10}),bindings:[{shortcut:"Alt+PageDown"}]}),e.Settings.registerSettingExtension({settingName:"navigatorGroupByFolder",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.searchInAnonymousAndContent),settingName:"searchInAnonymousAndContentScripts",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1,options:[{value:!0,title:g(c.searchInAnonymousAndContent)},{value:!1,title:g(c.doNotSearchInAnonymousAndContent)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.automaticallyRevealFilesIn),settingName:"autoRevealInNavigator",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1,options:[{value:!0,title:g(c.automaticallyRevealFilesIn)},{value:!1,title:g(c.doNotAutomaticallyRevealFilesIn)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.enableJavascriptSourceMaps),settingName:"jsSourceMapsEnabled",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.enableJavascriptSourceMaps)},{value:!1,title:g(c.disableJavascriptSourceMaps)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.enableTabMovesFocus),settingName:"textEditorTabMovesFocus",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1,options:[{value:!0,title:g(c.enableTabMovesFocus)},{value:!1,title:g(c.disableTabMovesFocus)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.detectIndentation),settingName:"textEditorAutoDetectIndent",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.detectIndentation)},{value:!1,title:g(c.doNotDetectIndentation)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.autocompletion),settingName:"textEditorAutocompletion",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.enableAutocompletion)},{value:!1,title:g(c.disableAutocompletion)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,title:g(c.bracketMatching),settingName:"textEditorBracketMatching",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.enableBracketMatching)},{value:!1,title:g(c.disableBracketMatching)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.codeFolding),settingName:"textEditorCodeFolding",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1,options:[{value:!0,title:g(c.enableCodeFolding)},{value:!1,title:g(c.disableCodeFolding)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.showWhitespaceCharacters),settingName:"showWhitespacesInEditor",settingType:e.Settings.SettingType.ENUM,defaultValue:"original",options:[{title:g(c.doNotShowWhitespaceCharacters),text:g(c.none),value:"none"},{title:g(c.showAllWhitespaceCharacters),text:g(c.all),value:"all"},{title:g(c.showTrailingWhitespaceCharacters),text:g(c.trailing),value:"trailing"}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.displayVariableValuesInlineWhile),settingName:"inlineVariableValues",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.displayVariableValuesInlineWhile)},{value:!1,title:g(c.doNotDisplayVariableValuesInline)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.enableAutoFocusOnDebuggerPaused),settingName:"autoFocusOnDebuggerPausedEnabled",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.enableAutoFocusOnDebuggerPaused)},{value:!1,title:g(c.disableAutoFocusOnDebuggerPaused)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.enableCssSourceMaps),settingName:"cssSourceMapsEnabled",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.enableCssSourceMaps)},{value:!1,title:g(c.disableCssSourceMaps)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.SOURCES,storageType:e.Settings.SettingStorageType.Synced,title:g(c.allowScrollingPastEndOfFile),settingName:"allowScrollPastEof",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:g(c.allowScrollingPastEndOfFile)},{value:!1,title:g(c.disallowScrollingPastEndOfFile)}]}),r.ViewManager.registerLocationResolver({name:"navigator-view",category:r.ViewManager.ViewLocationCategoryValues.SOURCES,loadResolver:async()=>(await d()).SourcesPanel.SourcesPanel.instance()}),r.ViewManager.registerLocationResolver({name:"sources.sidebar-top",category:r.ViewManager.ViewLocationCategoryValues.SOURCES,loadResolver:async()=>(await d()).SourcesPanel.SourcesPanel.instance()}),r.ViewManager.registerLocationResolver({name:"sources.sidebar-bottom",category:r.ViewManager.ViewLocationCategoryValues.SOURCES,loadResolver:async()=>(await d()).SourcesPanel.SourcesPanel.instance()}),r.ViewManager.registerLocationResolver({name:"sources.sidebar-tabs",category:r.ViewManager.ViewLocationCategoryValues.SOURCES,loadResolver:async()=>(await d()).SourcesPanel.SourcesPanel.instance()}),r.ContextMenu.registerProvider({contextTypes:()=>[n.UISourceCode.UISourceCode,n.UISourceCode.UILocation,o.RemoteObject.RemoteObject,o.NetworkRequest.NetworkRequest,...S((e=>[e.UISourceCodeFrame.UISourceCodeFrame]))],loadProvider:async()=>(await d()).SourcesPanel.SourcesPanel.instance(),experiment:void 0}),r.ContextMenu.registerProvider({loadProvider:async()=>(await d()).WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance(),contextTypes:()=>[a.ObjectPropertiesSection.ObjectPropertyTreeElement],experiment:void 0}),r.ContextMenu.registerProvider({contextTypes:()=>S((e=>[e.UISourceCodeFrame.UISourceCodeFrame])),loadProvider:async()=>(await d()).WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance(),experiment:void 0}),r.ContextMenu.registerProvider({loadProvider:async()=>(await d()).ScopeChainSidebarPane.OpenLinearMemoryInspector.instance(),experiment:void 0,contextTypes:()=>[a.ObjectPropertiesSection.ObjectPropertyTreeElement]}),e.Revealer.registerRevealer({contextTypes:()=>[n.UISourceCode.UILocation],destination:e.Revealer.RevealerDestination.SOURCES_PANEL,loadRevealer:async()=>(await d()).SourcesPanel.UILocationRevealer.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[o.DebuggerModel.Location],destination:e.Revealer.RevealerDestination.SOURCES_PANEL,loadRevealer:async()=>(await d()).SourcesPanel.DebuggerLocationRevealer.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[n.UISourceCode.UISourceCode],destination:e.Revealer.RevealerDestination.SOURCES_PANEL,loadRevealer:async()=>(await d()).SourcesPanel.UISourceCodeRevealer.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],destination:e.Revealer.RevealerDestination.SOURCES_PANEL,loadRevealer:async()=>(await d()).SourcesPanel.DebuggerPausedDetailsRevealer.instance()}),r.Toolbar.registerToolbarItem({actionId:"sources.add-folder-to-workspace",location:r.Toolbar.ToolbarItemLocation.FILES_NAVIGATION_TOOLBAR,showLabel:!0,condition:i.Runtime.ConditionName.NOT_SOURCES_HIDE_ADD_FOLDER,loadItem:void 0,order:void 0,separator:void 0}),r.Context.registerListener({contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],loadListener:async()=>(await d()).JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane.instance()}),r.Context.registerListener({contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],loadListener:async()=>(await d()).JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane.instance()}),r.Context.registerListener({contextTypes:()=>[o.DebuggerModel.DebuggerPausedDetails],loadListener:async()=>(await d()).CallStackSidebarPane.CallStackSidebarPane.instance()}),r.Context.registerListener({contextTypes:()=>[o.DebuggerModel.CallFrame],loadListener:async()=>(await d()).ScopeChainSidebarPane.ScopeChainSidebarPane.instance()}),r.ContextMenu.registerItem({location:r.ContextMenu.ItemLocation.NAVIGATOR_MENU_DEFAULT,actionId:"quickOpen.show",order:void 0}),r.ContextMenu.registerItem({location:r.ContextMenu.ItemLocation.MAIN_MENU_DEFAULT,actionId:"sources.search",order:void 0}),s.FilteredListWidget.registerProvider({prefix:"@",iconName:"ic_command_go_to_symbol",provider:async()=>(await d()).OutlineQuickOpen.OutlineQuickOpen.instance(),titlePrefix:g(c.goTo),titleSuggestion:g(c.symbol)}),s.FilteredListWidget.registerProvider({prefix:":",iconName:"ic_command_go_to_line",provider:async()=>(await d()).GoToLineQuickOpen.GoToLineQuickOpen.instance(),titlePrefix:g(c.goTo),titleSuggestion:g(c.line)}),s.FilteredListWidget.registerProvider({prefix:"",iconName:"ic_command_open_file",provider:async()=>(await d()).OpenFileQuickOpen.OpenFileQuickOpen.instance(),titlePrefix:g(c.open),titleSuggestion:g(c.file)});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as i18n from '../../core/i18n/i18n.js';
+import * as Root from '../../core/root/root.js';
+import * as SDK from '../../core/sdk/sdk.js';
+import * as Workspace from '../../models/workspace/workspace.js';
+import * as ObjectUI from '../../ui/legacy/components/object_ui/object_ui.js';
+import * as QuickOpen from '../../ui/legacy/components/quick_open/quick_open.js';
+import * as UI from '../../ui/legacy/legacy.js';
+const UIStrings = {
+    /**
+    *@description Command for showing the 'Sources' tool
+    */
+    showSources: 'Show Sources',
+    /**
+    *@description Name of the Sources panel
+    */
+    sources: 'Sources',
+    /**
+    *@description Command for showing the 'Filesystem' tool
+    */
+    showFilesystem: 'Show Filesystem',
+    /**
+    *@description Title of the 'Filesystem' tool in the Files Navigator View, which is part of the Sources tool
+    */
+    filesystem: 'Filesystem',
+    /**
+    *@description Command for showing the 'Snippets' tool
+    */
+    showSnippets: 'Show Snippets',
+    /**
+    *@description Title of the 'Snippets' tool in the Snippets Navigator View, which is part of the Sources tool
+    */
+    snippets: 'Snippets',
+    /**
+    *@description Command for showing the 'Search' tool
+    */
+    showSearch: 'Show Search',
+    /**
+    *@description Title of a search bar or tool
+    */
+    search: 'Search',
+    /**
+    *@description Command for showing the 'Quick source' tool
+    */
+    showQuickSource: 'Show Quick source',
+    /**
+    *@description Title of the 'Quick source' tool in the bottom drawer
+    */
+    quickSource: 'Quick source',
+    /**
+    *@description Command for showing the 'Threads' tool
+    */
+    showThreads: 'Show Threads',
+    /**
+    *@description Title of the sources threads
+    */
+    threads: 'Threads',
+    /**
+    *@description Command for showing the 'Scope' tool
+    */
+    showScope: 'Show Scope',
+    /**
+    *@description Title of the sources scopeChain
+    */
+    scope: 'Scope',
+    /**
+    *@description Command for showing the 'Watch' tool
+    */
+    showWatch: 'Show Watch',
+    /**
+    *@description Title of the sources watch
+    */
+    watch: 'Watch',
+    /**
+    *@description Command for showing the 'Breakpoints' tool
+    */
+    showBreakpoints: 'Show Breakpoints',
+    /**
+    *@description Title of the sources jsBreakpoints
+    */
+    breakpoints: 'Breakpoints',
+    /**
+    *@description Title of an action under the Debugger category that can be invoked through the Command Menu
+    */
+    pauseScriptExecution: 'Pause script execution',
+    /**
+    *@description Title of an action under the Debugger category that can be invoked through the Command Menu
+    */
+    resumeScriptExecution: 'Resume script execution',
+    /**
+    *@description Title of an action in the debugger tool to step over
+    */
+    stepOverNextFunctionCall: 'Step over next function call',
+    /**
+    *@description Title of an action in the debugger tool to step into
+    */
+    stepIntoNextFunctionCall: 'Step into next function call',
+    /**
+    *@description Title of an action in the debugger tool to step
+    */
+    step: 'Step',
+    /**
+    *@description Title of an action in the debugger tool to step out
+    */
+    stepOutOfCurrentFunction: 'Step out of current function',
+    /**
+    *@description Text to run a code snippet
+    */
+    runSnippet: 'Run snippet',
+    /**
+    *@description Text in Java Script Breakpoints Sidebar Pane of the Sources panel
+    */
+    deactivateBreakpoints: 'Deactivate breakpoints',
+    /**
+    *@description Text in Java Script Breakpoints Sidebar Pane of the Sources panel
+    */
+    activateBreakpoints: 'Activate breakpoints',
+    /**
+    *@description Title of an action in the sources tool to add to watch
+    */
+    addSelectedTextToWatches: 'Add selected text to watches',
+    /**
+    *@description Title of an action in the debugger tool to evaluate selection
+    */
+    evaluateSelectedTextInConsole: 'Evaluate selected text in console',
+    /**
+    *@description Title of an action that switches files in the Sources panel
+    */
+    switchFile: 'Switch file',
+    /**
+    *@description Title of a sources panel action that renames a file
+    */
+    rename: 'Rename',
+    /**
+    *@description Title of an action in the sources tool to close all
+    */
+    closeAll: 'Close All',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (jump to previous editing location in text editor)
+    */
+    jumpToPreviousEditingLocation: 'Jump to previous editing location',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (jump to next editing location in text editor)
+    */
+    jumpToNextEditingLocation: 'Jump to next editing location',
+    /**
+    *@description Title of an action that closes the active editor tab in the Sources panel
+    */
+    closeTheActiveTab: 'Close the active tab',
+    /**
+    *@description Text to go to a given line
+    */
+    goToLine: 'Go to line',
+    /**
+    *@description Title of an action that opens the go to member menu
+    */
+    goToAFunctionDeclarationruleSet: 'Go to a function declaration/rule set',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (toggle breakpoint in debugger)
+    */
+    toggleBreakpoint: 'Toggle breakpoint',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (enable toggle breakpoint shortcut in debugger)
+    */
+    toggleBreakpointEnabled: 'Toggle breakpoint enabled',
+    /**
+    *@description Title of a sources panel action that opens the breakpoint input window
+    */
+    toggleBreakpointInputWindow: 'Toggle breakpoint input window',
+    /**
+    *@description Text to save something
+    */
+    save: 'Save',
+    /**
+    *@description Title of an action to save all files in the Sources panel
+    */
+    saveAll: 'Save all',
+    /**
+    *@description Title of an action in the sources tool to create snippet
+    */
+    createNewSnippet: 'Create new snippet',
+    /**
+    *@description Title of an action in the sources tool to add folder to workspace
+    */
+    addFolderToWorkspace: 'Add folder to workspace',
+    /**
+    *@description Title of an action in the debugger tool to previous call frame
+    */
+    previousCallFrame: 'Previous call frame',
+    /**
+    *@description Title of an action in the debugger tool to next call frame
+    */
+    nextCallFrame: 'Next call frame',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (increment CSS unit by the amount passed in the placeholder in Styles pane)
+    *@example {10} PH1
+    */
+    incrementCssUnitBy: 'Increment CSS unit by {PH1}',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (decrement CSS unit by the amount passed in the placeholder in Styles pane)
+    *@example {10} PH1
+    */
+    decrementCssUnitBy: 'Decrement CSS unit by {PH1}',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    searchInAnonymousAndContent: 'Search in anonymous and content scripts',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    doNotSearchInAnonymousAndContent: 'Do not search in anonymous and content scripts',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    automaticallyRevealFilesIn: 'Automatically reveal files in sidebar',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    doNotAutomaticallyRevealFilesIn: 'Do not automatically reveal files in sidebar',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    enableJavascriptSourceMaps: 'Enable JavaScript source maps',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    disableJavascriptSourceMaps: 'Disable JavaScript source maps',
+    /**
+    *@description Title of a setting that can be invoked through the Command Menu.
+    *'tab moves focus' is the name of the setting, which means that when the user
+    *hits the tab key, the focus in the UI will be moved to the next part of the
+    *text editor, as opposed to inserting a tab character into the text in the
+    *text editor.
+    */
+    enableTabMovesFocus: 'Enable tab moves focus',
+    /**
+    *@description Title of a setting that can be invoked through the Command Menu.
+    *'tab moves focus' is the name of the setting, which means that when the user
+    *hits the tab key, the focus in the UI will be moved to the next part of the
+    *text editor, as opposed to inserting a tab character into the text in the
+    *text editor.
+    */
+    disableTabMovesFocus: 'Disable tab moves focus',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    detectIndentation: 'Detect indentation',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    doNotDetectIndentation: 'Do not detect indentation',
+    /**
+    *@description Text for autocompletion
+    */
+    autocompletion: 'Autocompletion',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    enableAutocompletion: 'Enable autocompletion',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    disableAutocompletion: 'Disable autocompletion',
+    /**
+    *@description Title of a setting under the Sources category in Settings
+    */
+    bracketMatching: 'Bracket matching',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    enableBracketMatching: 'Enable bracket matching',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    disableBracketMatching: 'Disable bracket matching',
+    /**
+    *@description Title of a setting under the Sources category in Settings
+    */
+    codeFolding: 'Code folding',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    enableCodeFolding: 'Enable code folding',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    disableCodeFolding: 'Disable code folding',
+    /**
+    *@description Title of a setting under the Sources category in Settings
+    */
+    showWhitespaceCharacters: 'Show whitespace characters:',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    doNotShowWhitespaceCharacters: 'Do not show whitespace characters',
+    /**
+    * @description One value of an option that can be set to 'none', 'all', or 'trailing'. The setting
+    * controls how whitespace characters are shown in a text editor.
+    */
+    none: 'None',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    showAllWhitespaceCharacters: 'Show all whitespace characters',
+    /**
+    *@description Text for everything
+    */
+    all: 'All',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    showTrailingWhitespaceCharacters: 'Show trailing whitespace characters',
+    /**
+    *@description A drop-down menu option to show trailing whitespace characters
+    */
+    trailing: 'Trailing',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    displayVariableValuesInlineWhile: 'Display variable values inline while debugging',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    doNotDisplayVariableValuesInline: 'Do not display variable values inline while debugging',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    enableCssSourceMaps: 'Enable CSS source maps',
+    /**
+    *@description Title of a setting under the Sources category that can be invoked through the Command Menu
+    */
+    disableCssSourceMaps: 'Disable CSS source maps',
+    /**
+    *@description Title of a setting under the Sources category in Settings
+    */
+    allowScrollingPastEndOfFile: 'Allow scrolling past end of file',
+    /**
+    *@description Title of a setting under the Sources category in Settings
+    */
+    disallowScrollingPastEndOfFile: 'Disallow scrolling past end of file',
+    /**
+    *@description Text for command prefix of go to a given line or symbol
+    */
+    goTo: 'Go to',
+    /**
+    *@description Text for command suggestion of go to a given line
+    */
+    line: 'Line',
+    /**
+    *@description Text for command suggestion of go to a given symbol
+    */
+    symbol: 'Symbol',
+    /**
+    *@description Text for command prefix of open a file
+    */
+    open: 'Open',
+    /**
+    *@description Text for command suggestion of open a file
+    */
+    file: 'File',
+    /**
+    * @description  Title of a setting under the Sources category in Settings. If this option is off,
+    * the sources panel will not be automatically be focsed whenever the application hits a breakpoint
+    * and comes to a halt.
+    */
+    disableAutoFocusOnDebuggerPaused: 'Do not focus Sources panel when triggering a breakpoint',
+    /**
+    * @description  Title of a setting under the Sources category in Settings. If this option is on,
+    * the sources panel will be automatically shown whenever the application hits a breakpoint and
+    * comes to a halt.
+    */
+    enableAutoFocusOnDebuggerPaused: 'Focus Sources panel when triggering a breakpoint',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/sources/sources-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+let loadedSourcesModule;
+async function loadSourcesModule() {
+    if (!loadedSourcesModule) {
+        loadedSourcesModule = await import('./sources.js');
+    }
+    return loadedSourcesModule;
+}
+function maybeRetrieveContextTypes(getClassCallBack) {
+    if (loadedSourcesModule === undefined) {
+        return [];
+    }
+    return getClassCallBack(loadedSourcesModule);
+}
+UI.ViewManager.registerViewExtension({
+    location: "panel" /* PANEL */,
+    id: 'sources',
+    commandPrompt: i18nLazyString(UIStrings.showSources),
+    title: i18nLazyString(UIStrings.sources),
+    order: 30,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.SourcesPanel.instance();
+    },
+});
+if (!globalThis.chii) {
+    UI.ViewManager.registerViewExtension({
+        location: "navigator-view" /* NAVIGATOR_VIEW */,
+        id: 'navigator-files',
+        commandPrompt: i18nLazyString(UIStrings.showFilesystem),
+        title: i18nLazyString(UIStrings.filesystem),
+        order: 3,
+        persistence: "permanent" /* PERMANENT */,
+        async loadView() {
+            const Sources = await loadSourcesModule();
+            return Sources.SourcesNavigator.FilesNavigatorView.instance();
+        },
+    });
+}
+UI.ViewManager.registerViewExtension({
+    location: "navigator-view" /* NAVIGATOR_VIEW */,
+    id: 'navigator-snippets',
+    commandPrompt: i18nLazyString(UIStrings.showSnippets),
+    title: i18nLazyString(UIStrings.snippets),
+    order: 6,
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesNavigator.SnippetsNavigatorView.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    location: "drawer-view" /* DRAWER_VIEW */,
+    id: 'sources.search-sources-tab',
+    commandPrompt: i18nLazyString(UIStrings.showSearch),
+    title: i18nLazyString(UIStrings.search),
+    order: 7,
+    persistence: "closeable" /* CLOSEABLE */,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.SearchSourcesView.SearchSourcesView.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    location: "drawer-view" /* DRAWER_VIEW */,
+    id: 'sources.quick',
+    commandPrompt: i18nLazyString(UIStrings.showQuickSource),
+    title: i18nLazyString(UIStrings.quickSource),
+    persistence: "closeable" /* CLOSEABLE */,
+    order: 1000,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.WrapperView.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    id: 'sources.threads',
+    commandPrompt: i18nLazyString(UIStrings.showThreads),
+    title: i18nLazyString(UIStrings.threads),
+    persistence: "permanent" /* PERMANENT */,
+    condition: Root.Runtime.ConditionName.NOT_SOURCES_HIDE_ADD_FOLDER,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.ThreadsSidebarPane.ThreadsSidebarPane.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    id: 'sources.scopeChain',
+    commandPrompt: i18nLazyString(UIStrings.showScope),
+    title: i18nLazyString(UIStrings.scope),
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.ScopeChainSidebarPane.ScopeChainSidebarPane.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    id: 'sources.watch',
+    commandPrompt: i18nLazyString(UIStrings.showWatch),
+    title: i18nLazyString(UIStrings.watch),
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance();
+    },
+    hasToolbar: true,
+});
+UI.ViewManager.registerViewExtension({
+    id: 'sources.jsBreakpoints',
+    commandPrompt: i18nLazyString(UIStrings.showBreakpoints),
+    title: i18nLazyString(UIStrings.breakpoints),
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Sources = await loadSourcesModule();
+        return Sources.JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.toggle-pause',
+    iconClass: "largeicon-pause" /* LARGEICON_PAUSE */,
+    toggleable: true,
+    toggledIconClass: "largeicon-resume" /* LARGEICON_RESUME */,
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.RevealingActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView, UI.ShortcutRegistry.ForwardedShortcut]);
+    },
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.pauseScriptExecution),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.resumeScriptExecution),
+        },
+    ],
+    bindings: [
+        {
+            shortcut: 'F8',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+            ],
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+\\',
+        },
+        {
+            shortcut: 'F5',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            shortcut: 'Shift+F5',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+\\',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.step-over',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggingActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.stepOverNextFunctionCall),
+    iconClass: "largeicon-step-over" /* LARGEICON_STEP_OVER */,
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    bindings: [
+        {
+            shortcut: 'F10',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+\'',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+\'',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.step-into',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggingActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.stepIntoNextFunctionCall),
+    iconClass: "largeicon-step-into" /* LARGE_ICON_STEP_INTO */,
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    bindings: [
+        {
+            shortcut: 'F11',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+;',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+;',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.step',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggingActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.step),
+    iconClass: "largeicon-step" /* LARGE_ICON_STEP */,
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    bindings: [
+        {
+            shortcut: 'F9',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.step-out',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggingActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.stepOutOfCurrentFunction),
+    iconClass: "largeicon-step-out" /* LARGE_ICON_STEP_OUT */,
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    bindings: [
+        {
+            shortcut: 'Shift+F11',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Shift+Ctrl+;',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Shift+Meta+;',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'debugger.run-snippet',
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggingActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.runSnippet),
+    iconClass: "largeicon-play" /* LARGEICON_PLAY */,
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Enter',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Enter',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.toggle-breakpoints-active',
+    iconClass: "largeicon-deactivate-breakpoints" /* LARGE_ICON_DEACTIVATE_BREAKPOINTS */,
+    toggleable: true,
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggingActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.deactivateBreakpoints),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.activateBreakpoints),
+        },
+    ],
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+F8',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+F8',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.add-to-watch',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance();
+    },
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    title: i18nLazyString(UIStrings.addSelectedTextToWatches),
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.UISourceCodeFrame.UISourceCodeFrame]);
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Shift+A',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Shift+A',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'debugger.evaluate-selection',
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggingActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.evaluateSelectedTextInConsole),
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.UISourceCodeFrame.UISourceCodeFrame]);
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Shift+E',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Shift+E',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.switch-file',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.switchFile),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.SwitchFileActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            shortcut: 'Alt+O',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.rename',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.rename),
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'F2',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Enter',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    actionId: 'sources.close-all',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.closeAll),
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.jump-to-previous-location',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.jumpToPreviousEditingLocation),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            shortcut: 'Alt+Minus',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.jump-to-next-location',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.jumpToNextEditingLocation),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            shortcut: 'Alt+Plus',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.close-editor-tab',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.closeTheActiveTab),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            shortcut: 'Alt+w',
+        },
+        {
+            shortcut: 'Ctrl+W',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "windows" /* Windows */,
+            shortcut: 'Ctrl+F4',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.go-to-line',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.goToLine),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+g',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.go-to-member',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.goToAFunctionDeclarationruleSet),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Shift+o',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Shift+o',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+T',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+T',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            shortcut: 'F12',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'debugger.toggle-breakpoint',
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    title: i18nLazyString(UIStrings.toggleBreakpoint),
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+b',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+b',
+        },
+        {
+            shortcut: 'F9',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'debugger.toggle-breakpoint-enabled',
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    title: i18nLazyString(UIStrings.toggleBreakpointEnabled),
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Shift+b',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Shift+b',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'debugger.breakpoint-input-window',
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    title: i18nLazyString(UIStrings.toggleBreakpointInputWindow),
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Alt+b',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Alt+b',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.save',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.save),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+s',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+s',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.save-all',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.saveAll),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.SourcesView.SourcesView]);
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Shift+s',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Alt+s',
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+K S',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Alt+S',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    actionId: 'sources.create-snippet',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesNavigator.ActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.createNewSnippet),
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    actionId: 'sources.add-folder-to-workspace',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesNavigator.ActionDelegate.instance();
+    },
+    iconClass: "largeicon-add" /* LARGE_ICON_ADD */,
+    title: i18nLazyString(UIStrings.addFolderToWorkspace),
+    condition: Root.Runtime.ConditionName.NOT_SOURCES_HIDE_ADD_FOLDER,
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.previous-call-frame',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.CallStackSidebarPane.ActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.previousCallFrame),
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+,',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.DEBUGGER,
+    actionId: 'debugger.next-call-frame',
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.CallStackSidebarPane.ActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.nextCallFrame),
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+.',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.search',
+    title: i18nLazyString(UIStrings.search),
+    async loadActionDelegate() {
+        const Sources = await loadSourcesModule();
+        return Sources.SearchSourcesView.ActionDelegate.instance();
+    },
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    bindings: [
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Alt+F',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+            ],
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Shift+F',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+Shift+J',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Shift+F',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+Shift+J',
+            keybindSets: [
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.increment-css',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.incrementCssUnitBy, { PH1: 1 }),
+    bindings: [
+        {
+            shortcut: 'Alt+Up',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.increment-css-by-ten',
+    title: i18nLazyString(UIStrings.incrementCssUnitBy, { PH1: 10 }),
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    bindings: [
+        {
+            shortcut: 'Alt+PageUp',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.decrement-css',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.decrementCssUnitBy, { PH1: 1 }),
+    bindings: [
+        {
+            shortcut: 'Alt+Down',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'sources.decrement-css-by-ten',
+    category: UI.ActionRegistration.ActionCategory.SOURCES,
+    title: i18nLazyString(UIStrings.decrementCssUnitBy, { PH1: 10 }),
+    bindings: [
+        {
+            shortcut: 'Alt+PageDown',
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    settingName: 'navigatorGroupByFolder',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.searchInAnonymousAndContent),
+    settingName: 'searchInAnonymousAndContentScripts',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.searchInAnonymousAndContent),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotSearchInAnonymousAndContent),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.automaticallyRevealFilesIn),
+    settingName: 'autoRevealInNavigator',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.automaticallyRevealFilesIn),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotAutomaticallyRevealFilesIn),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.enableJavascriptSourceMaps),
+    settingName: 'jsSourceMapsEnabled',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableJavascriptSourceMaps),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableJavascriptSourceMaps),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.enableTabMovesFocus),
+    settingName: 'textEditorTabMovesFocus',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableTabMovesFocus),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableTabMovesFocus),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.detectIndentation),
+    settingName: 'textEditorAutoDetectIndent',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.detectIndentation),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotDetectIndentation),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.autocompletion),
+    settingName: 'textEditorAutocompletion',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableAutocompletion),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableAutocompletion),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    title: i18nLazyString(UIStrings.bracketMatching),
+    settingName: 'textEditorBracketMatching',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableBracketMatching),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableBracketMatching),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.codeFolding),
+    settingName: 'textEditorCodeFolding',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableCodeFolding),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableCodeFolding),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.showWhitespaceCharacters),
+    settingName: 'showWhitespacesInEditor',
+    settingType: Common.Settings.SettingType.ENUM,
+    defaultValue: 'original',
+    options: [
+        {
+            title: i18nLazyString(UIStrings.doNotShowWhitespaceCharacters),
+            text: i18nLazyString(UIStrings.none),
+            value: 'none',
+        },
+        {
+            title: i18nLazyString(UIStrings.showAllWhitespaceCharacters),
+            text: i18nLazyString(UIStrings.all),
+            value: 'all',
+        },
+        {
+            title: i18nLazyString(UIStrings.showTrailingWhitespaceCharacters),
+            text: i18nLazyString(UIStrings.trailing),
+            value: 'trailing',
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.displayVariableValuesInlineWhile),
+    settingName: 'inlineVariableValues',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.displayVariableValuesInlineWhile),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotDisplayVariableValuesInline),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.enableAutoFocusOnDebuggerPaused),
+    settingName: 'autoFocusOnDebuggerPausedEnabled',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableAutoFocusOnDebuggerPaused),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableAutoFocusOnDebuggerPaused),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.enableCssSourceMaps),
+    settingName: 'cssSourceMapsEnabled',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableCssSourceMaps),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableCssSourceMaps),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.SOURCES,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.allowScrollingPastEndOfFile),
+    settingName: 'allowScrollPastEof',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.allowScrollingPastEndOfFile),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disallowScrollingPastEndOfFile),
+        },
+    ],
+});
+UI.ViewManager.registerLocationResolver({
+    name: "navigator-view" /* NAVIGATOR_VIEW */,
+    category: UI.ViewManager.ViewLocationCategoryValues.SOURCES,
+    async loadResolver() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.SourcesPanel.instance();
+    },
+});
+UI.ViewManager.registerLocationResolver({
+    name: "sources.sidebar-top" /* SOURCES_SIDEBAR_TOP */,
+    category: UI.ViewManager.ViewLocationCategoryValues.SOURCES,
+    async loadResolver() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.SourcesPanel.instance();
+    },
+});
+UI.ViewManager.registerLocationResolver({
+    name: "sources.sidebar-bottom" /* SOURCES_SIDEBAR_BOTTOM */,
+    category: UI.ViewManager.ViewLocationCategoryValues.SOURCES,
+    async loadResolver() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.SourcesPanel.instance();
+    },
+});
+UI.ViewManager.registerLocationResolver({
+    name: "sources.sidebar-tabs" /* SOURCES_SIDEBAR_TABS */,
+    category: UI.ViewManager.ViewLocationCategoryValues.SOURCES,
+    async loadResolver() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.SourcesPanel.instance();
+    },
+});
+UI.ContextMenu.registerProvider({
+    contextTypes() {
+        return [
+            Workspace.UISourceCode.UISourceCode,
+            Workspace.UISourceCode.UILocation,
+            SDK.RemoteObject.RemoteObject,
+            SDK.NetworkRequest.NetworkRequest,
+            ...maybeRetrieveContextTypes(Sources => [Sources.UISourceCodeFrame.UISourceCodeFrame]),
+        ];
+    },
+    async loadProvider() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.SourcesPanel.instance();
+    },
+    experiment: undefined,
+});
+UI.ContextMenu.registerProvider({
+    async loadProvider() {
+        const Sources = await loadSourcesModule();
+        return Sources.WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance();
+    },
+    contextTypes() {
+        return [
+            ObjectUI.ObjectPropertiesSection.ObjectPropertyTreeElement,
+        ];
+    },
+    experiment: undefined,
+});
+UI.ContextMenu.registerProvider({
+    contextTypes() {
+        return maybeRetrieveContextTypes(Sources => [Sources.UISourceCodeFrame.UISourceCodeFrame]);
+    },
+    async loadProvider() {
+        const Sources = await loadSourcesModule();
+        return Sources.WatchExpressionsSidebarPane.WatchExpressionsSidebarPane.instance();
+    },
+    experiment: undefined,
+});
+UI.ContextMenu.registerProvider({
+    async loadProvider() {
+        const Sources = await loadSourcesModule();
+        return Sources.ScopeChainSidebarPane.OpenLinearMemoryInspector.instance();
+    },
+    experiment: undefined,
+    contextTypes() {
+        return [
+            ObjectUI.ObjectPropertiesSection.ObjectPropertyTreeElement,
+        ];
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            Workspace.UISourceCode.UILocation,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.SOURCES_PANEL,
+    async loadRevealer() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.UILocationRevealer.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            SDK.DebuggerModel.Location,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.SOURCES_PANEL,
+    async loadRevealer() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggerLocationRevealer.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            Workspace.UISourceCode.UISourceCode,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.SOURCES_PANEL,
+    async loadRevealer() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.UISourceCodeRevealer.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            SDK.DebuggerModel.DebuggerPausedDetails,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.SOURCES_PANEL,
+    async loadRevealer() {
+        const Sources = await loadSourcesModule();
+        return Sources.SourcesPanel.DebuggerPausedDetailsRevealer.instance();
+    },
+});
+UI.Toolbar.registerToolbarItem({
+    actionId: 'sources.add-folder-to-workspace',
+    location: UI.Toolbar.ToolbarItemLocation.FILES_NAVIGATION_TOOLBAR,
+    showLabel: true,
+    condition: Root.Runtime.ConditionName.NOT_SOURCES_HIDE_ADD_FOLDER,
+    loadItem: undefined,
+    order: undefined,
+    separator: undefined,
+});
+UI.Context.registerListener({
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    async loadListener() {
+        const Sources = await loadSourcesModule();
+        return Sources.JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane.instance();
+    },
+});
+UI.Context.registerListener({
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    async loadListener() {
+        const Sources = await loadSourcesModule();
+        return Sources.JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane.instance();
+    },
+});
+UI.Context.registerListener({
+    contextTypes() {
+        return [SDK.DebuggerModel.DebuggerPausedDetails];
+    },
+    async loadListener() {
+        const Sources = await loadSourcesModule();
+        return Sources.CallStackSidebarPane.CallStackSidebarPane.instance();
+    },
+});
+UI.Context.registerListener({
+    contextTypes() {
+        return [SDK.DebuggerModel.CallFrame];
+    },
+    async loadListener() {
+        const Sources = await loadSourcesModule();
+        return Sources.ScopeChainSidebarPane.ScopeChainSidebarPane.instance();
+    },
+});
+UI.ContextMenu.registerItem({
+    location: UI.ContextMenu.ItemLocation.NAVIGATOR_MENU_DEFAULT,
+    actionId: 'quickOpen.show',
+    order: undefined,
+});
+UI.ContextMenu.registerItem({
+    location: UI.ContextMenu.ItemLocation.MAIN_MENU_DEFAULT,
+    actionId: 'sources.search',
+    order: undefined,
+});
+QuickOpen.FilteredListWidget.registerProvider({
+    prefix: '@',
+    iconName: 'ic_command_go_to_symbol',
+    async provider() {
+        const Sources = await loadSourcesModule();
+        return Sources.OutlineQuickOpen.OutlineQuickOpen.instance();
+    },
+    titlePrefix: i18nLazyString(UIStrings.goTo),
+    titleSuggestion: i18nLazyString(UIStrings.symbol),
+});
+QuickOpen.FilteredListWidget.registerProvider({
+    prefix: ':',
+    iconName: 'ic_command_go_to_line',
+    async provider() {
+        const Sources = await loadSourcesModule();
+        return Sources.GoToLineQuickOpen.GoToLineQuickOpen.instance();
+    },
+    titlePrefix: i18nLazyString(UIStrings.goTo),
+    titleSuggestion: i18nLazyString(UIStrings.line),
+});
+QuickOpen.FilteredListWidget.registerProvider({
+    prefix: '',
+    iconName: 'ic_command_open_file',
+    async provider() {
+        const Sources = await loadSourcesModule();
+        return Sources.OpenFileQuickOpen.OpenFileQuickOpen.instance();
+    },
+    titlePrefix: i18nLazyString(UIStrings.open),
+    titleSuggestion: i18nLazyString(UIStrings.file),
+});
+//# sourceMappingURL=sources-meta.js.map

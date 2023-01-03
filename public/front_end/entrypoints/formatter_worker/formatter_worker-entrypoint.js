@@ -1,1 +1,39 @@
-import*as e from"../../core/platform/platform.js";import*as t from"./formatter_worker.js";self.onmessage=function(a){const s=a.data.method,r=a.data.params;if(s)switch(s){case"format":self.postMessage(t.FormatterWorker.format(r.mimeType,r.content,r.indentString));break;case"parseCSS":t.CSSRuleParser.parseCSS(r.content,self.postMessage);break;case"htmlOutline":t.HTMLOutline.htmlOutline(r.content,self.postMessage);break;case"javaScriptOutline":t.JavaScriptOutline.javaScriptOutline(r.content,self.postMessage);break;case"javaScriptIdentifiers":self.postMessage(t.FormatterWorker.javaScriptIdentifiers(r.content));break;case"evaluatableJavaScriptSubstring":self.postMessage(t.FormatterWorker.evaluatableJavaScriptSubstring(r.content));break;case"argumentsList":self.postMessage(t.FormatterWorker.argumentsList(r.content));break;default:e.assertNever(s,`Unsupport method name: ${s}`)}},self.postMessage("workerReady");
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Platform from '../../core/platform/platform.js';
+import * as FormatterWorker from './formatter_worker.js';
+self.onmessage = function (event) {
+    const method = event.data.method;
+    const params = event.data.params;
+    if (!method) {
+        return;
+    }
+    switch (method) {
+        case "format" /* FORMAT */:
+            self.postMessage(FormatterWorker.FormatterWorker.format(params.mimeType, params.content, params.indentString));
+            break;
+        case "parseCSS" /* PARSE_CSS */:
+            FormatterWorker.CSSRuleParser.parseCSS(params.content, self.postMessage);
+            break;
+        case "htmlOutline" /* HTML_OUTLINE */:
+            FormatterWorker.HTMLOutline.htmlOutline(params.content, self.postMessage);
+            break;
+        case "javaScriptOutline" /* JAVASCRIPT_OUTLINE */:
+            FormatterWorker.JavaScriptOutline.javaScriptOutline(params.content, self.postMessage);
+            break;
+        case "javaScriptIdentifiers" /* JAVASCRIPT_IDENTIFIERS */:
+            self.postMessage(FormatterWorker.FormatterWorker.javaScriptIdentifiers(params.content));
+            break;
+        case "evaluatableJavaScriptSubstring" /* EVALUATE_JAVASCRIPT_SUBSTRING */:
+            self.postMessage(FormatterWorker.FormatterWorker.evaluatableJavaScriptSubstring(params.content));
+            break;
+        case "argumentsList" /* ARGUMENTS_LIST */:
+            self.postMessage(FormatterWorker.FormatterWorker.argumentsList(params.content));
+            break;
+        default:
+            Platform.assertNever(method, `Unsupport method name: ${method}`);
+    }
+};
+self.postMessage('workerReady');
+//# sourceMappingURL=formatter_worker-entrypoint.js.map

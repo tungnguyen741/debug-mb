@@ -1,1 +1,175 @@
-import*as e from"./legacy.js";self.UI=self.UI||{},UI=UI||{},UI.DockController=e.DockController.DockController,UI.DockController.Events=e.DockController.Events,UI.DockController.ToggleDockActionDelegate=e.DockController.ToggleDockActionDelegate,UI.DockController.CloseButtonProvider=e.DockController.CloseButtonProvider,UI.Context=e.Context.Context,UI.ContextFlavorListener=e.ContextFlavorListener.ContextFlavorListener,UI.ContextMenu=e.ContextMenu.ContextMenu,UI.ContextMenu.Provider=e.ContextMenu.Provider,UI.Dialog=e.Dialog.Dialog,UI.EmptyWidget=e.EmptyWidget.EmptyWidget,UI.Fragment=e.Fragment.Fragment,UI.html=e.Fragment.html,UI.Geometry={},UI.Geometry.Vector=e.Geometry.Vector,UI.Geometry.CubicBezier=e.Geometry.CubicBezier,UI.Geometry.EulerAngles=e.Geometry.EulerAngles,UI.Geometry.scalarProduct=e.Geometry.scalarProduct,UI.Geometry.crossProduct=e.Geometry.crossProduct,UI.Geometry.calculateAngle=e.Geometry.calculateAngle,UI.Geometry.degreesToRadians=e.Geometry.degreesToRadians,UI.Geometry.radiansToDegrees=e.Geometry.radiansToDegrees,UI.Size=e.Geometry.Size,UI.GlassPane=e.GlassPane.GlassPane,UI.GlassPane._panes=e.GlassPane.GlassPanePanes,UI.InspectorView=e.InspectorView.InspectorView,UI.InspectorView.ActionDelegate=e.InspectorView.ActionDelegate,UI.ListControl=e.ListControl.ListControl,UI.ListMode=e.ListControl.ListMode,UI.ListModel=e.ListModel.ListModel,UI.Panel=e.Panel.Panel,UI.panels={},UI.SearchableView=e.SearchableView.SearchableView,UI.SearchableView.SearchConfig=e.SearchableView.SearchConfig,UI.Searchable=e.SearchableView.Searchable,UI.SettingUI=e.SettingsUI.SettingUI,UI.ShortcutRegistry=e.ShortcutRegistry.ShortcutRegistry,UI.ShortcutRegistry.ForwardedShortcut=e.ShortcutRegistry.ForwardedShortcut,UI.SoftContextMenu=e.SoftContextMenu.SoftContextMenu,UI.SoftDropDown=e.SoftDropDown.SoftDropDown,UI.SplitWidget=e.SplitWidget.SplitWidget,UI.SuggestBox=e.SuggestBox.SuggestBox,UI.TabbedPane=e.TabbedPane.TabbedPane,UI.TabbedPane.Events=e.TabbedPane.Events,UI.TextPrompt=e.TextPrompt.TextPrompt,UI.Toolbar=e.Toolbar.Toolbar,UI.ToolbarItem=e.Toolbar.ToolbarItem,UI.ToolbarItem.Provider=e.Toolbar.Provider,UI.Tooltip=e.Tooltip.Tooltip,UI.Tooltip._symbol=e.Tooltip.TooltipSymbol,UI.TreeOutline=e.TreeOutline.TreeOutline,UI.TreeOutline.Events=e.TreeOutline.Events,UI.TreeElement=e.TreeOutline.TreeElement,UI.TreeOutlineInShadow=e.TreeOutline.TreeOutlineInShadow,UI.Renderer=e.UIUtils.Renderer,UI.isBeingEdited=e.UIUtils.isBeingEdited,UI.isEditing=e.UIUtils.isEditing,UI.highlightRangesWithStyleClass=e.UIUtils.highlightRangesWithStyleClass,UI.applyDomChanges=e.UIUtils.applyDomChanges,UI.revertDomChanges=e.UIUtils.revertDomChanges,UI.beautifyFunctionName=e.UIUtils.beautifyFunctionName,UI.View=e.View.View,UI.SimpleView=e.View.SimpleView,UI.ViewLocation=e.View.ViewLocation,UI.ViewLocationResolver=e.View.ViewLocationResolver,UI.ViewManager=e.ViewManager.ViewManager,UI.ViewManager._ContainerWidget=e.ViewManager.ContainerWidget,UI.Widget=e.Widget.Widget,UI.XLink=e.XLink.XLink,UI.XLink.ContextMenuProvider=e.XLink.ContextMenuProvider,self.UI.context=e.Context.Context.instance(),UI.dockController;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as UIModule from './legacy.js';
+self.UI = self.UI || {};
+UI = UI || {};
+/** @constructor */
+UI.DockController = UIModule.DockController.DockController;
+/** @enum {symbol} */
+UI.DockController.Events = UIModule.DockController.Events;
+/** @constructor */
+UI.DockController.ToggleDockActionDelegate = UIModule.DockController.ToggleDockActionDelegate;
+/** @constructor */
+UI.DockController.CloseButtonProvider = UIModule.DockController.CloseButtonProvider;
+/** @constructor */
+UI.Context = UIModule.Context.Context;
+/** @interface */
+UI.ContextFlavorListener = UIModule.ContextFlavorListener.ContextFlavorListener;
+/** @constructor */
+UI.ContextMenu = UIModule.ContextMenu.ContextMenu;
+/**
+ * @interface
+ */
+UI.ContextMenu.Provider = UIModule.ContextMenu.Provider;
+/** @constructor */
+UI.Dialog = UIModule.Dialog.Dialog;
+/** @constructor */
+UI.EmptyWidget = UIModule.EmptyWidget.EmptyWidget;
+/** @constructor */
+UI.Fragment = UIModule.Fragment.Fragment;
+UI.html = UIModule.Fragment.html;
+UI.Geometry = {};
+/**
+ * @constructor
+ */
+UI.Geometry.Vector = UIModule.Geometry.Vector;
+/**
+ * @constructor
+ */
+UI.Geometry.CubicBezier = UIModule.Geometry.CubicBezier;
+/**
+ * @constructor
+ */
+UI.Geometry.EulerAngles = UIModule.Geometry.EulerAngles;
+/**
+ * @param {!UIModule.Geometry.Vector} u
+ * @param {!UIModule.Geometry.Vector} v
+ * @return {number}
+ */
+UI.Geometry.scalarProduct = UIModule.Geometry.scalarProduct;
+/**
+ * @param {!UIModule.Geometry.Vector} u
+ * @param {!UIModule.Geometry.Vector} v
+ * @return {!UIModule.Geometry.Vector}
+ */
+UI.Geometry.crossProduct = UIModule.Geometry.crossProduct;
+/**
+ * @param {!UIModule.Geometry.Vector} u
+ * @param {!UIModule.Geometry.Vector} v
+ * @return {number}
+ */
+UI.Geometry.calculateAngle = UIModule.Geometry.calculateAngle;
+/**
+ * @param {number} deg
+ * @return {number}
+ */
+UI.Geometry.degreesToRadians = UIModule.Geometry.degreesToRadians;
+/**
+ * @param {number} rad
+ * @return {number}
+ */
+UI.Geometry.radiansToDegrees = UIModule.Geometry.radiansToDegrees;
+/** @constructor */
+UI.Size = UIModule.Geometry.Size;
+/** @constructor */
+UI.GlassPane = UIModule.GlassPane.GlassPane;
+// Exported for layout tests.
+UI.GlassPane._panes = UIModule.GlassPane.GlassPanePanes;
+/** @constructor */
+UI.InspectorView = UIModule.InspectorView.InspectorView;
+/**
+ * @implements {UI.ActionDelegate}
+ */
+UI.InspectorView.ActionDelegate = UIModule.InspectorView.ActionDelegate;
+/** @constructor */
+UI.ListControl = UIModule.ListControl.ListControl;
+UI.ListMode = UIModule.ListControl.ListMode;
+/** @constructor */
+UI.ListModel = UIModule.ListModel.ListModel;
+/** @constructor */
+UI.Panel = UIModule.Panel.Panel;
+// For testing.
+UI.panels = {};
+/** @constructor */
+UI.SearchableView = UIModule.SearchableView.SearchableView;
+/**
+ * @constructor
+ */
+UI.SearchableView.SearchConfig = UIModule.SearchableView.SearchConfig;
+/** @interface */
+UI.Searchable = UIModule.SearchableView.Searchable;
+/**
+ * @interface
+ */
+UI.SettingUI = UIModule.SettingsUI.SettingUI;
+/** @constructor */
+UI.ShortcutRegistry = UIModule.ShortcutRegistry.ShortcutRegistry;
+UI.ShortcutRegistry.ForwardedShortcut = UIModule.ShortcutRegistry.ForwardedShortcut;
+/** @constructor */
+UI.SoftContextMenu = UIModule.SoftContextMenu.SoftContextMenu;
+/** @constructor */
+UI.SoftDropDown = UIModule.SoftDropDown.SoftDropDown;
+/** @constructor */
+UI.SplitWidget = UIModule.SplitWidget.SplitWidget;
+/** @constructor */
+UI.SuggestBox = UIModule.SuggestBox.SuggestBox;
+/** @constructor */
+UI.TabbedPane = UIModule.TabbedPane.TabbedPane;
+/** @enum {symbol} */
+UI.TabbedPane.Events = UIModule.TabbedPane.Events;
+/** @constructor */
+UI.TextPrompt = UIModule.TextPrompt.TextPrompt;
+/** @constructor */
+UI.Toolbar = UIModule.Toolbar.Toolbar;
+/** @constructor */
+UI.ToolbarItem = UIModule.Toolbar.ToolbarItem;
+/** @interface */
+UI.ToolbarItem.Provider = UIModule.Toolbar.Provider;
+/** @constructor */
+UI.Tooltip = UIModule.Tooltip.Tooltip;
+// Exported for layout tests.
+UI.Tooltip._symbol = UIModule.Tooltip.TooltipSymbol;
+/** @constructor */
+UI.TreeOutline = UIModule.TreeOutline.TreeOutline;
+UI.TreeOutline.Events = UIModule.TreeOutline.Events;
+/** @constructor */
+UI.TreeElement = UIModule.TreeOutline.TreeElement;
+/** @constructor */
+UI.TreeOutlineInShadow = UIModule.TreeOutline.TreeOutlineInShadow;
+/** @interface */
+UI.Renderer = UIModule.UIUtils.Renderer;
+UI.isBeingEdited = UIModule.UIUtils.isBeingEdited;
+UI.isEditing = UIModule.UIUtils.isEditing;
+UI.highlightRangesWithStyleClass = UIModule.UIUtils.highlightRangesWithStyleClass;
+UI.applyDomChanges = UIModule.UIUtils.applyDomChanges;
+UI.revertDomChanges = UIModule.UIUtils.revertDomChanges;
+UI.beautifyFunctionName = UIModule.UIUtils.beautifyFunctionName;
+/** @interface */
+UI.View = UIModule.View.View;
+/** @constructor */
+UI.SimpleView = UIModule.View.SimpleView;
+/** @interface */
+UI.ViewLocation = UIModule.View.ViewLocation;
+/** @interface */
+UI.ViewLocationResolver = UIModule.View.ViewLocationResolver;
+/** @constructor */
+UI.ViewManager = UIModule.ViewManager.ViewManager;
+/** @constructor */
+UI.ViewManager._ContainerWidget = UIModule.ViewManager.ContainerWidget;
+/** @constructor */
+UI.Widget = UIModule.Widget.Widget;
+/** @constructor */
+UI.XLink = UIModule.XLink.XLink;
+/**
+ * @implements {UI.ContextMenu.Provider}
+ */
+UI.XLink.ContextMenuProvider = UIModule.XLink.ContextMenuProvider;
+/** @type {!UIModule.Context.Context} */
+self.UI.context = UIModule.Context.Context.instance();
+/**
+ * @type {!UI.DockController}
+ */
+UI.dockController;
+//# sourceMappingURL=legacy-legacy.js.map

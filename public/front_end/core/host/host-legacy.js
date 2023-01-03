@@ -1,1 +1,34 @@
-import*as o from"./host.js";self.Host=self.Host||{},Host=Host||{},Host.InspectorFrontendHost=o.InspectorFrontendHost.InspectorFrontendHostInstance,Host.isUnderTest=o.InspectorFrontendHost.isUnderTest,Host.InspectorFrontendHostAPI={},Host.InspectorFrontendHostAPI.Events=o.InspectorFrontendHostAPI.Events,Host.platform=o.Platform.platform,Host.isWin=o.Platform.isWin,Host.isMac=o.Platform.isMac,Host.isCustomDevtoolsFrontend=o.Platform.isCustomDevtoolsFrontend,Host.fontFamily=o.Platform.fontFamily,Host.ResourceLoader=o.ResourceLoader.ResourceLoader,Host.ResourceLoader.load=o.ResourceLoader.load,Host.ResourceLoader.loadAsStream=o.ResourceLoader.loadAsStream,Host.ResourceLoader.setLoadForTest=o.ResourceLoader.setLoadForTest,Host.UserMetrics=o.UserMetrics.UserMetrics,Host.UserMetrics._PanelCodes=o.UserMetrics.PanelCodes,Host.UserMetrics.Action=o.UserMetrics.Action,Host.userMetrics=o.userMetrics;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as HostModule from './host.js';
+self.Host = self.Host || {};
+Host = Host || {};
+/** @type {!HostModule.InspectorFrontendHost.InspectorFrontendHostStub} */
+Host.InspectorFrontendHost = HostModule.InspectorFrontendHost.InspectorFrontendHostInstance;
+Host.isUnderTest = HostModule.InspectorFrontendHost.isUnderTest;
+Host.InspectorFrontendHostAPI = {};
+Host.InspectorFrontendHostAPI.Events = HostModule.InspectorFrontendHostAPI.Events;
+Host.platform = HostModule.Platform.platform;
+Host.isWin = HostModule.Platform.isWin;
+Host.isMac = HostModule.Platform.isMac;
+Host.isCustomDevtoolsFrontend = HostModule.Platform.isCustomDevtoolsFrontend;
+Host.fontFamily = HostModule.Platform.fontFamily;
+Host.ResourceLoader = HostModule.ResourceLoader.ResourceLoader;
+/**
+ * @param {string} url
+ * @param {?Object.<string, string>} headers
+ * @param {function(boolean, !Object.<string, string>, string, !HostModule.ResourceLoader.LoadErrorDescription)} callback
+ */
+Host.ResourceLoader.load = HostModule.ResourceLoader.load;
+Host.ResourceLoader.loadAsStream = HostModule.ResourceLoader.loadAsStream;
+Host.ResourceLoader.setLoadForTest = HostModule.ResourceLoader.setLoadForTest;
+/** @constructor */
+Host.UserMetrics = HostModule.UserMetrics.UserMetrics;
+Host.UserMetrics._PanelCodes = HostModule.UserMetrics.PanelCodes;
+/** @enum {number} */
+Host.UserMetrics.Action = HostModule.UserMetrics.Action;
+/** @type {!Host.UserMetrics} */
+Host.userMetrics = HostModule.userMetrics;
+//# sourceMappingURL=host-legacy.js.map

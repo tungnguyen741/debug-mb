@@ -1,1 +1,171 @@
-import*as e from"./sdk.js";self.SDK=self.SDK||{},SDK=SDK||{},SDK.CPUProfileDataModel=e.CPUProfileDataModel.CPUProfileDataModel,SDK.CPUProfilerModel=e.CPUProfilerModel.CPUProfilerModel,SDK.CPUThrottlingManager=e.CPUThrottlingManager.CPUThrottlingManager,SDK.CPUThrottlingManager.CPUThrottlingRates=e.CPUThrottlingManager.CPUThrottlingRates,SDK.cssMetadata=e.CSSMetadata.cssMetadata,SDK.CSSModel=e.CSSModel.CSSModel,SDK.CSSModel.Events=e.CSSModel.Events,SDK.CSSLocation=e.CSSModel.CSSLocation,SDK.CSSProperty=e.CSSProperty.CSSProperty,SDK.CSSStyleDeclaration=e.CSSStyleDeclaration.CSSStyleDeclaration,SDK.CSSStyleDeclaration.Type=e.CSSStyleDeclaration.Type,SDK.MainConnection=e.Connections.MainConnection,SDK.ConsoleModel=e.ConsoleModel.ConsoleModel,SDK.ConsoleMessage=e.ConsoleModel.ConsoleMessage,SDK.ConsoleModel.Events=e.ConsoleModel.Events,SDK.ConsoleMessage.MessageSource=e.ConsoleModel.MessageSource,SDK.ConsoleMessage.MessageType=e.ConsoleModel.MessageType,SDK.ConsoleMessage.MessageLevel=e.ConsoleModel.MessageLevel,SDK.ConsoleMessage.FrontendMessageType=e.ConsoleModel.FrontendMessageType,SDK.ConsoleMessage.FrontendMessageSource=e.ConsoleModel.FrontendMessageSource,SDK.Cookie=e.Cookie.Cookie,SDK.CookieReference=e.Cookie.CookieReference,SDK.CookieParser=e.CookieParser.CookieParser,SDK.DOMDebuggerModel=e.DOMDebuggerModel.DOMDebuggerModel,SDK.DOMModel=e.DOMModel.DOMModel,SDK.DOMModel.Events=e.DOMModel.Events,SDK.DeferredDOMNode=e.DOMModel.DeferredDOMNode,SDK.DOMDocument=e.DOMModel.DOMDocument,SDK.DOMNode=e.DOMModel.DOMNode,SDK.DebuggerModel=e.DebuggerModel.DebuggerModel,SDK.DebuggerModel.PauseOnExceptionsState=e.DebuggerModel.PauseOnExceptionsState,SDK.DebuggerModel.Events=e.DebuggerModel.Events,SDK.DebuggerModel.BreakReason=Protocol.Debugger.PausedEventReason,SDK.DebuggerModel.Location=e.DebuggerModel.Location,SDK.DebuggerModel.CallFrame=e.DebuggerModel.CallFrame,SDK.DebuggerPausedDetails=e.DebuggerModel.DebuggerPausedDetails,SDK.HeapProfilerModel=e.HeapProfilerModel.HeapProfilerModel,SDK.IsolateManager=e.IsolateManager.IsolateManager,SDK.IsolateManager.MemoryTrend=e.IsolateManager.MemoryTrend,SDK.NetworkManager=e.NetworkManager.NetworkManager,SDK.NetworkManager.Events=e.NetworkManager.Events,SDK.NetworkManager.OfflineConditions=e.NetworkManager.OfflineConditions,SDK.NetworkManager.Fast3GConditions=e.NetworkManager.Fast3GConditions,SDK.NetworkDispatcher=e.NetworkManager.NetworkDispatcher,SDK.MultitargetNetworkManager=e.NetworkManager.MultitargetNetworkManager,SDK.MultitargetNetworkManager.InterceptedRequest=e.NetworkManager.InterceptedRequest,SDK.NetworkRequest=e.NetworkRequest.NetworkRequest,SDK.NetworkRequest.Events=e.NetworkRequest.Events,SDK.NetworkRequest.WebSocketFrameType=e.NetworkRequest.WebSocketFrameType,SDK.OverlayModel=e.OverlayModel.OverlayModel,SDK.PerformanceMetricsModel=e.PerformanceMetricsModel.PerformanceMetricsModel,SDK.ProfileTreeModel=e.ProfileTreeModel.ProfileTreeModel,SDK.RemoteObject=e.RemoteObject.RemoteObject,SDK.Resource=e.Resource.Resource,SDK.ResourceTreeModel=e.ResourceTreeModel.ResourceTreeModel,SDK.ResourceTreeModel.Events=e.ResourceTreeModel.Events,SDK.ResourceTreeFrame=e.ResourceTreeModel.ResourceTreeFrame,SDK.RuntimeModel=e.RuntimeModel.RuntimeModel,SDK.RuntimeModel.Events=e.RuntimeModel.Events,SDK.ExecutionContext=e.RuntimeModel.ExecutionContext,SDK.Script=e.Script.Script,SDK.SecurityOriginManager=e.SecurityOriginManager.SecurityOriginManager,SDK.SecurityOriginManager.Events=e.SecurityOriginManager.Events,SDK.ServiceWorkerCacheModel=e.ServiceWorkerCacheModel.ServiceWorkerCacheModel,SDK.ServiceWorkerManager=e.ServiceWorkerManager.ServiceWorkerManager,SDK.SourceMap=e.SourceMap.SourceMap,SDK.TextSourceMap=e.SourceMap.TextSourceMap,SDK.SourceMapManager=e.SourceMapManager.SourceMapManager,SDK.SourceMapManager.Events=e.SourceMapManager.Events,SDK.Target=e.Target.Target,SDK.Target.Type=e.Target.Type,SDK.TargetManager=e.TargetManager.TargetManager,SDK.TargetManager.Events=e.TargetManager.Events,SDK.TargetManager.Observer=e.TargetManager.Observer,SDK.TracingManager=e.TracingManager.TracingManager,SDK.TracingModel=e.TracingModel.TracingModel,SDK.TracingModel.Phase=e.TracingModel.Phase,SDK.TracingModel.LegacyTopLevelEventCategory=e.TracingModel.LegacyTopLevelEventCategory,SDK.TracingModel.DevToolsMetadataEventCategory=e.TracingModel.DevToolsMetadataEventCategory,SDK.TracingModel.Event=e.TracingModel.Event,self.SDK.targetManager=e.TargetManager.TargetManager.instance(),self.SDK.isolateManager=e.IsolateManager.IsolateManager.instance({forceNew:!0}),self.SDK.domModelUndoStack=e.DOMModel.DOMModelUndoStack.instance();
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as SDKModule from './sdk.js';
+self.SDK = self.SDK || {};
+SDK = SDK || {};
+/** @constructor */
+SDK.CPUProfileDataModel = SDKModule.CPUProfileDataModel.CPUProfileDataModel;
+/** @constructor */
+SDK.CPUProfilerModel = SDKModule.CPUProfilerModel.CPUProfilerModel;
+/** @constructor */
+SDK.CPUThrottlingManager = SDKModule.CPUThrottlingManager.CPUThrottlingManager;
+SDK.CPUThrottlingManager.CPUThrottlingRates = SDKModule.CPUThrottlingManager.CPUThrottlingRates;
+SDK.cssMetadata = SDKModule.CSSMetadata.cssMetadata;
+/** @constructor */
+SDK.CSSModel = SDKModule.CSSModel.CSSModel;
+/** @enum {symbol} */
+SDK.CSSModel.Events = SDKModule.CSSModel.Events;
+/** @constructor */
+SDK.CSSLocation = SDKModule.CSSModel.CSSLocation;
+/** @constructor */
+SDK.CSSProperty = SDKModule.CSSProperty.CSSProperty;
+/** @constructor */
+SDK.CSSStyleDeclaration = SDKModule.CSSStyleDeclaration.CSSStyleDeclaration;
+/** @enum {string} */
+SDK.CSSStyleDeclaration.Type = SDKModule.CSSStyleDeclaration.Type;
+/** @constructor */
+SDK.MainConnection = SDKModule.Connections.MainConnection;
+/** @constructor */
+SDK.ConsoleModel = SDKModule.ConsoleModel.ConsoleModel;
+/** @constructor */
+SDK.ConsoleMessage = SDKModule.ConsoleModel.ConsoleMessage;
+/** @enum {symbol} */
+SDK.ConsoleModel.Events = SDKModule.ConsoleModel.Events;
+/**
+ * @enum {string}
+ */
+SDK.ConsoleMessage.MessageSource = SDKModule.ConsoleModel.MessageSource;
+/**
+ * @enum {string}
+ */
+SDK.ConsoleMessage.MessageType = SDKModule.ConsoleModel.MessageType;
+/**
+ * @enum {string}
+ */
+SDK.ConsoleMessage.MessageLevel = SDKModule.ConsoleModel.MessageLevel;
+SDK.ConsoleMessage.FrontendMessageType = SDKModule.ConsoleModel.FrontendMessageType;
+SDK.ConsoleMessage.FrontendMessageSource = SDKModule.ConsoleModel.FrontendMessageSource;
+/** @constructor */
+SDK.Cookie = SDKModule.Cookie.Cookie;
+/** @constructor */
+SDK.CookieReference = SDKModule.Cookie.CookieReference;
+/** @constructor */
+SDK.CookieParser = SDKModule.CookieParser.CookieParser;
+/** @constructor */
+SDK.DOMDebuggerModel = SDKModule.DOMDebuggerModel.DOMDebuggerModel;
+/** @constructor */
+SDK.DOMModel = SDKModule.DOMModel.DOMModel;
+/** @enum {symbol} */
+SDK.DOMModel.Events = SDKModule.DOMModel.Events;
+/** @constructor */
+SDK.DeferredDOMNode = SDKModule.DOMModel.DeferredDOMNode;
+/** @constructor */
+SDK.DOMDocument = SDKModule.DOMModel.DOMDocument;
+/** @constructor */
+SDK.DOMNode = SDKModule.DOMModel.DOMNode;
+/** @constructor */
+SDK.DebuggerModel = SDKModule.DebuggerModel.DebuggerModel;
+/** @enum {string} */
+SDK.DebuggerModel.PauseOnExceptionsState = SDKModule.DebuggerModel.PauseOnExceptionsState;
+/** @enum {symbol} */
+SDK.DebuggerModel.Events = SDKModule.DebuggerModel.Events;
+/** @enum {string} */
+SDK.DebuggerModel.BreakReason = Protocol.Debugger.PausedEventReason;
+/** @constructor */
+SDK.DebuggerModel.Location = SDKModule.DebuggerModel.Location;
+/** @constructor */
+SDK.DebuggerModel.CallFrame = SDKModule.DebuggerModel.CallFrame;
+/** @constructor */
+SDK.DebuggerPausedDetails = SDKModule.DebuggerModel.DebuggerPausedDetails;
+/** @constructor */
+SDK.HeapProfilerModel = SDKModule.HeapProfilerModel.HeapProfilerModel;
+/** @constructor */
+SDK.IsolateManager = SDKModule.IsolateManager.IsolateManager;
+/** @constructor */
+SDK.IsolateManager.MemoryTrend = SDKModule.IsolateManager.MemoryTrend;
+/** @constructor */
+SDK.NetworkManager = SDKModule.NetworkManager.NetworkManager;
+/** @enum {symbol} */
+SDK.NetworkManager.Events = SDKModule.NetworkManager.Events;
+/** @type {!SDKModule.NetworkManager.Conditions} */
+SDK.NetworkManager.OfflineConditions = SDKModule.NetworkManager.OfflineConditions;
+/** @type {!SDKModule.NetworkManager.Conditions} */
+SDK.NetworkManager.Fast3GConditions = SDKModule.NetworkManager.Fast3GConditions;
+/** @constructor */
+SDK.NetworkDispatcher = SDKModule.NetworkManager.NetworkDispatcher;
+/** @constructor */
+SDK.MultitargetNetworkManager = SDKModule.NetworkManager.MultitargetNetworkManager;
+/** @constructor */
+SDK.MultitargetNetworkManager.InterceptedRequest = SDKModule.NetworkManager.InterceptedRequest;
+/** @constructor */
+SDK.NetworkRequest = SDKModule.NetworkRequest.NetworkRequest;
+/** @enum {symbol} */
+SDK.NetworkRequest.Events = SDKModule.NetworkRequest.Events;
+/** @enum {string} */
+SDK.NetworkRequest.WebSocketFrameType = SDKModule.NetworkRequest.WebSocketFrameType;
+/** @constructor */
+SDK.OverlayModel = SDKModule.OverlayModel.OverlayModel;
+/** @constructor */
+SDK.PerformanceMetricsModel = SDKModule.PerformanceMetricsModel.PerformanceMetricsModel;
+/** @constructor */
+SDK.ProfileTreeModel = SDKModule.ProfileTreeModel.ProfileTreeModel;
+/** @constructor */
+SDK.RemoteObject = SDKModule.RemoteObject.RemoteObject;
+/** @constructor */
+SDK.Resource = SDKModule.Resource.Resource;
+/** @constructor */
+SDK.ResourceTreeModel = SDKModule.ResourceTreeModel.ResourceTreeModel;
+/** @enum {symbol} */
+SDK.ResourceTreeModel.Events = SDKModule.ResourceTreeModel.Events;
+/** @constructor */
+SDK.ResourceTreeFrame = SDKModule.ResourceTreeModel.ResourceTreeFrame;
+/** @constructor */
+SDK.RuntimeModel = SDKModule.RuntimeModel.RuntimeModel;
+/** @enum {symbol} */
+SDK.RuntimeModel.Events = SDKModule.RuntimeModel.Events;
+/** @constructor */
+SDK.ExecutionContext = SDKModule.RuntimeModel.ExecutionContext;
+/** @constructor */
+SDK.Script = SDKModule.Script.Script;
+/** @constructor */
+SDK.SecurityOriginManager = SDKModule.SecurityOriginManager.SecurityOriginManager;
+/** @enum {symbol} */
+SDK.SecurityOriginManager.Events = SDKModule.SecurityOriginManager.Events;
+/** @constructor */
+SDK.ServiceWorkerCacheModel = SDKModule.ServiceWorkerCacheModel.ServiceWorkerCacheModel;
+/** @constructor */
+SDK.ServiceWorkerManager = SDKModule.ServiceWorkerManager.ServiceWorkerManager;
+/** @interface */
+SDK.SourceMap = SDKModule.SourceMap.SourceMap;
+/** @constructor */
+SDK.TextSourceMap = SDKModule.SourceMap.TextSourceMap;
+/** @constructor */
+SDK.SourceMapManager = SDKModule.SourceMapManager.SourceMapManager;
+SDK.SourceMapManager.Events = SDKModule.SourceMapManager.Events;
+/** @constructor */
+SDK.Target = SDKModule.Target.Target;
+/**
+ * @enum {string}
+ */
+SDK.Target.Type = SDKModule.Target.Type;
+/** @constructor */
+SDK.TargetManager = SDKModule.TargetManager.TargetManager;
+/** @enum {symbol} */
+SDK.TargetManager.Events = SDKModule.TargetManager.Events;
+/** @interface */
+SDK.TargetManager.Observer = SDKModule.TargetManager.Observer;
+/** @constructor */
+SDK.TracingManager = SDKModule.TracingManager.TracingManager;
+/** @constructor */
+SDK.TracingModel = SDKModule.TracingModel.TracingModel;
+SDK.TracingModel.Phase = SDKModule.TracingModel.Phase;
+SDK.TracingModel.LegacyTopLevelEventCategory = SDKModule.TracingModel.LegacyTopLevelEventCategory;
+SDK.TracingModel.DevToolsMetadataEventCategory = SDKModule.TracingModel.DevToolsMetadataEventCategory;
+/** @constructor */
+SDK.TracingModel.Event = SDKModule.TracingModel.Event;
+self.SDK.targetManager = SDKModule.TargetManager.TargetManager.instance();
+self.SDK.isolateManager = SDKModule.IsolateManager.IsolateManager.instance({ forceNew: true });
+self.SDK.domModelUndoStack = SDKModule.DOMModel.DOMModelUndoStack.instance();
+//# sourceMappingURL=sdk-legacy.js.map

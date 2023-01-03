@@ -1,1 +1,154 @@
-import*as e from"../../core/common/common.js";import*as t from"../../core/sdk/sdk.js";import*as a from"../../ui/legacy/legacy.js";import*as i from"../../core/i18n/i18n.js";const o={application:"Application",showApplication:"Show Application",pwa:"pwa",clearSiteData:"Clear site data",clearSiteDataIncludingThirdparty:"Clear site data (including third-party cookies)",startRecordingEvents:"Start recording events",stopRecordingEvents:"Stop recording events"},n=i.i18n.registerUIStrings("panels/application/application-meta.ts",o),r=i.i18n.getLazilyComputedLocalizedString.bind(void 0,n);let c;async function s(){return c||(c=await import("./application.js")),c}a.ViewManager.registerViewExtension({location:"panel",id:"resources",title:r(o.application),commandPrompt:r(o.showApplication),order:70,loadView:async()=>(await s()).ResourcesPanel.ResourcesPanel.instance(),tags:[r(o.pwa)]}),a.ActionRegistration.registerActionExtension({category:a.ActionRegistration.ActionCategory.RESOURCES,actionId:"resources.clear",title:r(o.clearSiteData),loadActionDelegate:async()=>(await s()).StorageView.ActionDelegate.instance()}),a.ActionRegistration.registerActionExtension({category:a.ActionRegistration.ActionCategory.RESOURCES,actionId:"resources.clear-incl-third-party-cookies",title:r(o.clearSiteDataIncludingThirdparty),loadActionDelegate:async()=>(await s()).StorageView.ActionDelegate.instance()}),a.ActionRegistration.registerActionExtension({actionId:"background-service.toggle-recording",iconClass:"largeicon-start-recording",toggleable:!0,toggledIconClass:"largeicon-stop-recording",toggleWithRedColor:!0,contextTypes(){return e=e=>[e.BackgroundServiceView.BackgroundServiceView],void 0===c?[]:e(c);var e},loadActionDelegate:async()=>(await s()).BackgroundServiceView.ActionDelegate.instance(),category:a.ActionRegistration.ActionCategory.BACKGROUND_SERVICES,options:[{value:!0,title:r(o.startRecordingEvents)},{value:!1,title:r(o.stopRecordingEvents)}],bindings:[{platform:"windows,linux",shortcut:"Ctrl+E"},{platform:"mac",shortcut:"Meta+E"}]}),e.Revealer.registerRevealer({contextTypes:()=>[t.Resource.Resource],destination:e.Revealer.RevealerDestination.APPLICATION_PANEL,loadRevealer:async()=>(await s()).ResourcesPanel.ResourceRevealer.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[t.Cookie.CookieReference],destination:e.Revealer.RevealerDestination.APPLICATION_PANEL,loadRevealer:async()=>(await s()).ResourcesPanel.CookieReferenceRevealer.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[t.ResourceTreeModel.ResourceTreeFrame],destination:e.Revealer.RevealerDestination.APPLICATION_PANEL,loadRevealer:async()=>(await s()).ResourcesPanel.FrameDetailsRevealer.instance()});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as SDK from '../../core/sdk/sdk.js';
+import * as UI from '../../ui/legacy/legacy.js';
+import * as i18n from '../../core/i18n/i18n.js';
+const UIStrings = {
+    /**
+    *@description Text in Application Panel Sidebar of the Application panel
+    */
+    application: 'Application',
+    /**
+    *@description Command for showing the 'Application' tool
+    */
+    showApplication: 'Show Application',
+    /**
+    *@description A tag of Application Panel that can be searched in the command menu
+    */
+    pwa: 'pwa',
+    /**
+    *@description Text of button in Clear Storage View of the Application panel
+    */
+    clearSiteData: 'Clear site data',
+    /**
+    *@description Title of an action that clears all site data including 3rd party cookies
+    */
+    clearSiteDataIncludingThirdparty: 'Clear site data (including third-party cookies)',
+    /**
+    *@description Title of an action under the Background Services category that can be invoked through the Command Menu
+    */
+    startRecordingEvents: 'Start recording events',
+    /**
+    *@description Title of an action under the Background Services category that can be invoked through the Command Menu
+    */
+    stopRecordingEvents: 'Stop recording events',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/application/application-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+let loadedResourcesModule;
+async function loadResourcesModule() {
+    if (!loadedResourcesModule) {
+        loadedResourcesModule = await import('./application.js');
+    }
+    return loadedResourcesModule;
+}
+function maybeRetrieveContextTypes(getClassCallBack) {
+    if (loadedResourcesModule === undefined) {
+        return [];
+    }
+    return getClassCallBack(loadedResourcesModule);
+}
+UI.ViewManager.registerViewExtension({
+    location: "panel" /* PANEL */,
+    id: 'resources',
+    title: i18nLazyString(UIStrings.application),
+    commandPrompt: i18nLazyString(UIStrings.showApplication),
+    order: 70,
+    async loadView() {
+        const Resources = await loadResourcesModule();
+        return Resources.ResourcesPanel.ResourcesPanel.instance();
+    },
+    tags: [i18nLazyString(UIStrings.pwa)],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.RESOURCES,
+    actionId: 'resources.clear',
+    title: i18nLazyString(UIStrings.clearSiteData),
+    async loadActionDelegate() {
+        const Resources = await loadResourcesModule();
+        return Resources.StorageView.ActionDelegate.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.RESOURCES,
+    actionId: 'resources.clear-incl-third-party-cookies',
+    title: i18nLazyString(UIStrings.clearSiteDataIncludingThirdparty),
+    async loadActionDelegate() {
+        const Resources = await loadResourcesModule();
+        return Resources.StorageView.ActionDelegate.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'background-service.toggle-recording',
+    iconClass: "largeicon-start-recording" /* LARGEICON_START_RECORDING */,
+    toggleable: true,
+    toggledIconClass: "largeicon-stop-recording" /* LARGEICON_STOP_RECORDING */,
+    toggleWithRedColor: true,
+    contextTypes() {
+        return maybeRetrieveContextTypes(Resources => [Resources.BackgroundServiceView.BackgroundServiceView]);
+    },
+    async loadActionDelegate() {
+        const Resources = await loadResourcesModule();
+        return Resources.BackgroundServiceView.ActionDelegate.instance();
+    },
+    category: UI.ActionRegistration.ActionCategory.BACKGROUND_SERVICES,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.startRecordingEvents),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.stopRecordingEvents),
+        },
+    ],
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+E',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+E',
+        },
+    ],
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            SDK.Resource.Resource,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.APPLICATION_PANEL,
+    async loadRevealer() {
+        const Resources = await loadResourcesModule();
+        return Resources.ResourcesPanel.ResourceRevealer.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            SDK.Cookie.CookieReference,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.APPLICATION_PANEL,
+    async loadRevealer() {
+        const Resources = await loadResourcesModule();
+        return Resources.ResourcesPanel.CookieReferenceRevealer.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            SDK.ResourceTreeModel.ResourceTreeFrame,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.APPLICATION_PANEL,
+    async loadRevealer() {
+        const Resources = await loadResourcesModule();
+        return Resources.ResourcesPanel.FrameDetailsRevealer.instance();
+    },
+});
+//# sourceMappingURL=application-meta.js.map

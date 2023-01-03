@@ -1,1 +1,77 @@
-import*as e from"./console.js";self.Console=self.Console||{},Console=Console||{},Console.ConsoleFilter=e.ConsoleFilter.ConsoleFilter,Console.ConsolePanel=e.ConsolePanel.ConsolePanel,Console.ConsolePanel.WrapperView=e.ConsolePanel.WrapperView,Console.ConsolePanel.ConsoleRevealer=e.ConsolePanel.ConsoleRevealer,Console.ConsolePin=e.ConsolePinPane.ConsolePin,Console.ConsolePrompt=e.ConsolePrompt.ConsolePrompt,Console.ConsoleSidebar=e.ConsoleSidebar.ConsoleSidebar,Console.ConsoleView=e.ConsoleView.ConsoleView,Console.ConsoleViewFilter=e.ConsoleView.ConsoleViewFilter,Console.ConsoleView.ActionDelegate=e.ConsoleView.ActionDelegate,Console.ConsoleGroup=e.ConsoleView.ConsoleGroup,Console.ConsoleViewMessage=e.ConsoleViewMessage.ConsoleViewMessage,Console.ConsoleViewMessage.setMaxTokenizableStringLength=e.ConsoleViewMessage.setMaxTokenizableStringLength,Console.ConsoleViewMessage.setLongStringVisibleLength=e.ConsoleViewMessage.setLongStringVisibleLength,Console.ConsoleGroupViewMessage=e.ConsoleViewMessage.ConsoleGroupViewMessage,Console.ConsoleViewport=e.ConsoleViewport.ConsoleViewport,Console.ConsoleViewportElement=e.ConsoleViewport.ConsoleViewportElement;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as ConsoleModule from './console.js';
+self.Console = self.Console || {};
+// eslint-disable-next-line no-global-assign
+Console = Console || {};
+/**
+ * @constructor
+ */
+Console.ConsoleFilter = ConsoleModule.ConsoleFilter.ConsoleFilter;
+/**
+ * @constructor
+ */
+Console.ConsolePanel = ConsoleModule.ConsolePanel.ConsolePanel;
+/**
+ * @constructor
+ */
+Console.ConsolePanel.WrapperView = ConsoleModule.ConsolePanel.WrapperView;
+/**
+ * @implements {Common.Revealer}
+ */
+Console.ConsolePanel.ConsoleRevealer = ConsoleModule.ConsolePanel.ConsoleRevealer;
+/**
+ * @constructor
+ */
+Console.ConsolePin = ConsoleModule.ConsolePinPane.ConsolePin;
+/**
+ * @constructor
+ */
+Console.ConsolePrompt = ConsoleModule.ConsolePrompt.ConsolePrompt;
+/**
+ * @constructor
+ */
+Console.ConsoleSidebar = ConsoleModule.ConsoleSidebar.ConsoleSidebar;
+/**
+ * @constructor
+ */
+Console.ConsoleView = ConsoleModule.ConsoleView.ConsoleView;
+/** @constructor */
+Console.ConsoleViewFilter = ConsoleModule.ConsoleView.ConsoleViewFilter;
+/**
+ * @implements {UI.ActionDelegate}
+ */
+Console.ConsoleView.ActionDelegate = ConsoleModule.ConsoleView.ActionDelegate;
+/**
+ * @constructor
+ */
+Console.ConsoleGroup = ConsoleModule.ConsoleView.ConsoleGroup;
+/**
+ * @implements {Console.ConsoleViewportElement}
+ * @constructor
+ */
+Console.ConsoleViewMessage = ConsoleModule.ConsoleViewMessage.ConsoleViewMessage;
+/**
+ * @type {function(number):void}
+ */
+Console.ConsoleViewMessage.setMaxTokenizableStringLength =
+    ConsoleModule.ConsoleViewMessage.setMaxTokenizableStringLength;
+/**
+ * @type {function(number):void}
+ */
+Console.ConsoleViewMessage.setLongStringVisibleLength = ConsoleModule.ConsoleViewMessage.setLongStringVisibleLength;
+/**
+ * @constructor
+ */
+Console.ConsoleGroupViewMessage = ConsoleModule.ConsoleViewMessage.ConsoleGroupViewMessage;
+/**
+ * @constructor
+ */
+Console.ConsoleViewport = ConsoleModule.ConsoleViewport.ConsoleViewport;
+/**
+ * @interface
+ */
+Console.ConsoleViewportElement = ConsoleModule.ConsoleViewport.ConsoleViewportElement;
+//# sourceMappingURL=console-legacy.js.map

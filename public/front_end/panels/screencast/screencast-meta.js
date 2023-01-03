@@ -1,1 +1,38 @@
-import*as o from"../../core/common/common.js";import*as e from"../../ui/legacy/legacy.js";let r;async function t(){return r||(r=await import("./screencast.js")),r}e.Toolbar.registerToolbarItem({loadItem:async()=>(await t()).ScreencastApp.ToolbarButtonProvider.instance(),order:1,location:e.Toolbar.ToolbarItemLocation.MAIN_TOOLBAR_LEFT,showLabel:void 0,condition:void 0,separator:void 0,actionId:void 0}),o.AppProvider.registerAppProvider({loadAppProvider:async()=>(await t()).ScreencastApp.ScreencastAppProvider.instance(),order:1,condition:void 0}),e.ContextMenu.registerItem({location:e.ContextMenu.ItemLocation.MAIN_MENU,order:10,actionId:"components.request-app-banner"});
+// Copyright 2021 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as UI from '../../ui/legacy/legacy.js';
+let loadedScreencastModule;
+async function loadScreencastModule() {
+    if (!loadedScreencastModule) {
+        loadedScreencastModule = await import('./screencast.js');
+    }
+    return loadedScreencastModule;
+}
+UI.Toolbar.registerToolbarItem({
+    async loadItem() {
+        const Screencast = await loadScreencastModule();
+        return Screencast.ScreencastApp.ToolbarButtonProvider.instance();
+    },
+    order: 1,
+    location: UI.Toolbar.ToolbarItemLocation.MAIN_TOOLBAR_LEFT,
+    showLabel: undefined,
+    condition: undefined,
+    separator: undefined,
+    actionId: undefined,
+});
+Common.AppProvider.registerAppProvider({
+    async loadAppProvider() {
+        const Screencast = await loadScreencastModule();
+        return Screencast.ScreencastApp.ScreencastAppProvider.instance();
+    },
+    order: 1,
+    condition: undefined,
+});
+UI.ContextMenu.registerItem({
+    location: UI.ContextMenu.ItemLocation.MAIN_MENU,
+    order: 10,
+    actionId: 'components.request-app-banner',
+});
+//# sourceMappingURL=screencast-meta.js.map

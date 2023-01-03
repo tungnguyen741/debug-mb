@@ -1,1 +1,186 @@
-import*as e from"./sources.js";self.Sources=self.Sources||{},Sources=Sources||{},Sources.AddSourceMapURLDialog=e.AddSourceMapURLDialog.AddSourceMapURLDialog,Sources.BreakpointEditDialog=e.BreakpointEditDialog.BreakpointEditDialog,Sources.BreakpointEditDialog.LogpointPrefix=e.BreakpointEditDialog.LogpointPrefix,Sources.BreakpointEditDialog._LogpointSuffix=e.BreakpointEditDialog.LogpointSuffix,Sources.BreakpointEditDialog.BreakpointType=e.BreakpointEditDialog.BreakpointType,Sources.CallStackSidebarPane=e.CallStackSidebarPane.CallStackSidebarPane,Sources.CallStackSidebarPane._elementSymbol=e.CallStackSidebarPane.elementSymbol,Sources.CallStackSidebarPane._defaultMaxAsyncStackChainDepth=e.CallStackSidebarPane.defaultMaxAsyncStackChainDepth,Sources.CallStackSidebarPane.ActionDelegate=e.CallStackSidebarPane.ActionDelegate,Sources.CallStackSidebarPane.Item=e.CallStackSidebarPane.Item,Sources.CoveragePlugin=e.CoveragePlugin.CoveragePlugin,Sources.DebuggerPausedMessage=e.DebuggerPausedMessage.DebuggerPausedMessage,Sources.DebuggerPausedMessage.BreakpointTypeNouns=e.DebuggerPausedMessage.BreakpointTypeNouns,Sources.DebuggerPlugin=e.DebuggerPlugin.DebuggerPlugin,Sources.DebuggerPlugin.BreakpointDecoration=e.DebuggerPlugin.BreakpointDecoration,Sources.DebuggerPlugin.continueToLocationDecorationSymbol=e.DebuggerPlugin.continueToLocationDecorationSymbol,Sources.EditingLocationHistoryManager=e.EditingLocationHistoryManager.EditingLocationHistoryManager,Sources.EditingLocationHistoryManager.HistoryDepth=e.EditingLocationHistoryManager.HistoryDepth,Sources.EditingLocationHistoryEntry=e.EditingLocationHistoryManager.EditingLocationHistoryEntry,Sources.FilePathScoreFunction=e.FilePathScoreFunction.FilePathScoreFunction,Sources.FilteredUISourceCodeListProvider=e.FilteredUISourceCodeListProvider.FilteredUISourceCodeListProvider,Sources.GoToLineQuickOpen=e.GoToLineQuickOpen.GoToLineQuickOpen,Sources.InplaceFormatterEditorAction=e.InplaceFormatterEditorAction.InplaceFormatterEditorAction,Sources.JavaScriptBreakpointsSidebarPane=e.JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane,Sources.JavaScriptBreakpointsSidebarPane.retrieveLocationForElement=e.JavaScriptBreakpointsSidebarPane.retrieveLocationForElement,Sources.JavaScriptCompilerPlugin=e.JavaScriptCompilerPlugin.JavaScriptCompilerPlugin,Sources.JavaScriptCompilerPlugin.CompileDelay=e.JavaScriptCompilerPlugin.CompileDelay,Sources.NavigatorView=e.NavigatorView.NavigatorView,Sources.NavigatorView.Types=e.NavigatorView.Types,Sources.NavigatorFolderTreeElement=e.NavigatorView.NavigatorFolderTreeElement,Sources.NavigatorSourceTreeElement=e.NavigatorView.NavigatorSourceTreeElement,Sources.NavigatorTreeNode=e.NavigatorView.NavigatorTreeNode,Sources.NavigatorRootTreeNode=e.NavigatorView.NavigatorRootTreeNode,Sources.NavigatorUISourceCodeTreeNode=e.NavigatorView.NavigatorUISourceCodeTreeNode,Sources.NavigatorFolderTreeNode=e.NavigatorView.NavigatorFolderTreeNode,Sources.NavigatorGroupTreeNode=e.NavigatorView.NavigatorGroupTreeNode,Sources.OpenFileQuickOpen=e.OpenFileQuickOpen.OpenFileQuickOpen,Sources.OutlineQuickOpen=e.OutlineQuickOpen.OutlineQuickOpen,Sources.ScopeChainSidebarPane=e.ScopeChainSidebarPane.ScopeChainSidebarPane,Sources.ScopeChainSidebarPane.OpenLinearMemoryInspector=e.ScopeChainSidebarPane.OpenLinearMemoryInspector,Sources.ScriptFormatterEditorAction=e.ScriptFormatterEditorAction.ScriptFormatterEditorAction,Sources.ScriptOriginPlugin=e.ScriptOriginPlugin.ScriptOriginPlugin,Sources.ScriptOriginPlugin._linkifier=e.ScriptOriginPlugin.linkifier,Sources.SearchSourcesView=e.SearchSourcesView.SearchSourcesView,Sources.SearchSourcesView.ActionDelegate=e.SearchSourcesView.ActionDelegate,Sources.SnippetsPlugin=e.SnippetsPlugin.SnippetsPlugin,Sources.SourceMapNamesResolver={},Sources.SourceMapNamesResolver.setScopeResolvedForTest=e.SourceMapNamesResolver.setScopeResolvedForTest,Object.defineProperty(Sources.SourceMapNamesResolver,"_scopeResolvedForTest",{get:e.SourceMapNamesResolver.getScopeResolvedForTest,set:e.SourceMapNamesResolver.setScopeResolvedForTest}),Sources.SourceMapNamesResolver._scopeIdentifiers=e.SourceMapNamesResolver.scopeIdentifiers,Sources.SourceMapNamesResolver._resolveScope=e.SourceMapNamesResolver.resolveScope,Sources.SourceMapNamesResolver._allVariablesInCallFrame=e.SourceMapNamesResolver.allVariablesInCallFrame,Sources.SourceMapNamesResolver.resolveExpression=e.SourceMapNamesResolver.resolveExpression,Sources.SourceMapNamesResolver.resolveThisObject=e.SourceMapNamesResolver.resolveThisObject,Sources.SourceMapNamesResolver.resolveScopeInObject=e.SourceMapNamesResolver.resolveScopeInObject,Sources.SourceMapNamesResolver.Identifier=e.SourceMapNamesResolver.Identifier,Sources.SourceMapNamesResolver.RemoteObject=e.SourceMapNamesResolver.RemoteObject,Sources.NetworkNavigatorView=e.SourcesNavigator.NetworkNavigatorView,Sources.FilesNavigatorView=e.SourcesNavigator.FilesNavigatorView,Sources.OverridesNavigatorView=e.SourcesNavigator.OverridesNavigatorView,Sources.ContentScriptsNavigatorView=e.SourcesNavigator.ContentScriptsNavigatorView,Sources.SnippetsNavigatorView=e.SourcesNavigator.SnippetsNavigatorView,Sources.ActionDelegate=e.SourcesNavigator.ActionDelegate,Sources.SourcesPanel=e.SourcesPanel.SourcesPanel,Sources.SourcesPanel._lastModificationTimeout=e.SourcesPanel.lastModificationTimeout,Sources.SourcesPanel.minToolbarWidth=e.SourcesPanel.minToolbarWidth,Sources.SourcesPanel.UILocationRevealer=e.SourcesPanel.UILocationRevealer,Sources.SourcesPanel.DebuggerLocationRevealer=e.SourcesPanel.DebuggerLocationRevealer,Sources.SourcesPanel.UISourceCodeRevealer=e.SourcesPanel.UISourceCodeRevealer,Sources.SourcesPanel.DebuggerPausedDetailsRevealer=e.SourcesPanel.DebuggerPausedDetailsRevealer,Sources.SourcesPanel.RevealingActionDelegate=e.SourcesPanel.RevealingActionDelegate,Sources.SourcesPanel.DebuggingActionDelegate=e.SourcesPanel.DebuggingActionDelegate,Sources.SourcesPanel.WrapperView=e.SourcesPanel.WrapperView,Sources.SourcesSearchScope=e.SourcesSearchScope.SourcesSearchScope,Sources.FileBasedSearchResult=e.SourcesSearchScope.FileBasedSearchResult,Sources.SourcesView=e.SourcesView.SourcesView,Sources.SourcesView.Events=e.SourcesView.Events,Sources.SourcesView.EditorAction=e.SourcesView.EditorAction,Sources.SourcesView.getRegisteredEditorActions=e.SourcesView.getRegisteredEditorActions,Sources.SourcesView.SwitchFileActionDelegate=e.SourcesView.SwitchFileActionDelegate,Sources.SourcesView.ActionDelegate=e.SourcesView.ActionDelegate,Sources.TabbedEditorContainer=e.TabbedEditorContainer.TabbedEditorContainer,Sources.TabbedEditorContainer.Events=e.TabbedEditorContainer.Events,Sources.TabbedEditorContainer._tabId=e.TabbedEditorContainer.tabId,Sources.TabbedEditorContainer.maximalPreviouslyViewedFilesCount=e.TabbedEditorContainer.maximalPreviouslyViewedFilesCount,Sources.TabbedEditorContainer.HistoryItem=e.TabbedEditorContainer.HistoryItem,Sources.TabbedEditorContainer.History=e.TabbedEditorContainer.History,Sources.TabbedEditorContainerDelegate=e.TabbedEditorContainer.TabbedEditorContainerDelegate,Sources.EditorContainerTabDelegate=e.TabbedEditorContainer.EditorContainerTabDelegate,Sources.ThreadsSidebarPane=e.ThreadsSidebarPane.ThreadsSidebarPane,Sources.UISourceCodeFrame=e.UISourceCodeFrame.UISourceCodeFrame,Sources.UISourceCodeFrame.RowMessage=e.UISourceCodeFrame.RowMessage,Sources.UISourceCodeFrame.RowMessageBucket=e.UISourceCodeFrame.RowMessageBucket,Sources.UISourceCodeFrame.Plugin=e.Plugin.Plugin,Sources.UISourceCodeFrame.Events=e.UISourceCodeFrame.Events,Sources.WatchExpressionsSidebarPane=e.WatchExpressionsSidebarPane.WatchExpressionsSidebarPane,Sources.WatchExpression=e.WatchExpressionsSidebarPane.WatchExpression;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as SourcesModule from './sources.js';
+self.Sources = self.Sources || {};
+Sources = Sources || {};
+/** @constructor */
+Sources.AddSourceMapURLDialog = SourcesModule.AddSourceMapURLDialog.AddSourceMapURLDialog;
+/** @constructor */
+Sources.BreakpointEditDialog = SourcesModule.BreakpointEditDialog.BreakpointEditDialog;
+Sources.BreakpointEditDialog.LogpointPrefix = SourcesModule.BreakpointEditDialog.LogpointPrefix;
+Sources.BreakpointEditDialog._LogpointSuffix = SourcesModule.BreakpointEditDialog.LogpointSuffix;
+Sources.BreakpointEditDialog.BreakpointType = SourcesModule.BreakpointEditDialog.BreakpointType;
+/** @constructor */
+Sources.CallStackSidebarPane = SourcesModule.CallStackSidebarPane.CallStackSidebarPane;
+Sources.CallStackSidebarPane._elementSymbol = SourcesModule.CallStackSidebarPane.elementSymbol;
+Sources.CallStackSidebarPane._defaultMaxAsyncStackChainDepth =
+    SourcesModule.CallStackSidebarPane.defaultMaxAsyncStackChainDepth;
+/** @constructor */
+Sources.CallStackSidebarPane.ActionDelegate = SourcesModule.CallStackSidebarPane.ActionDelegate;
+/** @constructor */
+Sources.CallStackSidebarPane.Item = SourcesModule.CallStackSidebarPane.Item;
+/** @constructor */
+Sources.CoveragePlugin = SourcesModule.CoveragePlugin.CoveragePlugin;
+/** @constructor */
+Sources.DebuggerPausedMessage = SourcesModule.DebuggerPausedMessage.DebuggerPausedMessage;
+Sources.DebuggerPausedMessage.BreakpointTypeNouns = SourcesModule.DebuggerPausedMessage.BreakpointTypeNouns;
+/** @constructor */
+Sources.DebuggerPlugin = SourcesModule.DebuggerPlugin.DebuggerPlugin;
+/** @constructor */
+Sources.DebuggerPlugin.BreakpointDecoration = SourcesModule.DebuggerPlugin.BreakpointDecoration;
+Sources.DebuggerPlugin.continueToLocationDecorationSymbol =
+    SourcesModule.DebuggerPlugin.continueToLocationDecorationSymbol;
+/** @constructor */
+Sources.EditingLocationHistoryManager = SourcesModule.EditingLocationHistoryManager.EditingLocationHistoryManager;
+Sources.EditingLocationHistoryManager.HistoryDepth = SourcesModule.EditingLocationHistoryManager.HistoryDepth;
+/** @constructor */
+Sources.EditingLocationHistoryEntry = SourcesModule.EditingLocationHistoryManager.EditingLocationHistoryEntry;
+/** @constructor */
+Sources.FilePathScoreFunction = SourcesModule.FilePathScoreFunction.FilePathScoreFunction;
+/** @constructor */
+Sources.FilteredUISourceCodeListProvider =
+    SourcesModule.FilteredUISourceCodeListProvider.FilteredUISourceCodeListProvider;
+/** @constructor */
+Sources.GoToLineQuickOpen = SourcesModule.GoToLineQuickOpen.GoToLineQuickOpen;
+/** @constructor */
+Sources.InplaceFormatterEditorAction = SourcesModule.InplaceFormatterEditorAction.InplaceFormatterEditorAction;
+/** @constructor */
+Sources.JavaScriptBreakpointsSidebarPane =
+    SourcesModule.JavaScriptBreakpointsSidebarPane.JavaScriptBreakpointsSidebarPane;
+Sources.JavaScriptBreakpointsSidebarPane.retrieveLocationForElement =
+    SourcesModule.JavaScriptBreakpointsSidebarPane.retrieveLocationForElement;
+/** @constructor */
+Sources.JavaScriptCompilerPlugin = SourcesModule.JavaScriptCompilerPlugin.JavaScriptCompilerPlugin;
+Sources.JavaScriptCompilerPlugin.CompileDelay = SourcesModule.JavaScriptCompilerPlugin.CompileDelay;
+/** @constructor */
+Sources.NavigatorView = SourcesModule.NavigatorView.NavigatorView;
+Sources.NavigatorView.Types = SourcesModule.NavigatorView.Types;
+/** @constructor */
+Sources.NavigatorFolderTreeElement = SourcesModule.NavigatorView.NavigatorFolderTreeElement;
+/** @constructor */
+Sources.NavigatorSourceTreeElement = SourcesModule.NavigatorView.NavigatorSourceTreeElement;
+/** @constructor */
+Sources.NavigatorTreeNode = SourcesModule.NavigatorView.NavigatorTreeNode;
+/** @constructor */
+Sources.NavigatorRootTreeNode = SourcesModule.NavigatorView.NavigatorRootTreeNode;
+/** @constructor */
+Sources.NavigatorUISourceCodeTreeNode = SourcesModule.NavigatorView.NavigatorUISourceCodeTreeNode;
+/** @constructor */
+Sources.NavigatorFolderTreeNode = SourcesModule.NavigatorView.NavigatorFolderTreeNode;
+/** @constructor */
+Sources.NavigatorGroupTreeNode = SourcesModule.NavigatorView.NavigatorGroupTreeNode;
+/** @constructor */
+Sources.OpenFileQuickOpen = SourcesModule.OpenFileQuickOpen.OpenFileQuickOpen;
+/** @constructor */
+Sources.OutlineQuickOpen = SourcesModule.OutlineQuickOpen.OutlineQuickOpen;
+/** @constructor */
+Sources.ScopeChainSidebarPane = SourcesModule.ScopeChainSidebarPane.ScopeChainSidebarPane;
+/** @constructor */
+Sources.ScopeChainSidebarPane.OpenLinearMemoryInspector = SourcesModule.ScopeChainSidebarPane.OpenLinearMemoryInspector;
+/** @constructor */
+Sources.ScriptFormatterEditorAction = SourcesModule.ScriptFormatterEditorAction.ScriptFormatterEditorAction;
+/** @constructor */
+Sources.ScriptOriginPlugin = SourcesModule.ScriptOriginPlugin.ScriptOriginPlugin;
+Sources.ScriptOriginPlugin._linkifier = SourcesModule.ScriptOriginPlugin.linkifier;
+/** @constructor */
+Sources.SearchSourcesView = SourcesModule.SearchSourcesView.SearchSourcesView;
+/** @constructor */
+Sources.SearchSourcesView.ActionDelegate = SourcesModule.SearchSourcesView.ActionDelegate;
+/** @constructor */
+Sources.SnippetsPlugin = SourcesModule.SnippetsPlugin.SnippetsPlugin;
+Sources.SourceMapNamesResolver = {};
+Sources.SourceMapNamesResolver.setScopeResolvedForTest = SourcesModule.SourceMapNamesResolver.setScopeResolvedForTest;
+// Tests can override this global symbol and therefore can't be exported
+Object.defineProperty(Sources.SourceMapNamesResolver, '_scopeResolvedForTest', {
+    get: SourcesModule.SourceMapNamesResolver.getScopeResolvedForTest,
+    set: SourcesModule.SourceMapNamesResolver.setScopeResolvedForTest,
+});
+Sources.SourceMapNamesResolver._scopeIdentifiers = SourcesModule.SourceMapNamesResolver.scopeIdentifiers;
+Sources.SourceMapNamesResolver._resolveScope = SourcesModule.SourceMapNamesResolver.resolveScope;
+Sources.SourceMapNamesResolver._allVariablesInCallFrame = SourcesModule.SourceMapNamesResolver.allVariablesInCallFrame;
+Sources.SourceMapNamesResolver.resolveExpression = SourcesModule.SourceMapNamesResolver.resolveExpression;
+Sources.SourceMapNamesResolver.resolveThisObject = SourcesModule.SourceMapNamesResolver.resolveThisObject;
+Sources.SourceMapNamesResolver.resolveScopeInObject = SourcesModule.SourceMapNamesResolver.resolveScopeInObject;
+/** @constructor */
+Sources.SourceMapNamesResolver.Identifier = SourcesModule.SourceMapNamesResolver.Identifier;
+/** @constructor */
+Sources.SourceMapNamesResolver.RemoteObject = SourcesModule.SourceMapNamesResolver.RemoteObject;
+/** @constructor */
+Sources.NetworkNavigatorView = SourcesModule.SourcesNavigator.NetworkNavigatorView;
+/** @constructor */
+Sources.FilesNavigatorView = SourcesModule.SourcesNavigator.FilesNavigatorView;
+/** @constructor */
+Sources.OverridesNavigatorView = SourcesModule.SourcesNavigator.OverridesNavigatorView;
+/** @constructor */
+Sources.ContentScriptsNavigatorView = SourcesModule.SourcesNavigator.ContentScriptsNavigatorView;
+/** @constructor */
+Sources.SnippetsNavigatorView = SourcesModule.SourcesNavigator.SnippetsNavigatorView;
+/** @constructor */
+Sources.ActionDelegate = SourcesModule.SourcesNavigator.ActionDelegate;
+/** @constructor */
+Sources.SourcesPanel = SourcesModule.SourcesPanel.SourcesPanel;
+Sources.SourcesPanel._lastModificationTimeout = SourcesModule.SourcesPanel.lastModificationTimeout;
+Sources.SourcesPanel.minToolbarWidth = SourcesModule.SourcesPanel.minToolbarWidth;
+/** @constructor */
+Sources.SourcesPanel.UILocationRevealer = SourcesModule.SourcesPanel.UILocationRevealer;
+/** @constructor */
+Sources.SourcesPanel.DebuggerLocationRevealer = SourcesModule.SourcesPanel.DebuggerLocationRevealer;
+/** @constructor */
+Sources.SourcesPanel.UISourceCodeRevealer = SourcesModule.SourcesPanel.UISourceCodeRevealer;
+/** @constructor */
+Sources.SourcesPanel.DebuggerPausedDetailsRevealer = SourcesModule.SourcesPanel.DebuggerPausedDetailsRevealer;
+/** @constructor */
+Sources.SourcesPanel.RevealingActionDelegate = SourcesModule.SourcesPanel.RevealingActionDelegate;
+/** @constructor */
+Sources.SourcesPanel.DebuggingActionDelegate = SourcesModule.SourcesPanel.DebuggingActionDelegate;
+/** @constructor */
+Sources.SourcesPanel.WrapperView = SourcesModule.SourcesPanel.WrapperView;
+/** @constructor */
+Sources.SourcesSearchScope = SourcesModule.SourcesSearchScope.SourcesSearchScope;
+/** @constructor */
+Sources.FileBasedSearchResult = SourcesModule.SourcesSearchScope.FileBasedSearchResult;
+/** @constructor */
+Sources.SourcesView = SourcesModule.SourcesView.SourcesView;
+/** @enum {symbol} */
+Sources.SourcesView.Events = SourcesModule.SourcesView.Events;
+/** @interface */
+Sources.SourcesView.EditorAction = SourcesModule.SourcesView.EditorAction;
+Sources.SourcesView.getRegisteredEditorActions = SourcesModule.SourcesView.getRegisteredEditorActions;
+/** @constructor */
+Sources.SourcesView.SwitchFileActionDelegate = SourcesModule.SourcesView.SwitchFileActionDelegate;
+/** @constructor */
+Sources.SourcesView.ActionDelegate = SourcesModule.SourcesView.ActionDelegate;
+/** @constructor */
+Sources.TabbedEditorContainer = SourcesModule.TabbedEditorContainer.TabbedEditorContainer;
+/** @enum {symbol} */
+Sources.TabbedEditorContainer.Events = SourcesModule.TabbedEditorContainer.Events;
+Sources.TabbedEditorContainer._tabId = SourcesModule.TabbedEditorContainer.tabId;
+Sources.TabbedEditorContainer.maximalPreviouslyViewedFilesCount =
+    SourcesModule.TabbedEditorContainer.maximalPreviouslyViewedFilesCount;
+/** @constructor */
+Sources.TabbedEditorContainer.HistoryItem = SourcesModule.TabbedEditorContainer.HistoryItem;
+/** @constructor */
+Sources.TabbedEditorContainer.History = SourcesModule.TabbedEditorContainer.History;
+/** @interface */
+Sources.TabbedEditorContainerDelegate = SourcesModule.TabbedEditorContainer.TabbedEditorContainerDelegate;
+/** @constructor */
+Sources.EditorContainerTabDelegate = SourcesModule.TabbedEditorContainer.EditorContainerTabDelegate;
+/** @constructor */
+Sources.ThreadsSidebarPane = SourcesModule.ThreadsSidebarPane.ThreadsSidebarPane;
+/** @constructor */
+Sources.UISourceCodeFrame = SourcesModule.UISourceCodeFrame.UISourceCodeFrame;
+/** @constructor */
+Sources.UISourceCodeFrame.RowMessage = SourcesModule.UISourceCodeFrame.RowMessage;
+/** @constructor */
+Sources.UISourceCodeFrame.RowMessageBucket = SourcesModule.UISourceCodeFrame.RowMessageBucket;
+/** @constructor */
+Sources.UISourceCodeFrame.Plugin = SourcesModule.Plugin.Plugin;
+/** @enum {symbol} */
+Sources.UISourceCodeFrame.Events = SourcesModule.UISourceCodeFrame.Events;
+/** @constructor */
+Sources.WatchExpressionsSidebarPane = SourcesModule.WatchExpressionsSidebarPane.WatchExpressionsSidebarPane;
+/** @constructor */
+Sources.WatchExpression = SourcesModule.WatchExpressionsSidebarPane.WatchExpression;
+//# sourceMappingURL=sources-legacy.js.map

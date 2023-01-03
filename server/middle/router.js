@@ -29,14 +29,14 @@ module.exports = function (channelManager, domain, cdn, basePath) {
     await proxy(ctx, ctx.query.url);
   });
 
-  if (cdn) {
+  // if (cdn) {
     router.get(`${basePath}front_end/chii_app.html`, async ctx => {
       const tpl = await readTpl('chii_app');
       ctx.body = tpl({
         cdn,
       });
     });
-  }
+  // }
 
   let timestamp = now();
   router.get(`${basePath}timestamp`, ctx => {
@@ -63,8 +63,15 @@ module.exports = function (channelManager, domain, cdn, basePath) {
 
   function createStatic(prefix, folder) {
     router.get(`${basePath}${prefix}/*`, async ctx => {
+      console.log('____createStatic____')
+      console.log('ctx.path:', ctx.path);
+      console.log('ctx slice', ctx.path.slice(basePath.length + prefix.length));
+      console.log('ROOT PATH', path.resolve(__dirname, `../..${folder}`));
+      console.log('DIR', path.resolve(__dirname));
+      console.log('folder', folder);
+      console.log('____createStatic END____\n\n\n')
       await send(ctx, ctx.path.slice(basePath.length + prefix.length), {
-        root: path.resolve(__dirname, `../..${folder}`),
+        root: path.join(__dirname, `../..${folder}`),
         maxAge,
       });
     });
@@ -73,13 +80,14 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   function createStaticFile(file) {
     router.get(`${basePath}${file}`, async ctx => {
       await send(ctx, file, {
-        root: path.resolve(__dirname, '../../public'),
+        root: path.join(__dirname, '../../public'),
         maxAge,
       });
     });
   }
 
-  createStatic('front_end', '/public/front_end');
+  // createStatic('front_end', '/public/front_end');
+  createStatic('front_end', '/front_end');
   createStatic('test', '/test');
   createStaticFile('target.js');
   createStaticFile('index.js');

@@ -1,5 +1,7 @@
 const Koa = require('koa');
+const serve = require('koa-static')
 const https = require('https');
+const path = require('path');
 
 const router = require('./middle/router');
 const compress = require('./middle/compress');
@@ -9,9 +11,9 @@ const endWith = require('licia/endWith');
 const WebSocketServer = require('./lib/WebSocketServer');
 
 async function start({
-  port = 8080,
+  port = process.env.PORT || 8080,
   host,
-  domain,
+  domain = process.env.DOMAIN || 'localhost',
   server,
   cdn,
   https: useHttps,
@@ -19,7 +21,7 @@ async function start({
   sslKey,
   basePath = '/',
 } = {}) {
-  domain = domain || 'localhost:' + port;
+  const domainLogging = domain + `:${port}`;
   if (!endWith(basePath, '/')) {
     basePath += '/';
   }
@@ -27,13 +29,14 @@ async function start({
   const app = new Koa();
   const wss = new WebSocketServer();
 
-  app.use(compress()).use(router(wss.channelManager, domain, cdn, basePath));
+  app.use(compress()).use(router(wss.channelManager, process.env.NODE_ENV === 'production' ? domain : domainLogging, cdn, basePath));
+
 
   if (server) {
     server.on('request', app.callback());
     wss.start(server);
   } else {
-    util.log(`starting server at ${domain}${basePath}`);
+    util.log(`starting server at ${domainLogging}${basePath}`);
     if (useHttps) {
       const cert = await fs.readFile(sslCert, 'utf8');
       const key = await fs.readFile(sslKey, 'utf8');

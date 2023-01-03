@@ -1,1 +1,114 @@
-import*as e from"./forward/forward.js";import*as o from"./network.js";self.Network=self.Network||{},Network=Network||{},Network.BinaryResourceView=o.BinaryResourceView.BinaryResourceView,Network.BlockedURLsPane=o.BlockedURLsPane.BlockedURLsPane,Network.EventSourceMessageNode=o.EventSourceMessagesView.EventSourceMessageNode,Network.NetworkConfigView=o.NetworkConfigView.NetworkConfigView,Network.NetworkConfigView._userAgentGroups=o.NetworkConfigView.userAgentGroups,Network.NetworkNode=o.NetworkDataGridNode.NetworkNode,Network.NetworkItemView=o.NetworkItemView.NetworkItemView,Network.NetworkLogView=o.NetworkLogView.NetworkLogView,Network.NetworkLogView.isRequestFilteredOut=o.NetworkLogView.isRequestFilteredOut,Network.NetworkLogView.HTTPRequestsFilter=o.NetworkLogView.NetworkLogView.getHTTPRequestsFilter,Network.NetworkLogView.FilterType=e.UIFilter.FilterType,Network.NetworkLogViewColumns=o.NetworkLogViewColumns.NetworkLogViewColumns,Network.NetworkOverview=o.NetworkOverview.NetworkOverview,Network.NetworkPanel=o.NetworkPanel.NetworkPanel,Network.SearchNetworkView=o.NetworkPanel.SearchNetworkView,Network.NetworkPanel.ContextMenuProvider=o.NetworkPanel.ContextMenuProvider,Network.NetworkPanel.RequestRevealer=o.NetworkPanel.RequestRevealer,Network.NetworkPanel.ActionDelegate=o.NetworkPanel.ActionDelegate,Network.NetworkTimeCalculator=o.NetworkTimeCalculator.NetworkTimeCalculator,Network.NetworkWaterfallColumn=o.NetworkWaterfallColumn.NetworkWaterfallColumn,Network.RequestHTMLView=o.RequestHTMLView.RequestHTMLView,Network.RequestHeadersView=o.RequestHeadersView.RequestHeadersView,Network.RequestPayloadView=o.RequestPayloadView.RequestPayloadView,Network.RequestPreviewView=o.RequestPreviewView.RequestPreviewView,Network.RequestResponseView=o.RequestResponseView.RequestResponseView,Network.RequestTimingView=o.RequestTimingView.RequestTimingView,Network.RequestTimeRangeNames=o.RequestTimingView.RequestTimeRangeNames,Network.ResourceWebSocketFrameView=o.ResourceWebSocketFrameView.ResourceWebSocketFrameView,Network.ResourceWebSocketFrameNode=o.ResourceWebSocketFrameView.ResourceWebSocketFrameNode,Network.SignedExchangeInfoView=o.SignedExchangeInfoView.SignedExchangeInfoView;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as NetworkForwardModule from './forward/forward.js';
+import * as NetworkModule from './network.js';
+self.Network = self.Network || {};
+Network = Network || {};
+/**
+ * @constructor
+ */
+Network.BinaryResourceView = NetworkModule.BinaryResourceView.BinaryResourceView;
+/**
+ * @constructor
+ */
+Network.BlockedURLsPane = NetworkModule.BlockedURLsPane.BlockedURLsPane;
+/**
+ * @constructor
+ */
+Network.EventSourceMessageNode = NetworkModule.EventSourceMessagesView.EventSourceMessageNode;
+/**
+ * @constructor
+ */
+Network.NetworkConfigView = NetworkModule.NetworkConfigView.NetworkConfigView;
+/** @type {!Array.<{title: string, values: !Array.<{title: string, value: string}>}>} */
+Network.NetworkConfigView._userAgentGroups = NetworkModule.NetworkConfigView.userAgentGroups;
+/**
+ * @constructor
+ */
+Network.NetworkNode = NetworkModule.NetworkDataGridNode.NetworkNode;
+/**
+ * @constructor
+ */
+Network.NetworkItemView = NetworkModule.NetworkItemView.NetworkItemView;
+/**
+ * @constructor
+ */
+Network.NetworkLogView = NetworkModule.NetworkLogView.NetworkLogView;
+Network.NetworkLogView.isRequestFilteredOut = NetworkModule.NetworkLogView.isRequestFilteredOut;
+Network.NetworkLogView.HTTPRequestsFilter = NetworkModule.NetworkLogView.NetworkLogView.getHTTPRequestsFilter;
+/** @enum {string} */
+Network.NetworkLogView.FilterType = NetworkForwardModule.UIFilter.FilterType;
+/**
+ * @constructor
+ */
+Network.NetworkLogViewColumns = NetworkModule.NetworkLogViewColumns.NetworkLogViewColumns;
+/**
+ * @constructor
+ */
+Network.NetworkOverview = NetworkModule.NetworkOverview.NetworkOverview;
+/**
+ * @constructor
+ */
+Network.NetworkPanel = NetworkModule.NetworkPanel.NetworkPanel;
+/**
+ * @constructor
+ */
+Network.SearchNetworkView = NetworkModule.NetworkPanel.SearchNetworkView;
+/**
+ * @constructor
+ */
+Network.NetworkPanel.ContextMenuProvider = NetworkModule.NetworkPanel.ContextMenuProvider;
+/**
+ * @constructor
+ */
+Network.NetworkPanel.RequestRevealer = NetworkModule.NetworkPanel.RequestRevealer;
+/**
+ * @constructor
+ */
+Network.NetworkPanel.ActionDelegate = NetworkModule.NetworkPanel.ActionDelegate;
+/**
+ * @constructor
+ */
+Network.NetworkTimeCalculator = NetworkModule.NetworkTimeCalculator.NetworkTimeCalculator;
+/**
+ * @constructor
+ */
+Network.NetworkWaterfallColumn = NetworkModule.NetworkWaterfallColumn.NetworkWaterfallColumn;
+/**
+ * @constructor
+ */
+Network.RequestHTMLView = NetworkModule.RequestHTMLView.RequestHTMLView;
+/**
+ * @constructor
+ */
+Network.RequestHeadersView = NetworkModule.RequestHeadersView.RequestHeadersView;
+/**
+ * @constructor
+ */
+Network.RequestPayloadView = NetworkModule.RequestPayloadView.RequestPayloadView;
+/**
+ * @constructor
+ */
+Network.RequestPreviewView = NetworkModule.RequestPreviewView.RequestPreviewView;
+/**
+ * @constructor
+ */
+Network.RequestResponseView = NetworkModule.RequestResponseView.RequestResponseView;
+/**
+ * @constructor
+ */
+Network.RequestTimingView = NetworkModule.RequestTimingView.RequestTimingView;
+/** @enum {string} */
+Network.RequestTimeRangeNames = NetworkModule.RequestTimingView.RequestTimeRangeNames;
+/**
+ * @constructor
+ */
+Network.ResourceWebSocketFrameView = NetworkModule.ResourceWebSocketFrameView.ResourceWebSocketFrameView;
+Network.ResourceWebSocketFrameNode = NetworkModule.ResourceWebSocketFrameView.ResourceWebSocketFrameNode;
+/**
+ * @constructor
+ */
+Network.SignedExchangeInfoView = NetworkModule.SignedExchangeInfoView.SignedExchangeInfoView;
+//# sourceMappingURL=network-legacy.js.map

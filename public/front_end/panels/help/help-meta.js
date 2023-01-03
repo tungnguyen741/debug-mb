@@ -1,1 +1,131 @@
-import*as e from"../../core/common/common.js";import*as t from"../../core/i18n/i18n.js";import*as o from"../../ui/legacy/legacy.js";const a={whatsNew:"What's New",showWhatsNew:"Show What's New",releaseNotes:"Release notes",reportADevtoolsIssue:"Report a DevTools issue",reportTranslationIssue:"Report a translation issue",bug:"bug",showWhatsNewAfterEachUpdate:"Show What's New after each update",doNotShowWhatsNewAfterEachUpdate:"Do not show What's New after each update"},n=t.i18n.registerUIStrings("panels/help/help-meta.ts",a),i=t.i18n.getLazilyComputedLocalizedString.bind(void 0,n);let s;async function r(){return s||(s=await import("./help.js")),s}o.ViewManager.registerViewExtension({location:"drawer-view",id:"release-note",title:i(a.whatsNew),commandPrompt:i(a.showWhatsNew),persistence:"closeable",order:1,loadView:async()=>(await r()).ReleaseNoteView.ReleaseNoteView.instance()}),o.ActionRegistration.registerActionExtension({category:o.ActionRegistration.ActionCategory.HELP,actionId:"help.release-notes",title:i(a.releaseNotes),loadActionDelegate:async()=>(await r()).Help.ReleaseNotesActionDelegate.instance()}),o.ActionRegistration.registerActionExtension({category:o.ActionRegistration.ActionCategory.HELP,actionId:"help.report-issue",title:i(a.reportADevtoolsIssue),loadActionDelegate:async()=>(await r()).Help.ReportIssueActionDelegate.instance(),tags:[i(a.bug)]}),o.ActionRegistration.registerActionExtension({category:o.ActionRegistration.ActionCategory.HELP,actionId:"help.report-translation-issue",title:i(a.reportTranslationIssue),loadActionDelegate:async()=>(await r()).Help.ReportTranslationIssueActionDelegate.instance(),tags:[i(a.bug)]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.APPEARANCE,storageType:e.Settings.SettingStorageType.Synced,title:i(a.showWhatsNewAfterEachUpdate),settingName:"help.show-release-note",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:i(a.showWhatsNewAfterEachUpdate)},{value:!1,title:i(a.doNotShowWhatsNewAfterEachUpdate)}]}),o.ContextMenu.registerItem({location:o.ContextMenu.ItemLocation.MAIN_MENU_HELP_DEFAULT,actionId:"help.release-notes",order:10}),o.ContextMenu.registerItem({location:o.ContextMenu.ItemLocation.MAIN_MENU_HELP_DEFAULT,actionId:"help.report-issue",order:11}),o.ContextMenu.registerItem({location:o.ContextMenu.ItemLocation.MAIN_MENU_HELP_DEFAULT,actionId:"help.report-translation-issue",order:12}),e.Runnable.registerLateInitializationRunnable({id:"whats-new",loadRunnable:async()=>(await r()).Help.HelpLateInitialization.instance()});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as i18n from '../../core/i18n/i18n.js';
+import * as UI from '../../ui/legacy/legacy.js';
+const UIStrings = {
+    /**
+    *@description Title of the 'What's New' tool in the bottom drawer
+    */
+    whatsNew: 'What\'s New',
+    /**
+    *@description Command for showing the 'What's New' tool in the bottom drawer
+    */
+    showWhatsNew: 'Show What\'s New',
+    /**
+    *@description Title of an action in the help tool to release notes
+    */
+    releaseNotes: 'Release notes',
+    /**
+    *@description Title of an action in the help tool to file an issue
+    */
+    reportADevtoolsIssue: 'Report a DevTools issue',
+    /**
+    *@description Title of an action in the help tool to file a translation issue
+    */
+    reportTranslationIssue: 'Report a translation issue',
+    /**
+    *@description A search term referring to a software defect (i.e. bug) that can be entered in the command menu
+    */
+    bug: 'bug',
+    /**
+    *@description Title of a setting under the Appearance category that can be invoked through the Command Menu
+    */
+    showWhatsNewAfterEachUpdate: 'Show What\'s New after each update',
+    /**
+    *@description Title of a setting under the Appearance category that can be invoked through the Command Menu
+    */
+    doNotShowWhatsNewAfterEachUpdate: 'Do not show What\'s New after each update',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/help/help-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+let loadedHelpModule;
+async function loadHelpModule() {
+    if (!loadedHelpModule) {
+        loadedHelpModule = await import('./help.js');
+    }
+    return loadedHelpModule;
+}
+UI.ViewManager.registerViewExtension({
+    location: "drawer-view" /* DRAWER_VIEW */,
+    id: 'release-note',
+    title: i18nLazyString(UIStrings.whatsNew),
+    commandPrompt: i18nLazyString(UIStrings.showWhatsNew),
+    persistence: "closeable" /* CLOSEABLE */,
+    order: 1,
+    async loadView() {
+        const Help = await loadHelpModule();
+        return Help.ReleaseNoteView.ReleaseNoteView.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.HELP,
+    actionId: 'help.release-notes',
+    title: i18nLazyString(UIStrings.releaseNotes),
+    async loadActionDelegate() {
+        const Help = await loadHelpModule();
+        return Help.Help.ReleaseNotesActionDelegate.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.HELP,
+    actionId: 'help.report-issue',
+    title: i18nLazyString(UIStrings.reportADevtoolsIssue),
+    async loadActionDelegate() {
+        const Help = await loadHelpModule();
+        return Help.Help.ReportIssueActionDelegate.instance();
+    },
+    tags: [i18nLazyString(UIStrings.bug)],
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.HELP,
+    actionId: 'help.report-translation-issue',
+    title: i18nLazyString(UIStrings.reportTranslationIssue),
+    async loadActionDelegate() {
+        const Help = await loadHelpModule();
+        return Help.Help.ReportTranslationIssueActionDelegate.instance();
+    },
+    tags: [i18nLazyString(UIStrings.bug)],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.APPEARANCE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.showWhatsNewAfterEachUpdate),
+    settingName: 'help.show-release-note',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.showWhatsNewAfterEachUpdate),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotShowWhatsNewAfterEachUpdate),
+        },
+    ],
+});
+UI.ContextMenu.registerItem({
+    location: UI.ContextMenu.ItemLocation.MAIN_MENU_HELP_DEFAULT,
+    actionId: 'help.release-notes',
+    order: 10,
+});
+UI.ContextMenu.registerItem({
+    location: UI.ContextMenu.ItemLocation.MAIN_MENU_HELP_DEFAULT,
+    actionId: 'help.report-issue',
+    order: 11,
+});
+UI.ContextMenu.registerItem({
+    location: UI.ContextMenu.ItemLocation.MAIN_MENU_HELP_DEFAULT,
+    actionId: 'help.report-translation-issue',
+    order: 12,
+});
+Common.Runnable.registerLateInitializationRunnable({
+    id: 'whats-new',
+    async loadRunnable() {
+        const Help = await loadHelpModule();
+        return Help.Help.HelpLateInitialization.instance();
+    },
+});
+//# sourceMappingURL=help-meta.js.map

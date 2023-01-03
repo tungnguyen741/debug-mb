@@ -1,1 +1,28 @@
-import*as r from"./color_picker.js";self.ColorPicker=self.ColorPicker||{},ColorPicker=ColorPicker||{},ColorPicker.ContrastDetails=r.ContrastDetails.ContrastDetails,ColorPicker.ContrastDetails.Events=r.ContrastDetails.Events,ColorPicker.ContrastDetails.Swatch=r.ContrastDetails.Swatch,ColorPicker.ContrastInfo=r.ContrastInfo.ContrastInfo,ColorPicker.ContrastInfo.Events=r.ContrastInfo.Events,ColorPicker.ContrastOverlay=r.ContrastOverlay.ContrastOverlay,ColorPicker.ContrastRatioLineBuilder=r.ContrastOverlay.ContrastRatioLineBuilder,ColorPicker.Spectrum=r.Spectrum.Spectrum,ColorPicker.Spectrum.PaletteGenerator=r.Spectrum.PaletteGenerator,ColorPicker.Spectrum.Swatch=r.Spectrum.Swatch,ColorPicker.Spectrum.Events=r.Spectrum.Events,ColorPicker.Spectrum._ChangeSource=r.Spectrum.ChangeSource;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as ColorPickerModule from './color_picker.js';
+self.ColorPicker = self.ColorPicker || {};
+ColorPicker = ColorPicker || {};
+/** @constructor */
+ColorPicker.ContrastDetails = ColorPickerModule.ContrastDetails.ContrastDetails;
+ColorPicker.ContrastDetails.Events = ColorPickerModule.ContrastDetails.Events;
+/** @constructor */
+ColorPicker.ContrastDetails.Swatch = ColorPickerModule.ContrastDetails.Swatch;
+/** @constructor */
+ColorPicker.ContrastInfo = ColorPickerModule.ContrastInfo.ContrastInfo;
+ColorPicker.ContrastInfo.Events = ColorPickerModule.ContrastInfo.Events;
+/** @constructor */
+ColorPicker.ContrastOverlay = ColorPickerModule.ContrastOverlay.ContrastOverlay;
+/** @constructor */
+ColorPicker.ContrastRatioLineBuilder = ColorPickerModule.ContrastOverlay.ContrastRatioLineBuilder;
+/** @constructor */
+ColorPicker.Spectrum = ColorPickerModule.Spectrum.Spectrum;
+/** @constructor */
+ColorPicker.Spectrum.PaletteGenerator = ColorPickerModule.Spectrum.PaletteGenerator;
+/** @constructor */
+ColorPicker.Spectrum.Swatch = ColorPickerModule.Spectrum.Swatch;
+ColorPicker.Spectrum.Events = ColorPickerModule.Spectrum.Events;
+ColorPicker.Spectrum._ChangeSource = ColorPickerModule.Spectrum.ChangeSource;
+//# sourceMappingURL=color_picker-legacy.js.map

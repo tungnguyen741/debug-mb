@@ -1,1 +1,83 @@
-import*as e from"./application.js";self.Resources=self.Resources||{},Resources=Resources||{},Resources.ApplicationPanelSidebar=e.ApplicationPanelSidebar.ApplicationPanelSidebar,Resources.IndexedDBTreeElement=e.ApplicationPanelSidebar.IndexedDBTreeElement,Resources.IDBObjectStoreTreeElement=e.ApplicationPanelSidebar.IDBObjectStoreTreeElement,Resources.IDBIndexTreeElement=e.ApplicationPanelSidebar.IDBIndexTreeElement,Resources.BackgroundServiceModel=e.BackgroundServiceModel.BackgroundServiceModel,Resources.BackgroundServiceModel.Events=e.BackgroundServiceModel.Events,Resources.BackgroundServiceView=e.BackgroundServiceView.BackgroundServiceView,Resources.BackgroundServiceView.ActionDelegate=e.BackgroundServiceView.ActionDelegate,Resources.StorageView=e.StorageView.StorageView,Resources.StorageView.AllStorageTypes=e.StorageView.AllStorageTypes,Resources.StorageView.ActionDelegate=e.StorageView.ActionDelegate,Resources.CookieItemsView=e.CookieItemsView.CookieItemsView,Resources.DOMStorageModel=e.DOMStorageModel.DOMStorageModel,Resources.DOMStorage=e.DOMStorageModel.DOMStorage,Resources.DatabaseModel=e.DatabaseModel.DatabaseModel,Resources.Database=e.DatabaseModel.Database,Resources.DatabaseQueryView=e.DatabaseQueryView.DatabaseQueryView,Resources.DatabaseQueryView.Events=e.DatabaseQueryView.Events,Resources.DatabaseTableView=e.DatabaseTableView.DatabaseTableView,Resources.IndexedDBModel=e.IndexedDBModel.IndexedDBModel,Resources.IndexedDBModel.Events=e.IndexedDBModel.Events,Resources.IndexedDBModel.DatabaseId=e.IndexedDBModel.DatabaseId,Resources.IndexedDBModel.Database=e.IndexedDBModel.Database,Resources.IndexedDBModel.ObjectStore=e.IndexedDBModel.ObjectStore,Resources.IDBDatabaseView=e.IndexedDBViews.IDBDatabaseView,Resources.IDBDataView=e.IndexedDBViews.IDBDataView,Resources.OpenedWindowDetailsView=e.OpenedWindowDetailsView.OpenedWindowDetailsView,Resources.ResourcesPanel=e.ResourcesPanel.ResourcesPanel,Resources.ResourcesPanel.ResourceRevealer=e.ResourcesPanel.ResourceRevealer,Resources.ResourcesPanel.CookieReferenceRevealer=e.ResourcesPanel.CookieReferenceRevealer,Resources.ResourcesPanel.FrameDetailsRevealer=e.ResourcesPanel.FrameDetailsRevealer,Resources.FrameTreeElement=e.ApplicationPanelSidebar.FrameTreeElement,Resources.ServiceWorkerCacheView=e.ServiceWorkerCacheViews.ServiceWorkerCacheView,Resources.ServiceWorkersView=e.ServiceWorkersView.ServiceWorkersView,Resources.ServiceWorkersView.setThrottleDisabledForDebugging=e.ServiceWorkersView.setThrottleDisabledForDebugging,Object.defineProperty(Resources.ServiceWorkersView,"_noThrottle",{set:e.ServiceWorkersView.setThrottleDisabledForDebugging});
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as ResourcesModule from './application.js';
+self.Resources = self.Resources || {};
+Resources = Resources || {};
+/** @constructor */
+Resources.ApplicationPanelSidebar = ResourcesModule.ApplicationPanelSidebar.ApplicationPanelSidebar;
+/** @constructor */
+Resources.IndexedDBTreeElement = ResourcesModule.ApplicationPanelSidebar.IndexedDBTreeElement;
+/** @constructor */
+Resources.IDBObjectStoreTreeElement = ResourcesModule.ApplicationPanelSidebar.IDBObjectStoreTreeElement;
+/** @constructor */
+Resources.IDBIndexTreeElement = ResourcesModule.ApplicationPanelSidebar.IDBIndexTreeElement;
+/** @constructor */
+Resources.BackgroundServiceModel = ResourcesModule.BackgroundServiceModel.BackgroundServiceModel;
+/** @enum {symbol} */
+Resources.BackgroundServiceModel.Events = ResourcesModule.BackgroundServiceModel.Events;
+/** @constructor */
+Resources.BackgroundServiceView = ResourcesModule.BackgroundServiceView.BackgroundServiceView;
+/** @constructor */
+Resources.BackgroundServiceView.ActionDelegate = ResourcesModule.BackgroundServiceView.ActionDelegate;
+/** @constructor */
+Resources.StorageView = ResourcesModule.StorageView.StorageView;
+Resources.StorageView.AllStorageTypes = ResourcesModule.StorageView.AllStorageTypes;
+/** @constructor */
+Resources.StorageView.ActionDelegate = ResourcesModule.StorageView.ActionDelegate;
+/** @constructor */
+Resources.CookieItemsView = ResourcesModule.CookieItemsView.CookieItemsView;
+/** @constructor */
+Resources.DOMStorageModel = ResourcesModule.DOMStorageModel.DOMStorageModel;
+/** @constructor */
+Resources.DOMStorage = ResourcesModule.DOMStorageModel.DOMStorage;
+/** @constructor */
+Resources.DatabaseModel = ResourcesModule.DatabaseModel.DatabaseModel;
+/** @constructor */
+Resources.Database = ResourcesModule.DatabaseModel.Database;
+/** @constructor */
+Resources.DatabaseQueryView = ResourcesModule.DatabaseQueryView.DatabaseQueryView;
+/** @enum {symbol} */
+Resources.DatabaseQueryView.Events = ResourcesModule.DatabaseQueryView.Events;
+/** @constructor */
+Resources.DatabaseTableView = ResourcesModule.DatabaseTableView.DatabaseTableView;
+/** @constructor */
+Resources.IndexedDBModel = ResourcesModule.IndexedDBModel.IndexedDBModel;
+/** @enum {symbol} */
+Resources.IndexedDBModel.Events = ResourcesModule.IndexedDBModel.Events;
+/** @constructor */
+Resources.IndexedDBModel.DatabaseId = ResourcesModule.IndexedDBModel.DatabaseId;
+/** @constructor */
+Resources.IndexedDBModel.Database = ResourcesModule.IndexedDBModel.Database;
+/** @constructor */
+Resources.IndexedDBModel.ObjectStore = ResourcesModule.IndexedDBModel.ObjectStore;
+/** @constructor */
+Resources.IDBDatabaseView = ResourcesModule.IndexedDBViews.IDBDatabaseView;
+/** @constructor */
+Resources.IDBDataView = ResourcesModule.IndexedDBViews.IDBDataView;
+/** @constructor */
+Resources.OpenedWindowDetailsView = ResourcesModule.OpenedWindowDetailsView.OpenedWindowDetailsView;
+/** @constructor */
+Resources.ResourcesPanel = ResourcesModule.ResourcesPanel.ResourcesPanel;
+/** @constructor */
+Resources.ResourcesPanel.ResourceRevealer = ResourcesModule.ResourcesPanel.ResourceRevealer;
+/** @constructor */
+Resources.ResourcesPanel.CookieReferenceRevealer = ResourcesModule.ResourcesPanel.CookieReferenceRevealer;
+/** @constructor */
+Resources.ResourcesPanel.FrameDetailsRevealer = ResourcesModule.ResourcesPanel.FrameDetailsRevealer;
+/** @constructor */
+Resources.FrameTreeElement = ResourcesModule.ApplicationPanelSidebar.FrameTreeElement;
+/** @constructor */
+Resources.ServiceWorkerCacheView = ResourcesModule.ServiceWorkerCacheViews.ServiceWorkerCacheView;
+/** @constructor */
+Resources.ServiceWorkersView = ResourcesModule.ServiceWorkersView.ServiceWorkersView;
+/**
+ * @type {function(boolean):void}
+ */
+Resources.ServiceWorkersView.setThrottleDisabledForDebugging =
+    ResourcesModule.ServiceWorkersView.setThrottleDisabledForDebugging;
+Object.defineProperty(Resources.ServiceWorkersView, '_noThrottle', {
+    set: ResourcesModule.ServiceWorkersView.setThrottleDisabledForDebugging,
+});
+//# sourceMappingURL=application-legacy.js.map

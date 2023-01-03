@@ -1,1 +1,74 @@
-import*as e from"./elements.js";self.Elements=self.Elements||{},Elements=Elements||{},Elements.ClassesPaneWidget=e.ClassesPaneWidget.ClassesPaneWidget,Elements.ClassesPaneWidget.ButtonProvider=e.ClassesPaneWidget.ButtonProvider,Elements.ComputedStyleModel=e.ComputedStyleModel.ComputedStyleModel,Elements.ComputedStyleWidget=e.ComputedStyleWidget.ComputedStyleWidget,Elements.DOMLinkifier={},Elements.DOMLinkifier.Linkifier=e.DOMLinkifier.Linkifier,Elements.DOMPath={},Elements.DOMPath.fullQualifiedSelector=e.DOMPath.fullQualifiedSelector,Elements.DOMPath.cssPath=e.DOMPath.cssPath,Elements.DOMPath.jsPath=e.DOMPath.jsPath,Elements.DOMPath.xPath=e.DOMPath.xPath,Elements.ElementStatePaneWidget=e.ElementStatePaneWidget.ElementStatePaneWidget,Elements.ElementStatePaneWidget.ButtonProvider=e.ElementStatePaneWidget.ButtonProvider,Elements.ElementsPanel=e.ElementsPanel.ElementsPanel,Elements.ElementsPanel.ContextMenuProvider=e.ElementsPanel.ContextMenuProvider,Elements.ElementsPanel.DOMNodeRevealer=e.ElementsPanel.DOMNodeRevealer,Elements.ElementsPanel.CSSPropertyRevealer=e.ElementsPanel.CSSPropertyRevealer,Elements.ElementsActionDelegate=e.ElementsPanel.ElementsActionDelegate,Elements.ElementsPanel.PseudoStateMarkerDecorator=e.ElementsPanel.PseudoStateMarkerDecorator,Elements.ElementsTreeElement=e.ElementsTreeElement.ElementsTreeElement,Elements.ElementsTreeOutline=e.ElementsTreeOutline.ElementsTreeOutline,Elements.ElementsTreeOutline.Renderer=e.ElementsTreeOutline.Renderer,Elements.EventListenersWidget=e.EventListenersWidget.EventListenersWidget,Elements.InspectElementModeController=e.InspectElementModeController.InspectElementModeController,Elements.InspectElementModeController.ToggleSearchActionDelegate=e.InspectElementModeController.ToggleSearchActionDelegate,Elements.MarkerDecorator=e.MarkerDecorator.MarkerDecorator,Elements.GenericDecorator=e.MarkerDecorator.GenericDecorator,Elements.LayoutSidebarPane=e.LayoutSidebarPane.LayoutSidebarPane,Elements.MetricsSidebarPane=e.MetricsSidebarPane.MetricsSidebarPane,Elements.NodeStackTraceWidget=e.NodeStackTraceWidget.NodeStackTraceWidget,Elements.PropertiesWidget=e.PropertiesWidget.PropertiesWidget,Elements.StylePropertyTreeElement=e.StylePropertyTreeElement.StylePropertyTreeElement,Elements.StylesSidebarPane=e.StylesSidebarPane.StylesSidebarPane,Elements.StylesSidebarPane.CSSPropertyPrompt=e.StylesSidebarPane.CSSPropertyPrompt,Elements.StylesSidebarPane.ButtonProvider=e.StylesSidebarPane.ButtonProvider,Elements.StylePropertiesSection=e.StylesSidebarPane.StylePropertiesSection;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as ElementsModule from './elements.js';
+self.Elements = self.Elements || {};
+Elements = Elements || {};
+/** @constructor */
+Elements.ClassesPaneWidget = ElementsModule.ClassesPaneWidget.ClassesPaneWidget;
+/** @constructor */
+Elements.ClassesPaneWidget.ButtonProvider = ElementsModule.ClassesPaneWidget.ButtonProvider;
+/** @constructor */
+Elements.ComputedStyleModel = ElementsModule.ComputedStyleModel.ComputedStyleModel;
+/** @constructor */
+Elements.ComputedStyleWidget = ElementsModule.ComputedStyleWidget.ComputedStyleWidget;
+Elements.DOMLinkifier = {};
+/** @constructor */
+Elements.DOMLinkifier.Linkifier = ElementsModule.DOMLinkifier.Linkifier;
+Elements.DOMPath = {};
+Elements.DOMPath.fullQualifiedSelector = ElementsModule.DOMPath.fullQualifiedSelector;
+Elements.DOMPath.cssPath = ElementsModule.DOMPath.cssPath;
+Elements.DOMPath.jsPath = ElementsModule.DOMPath.jsPath;
+Elements.DOMPath.xPath = ElementsModule.DOMPath.xPath;
+/** @constructor */
+Elements.ElementStatePaneWidget = ElementsModule.ElementStatePaneWidget.ElementStatePaneWidget;
+/** @constructor */
+Elements.ElementStatePaneWidget.ButtonProvider = ElementsModule.ElementStatePaneWidget.ButtonProvider;
+/** @constructor */
+Elements.ElementsPanel = ElementsModule.ElementsPanel.ElementsPanel;
+/** @constructor */
+Elements.ElementsPanel.ContextMenuProvider = ElementsModule.ElementsPanel.ContextMenuProvider;
+/** @constructor */
+Elements.ElementsPanel.DOMNodeRevealer = ElementsModule.ElementsPanel.DOMNodeRevealer;
+/** @constructor */
+Elements.ElementsPanel.CSSPropertyRevealer = ElementsModule.ElementsPanel.CSSPropertyRevealer;
+/** @constructor */
+Elements.ElementsActionDelegate = ElementsModule.ElementsPanel.ElementsActionDelegate;
+/** @constructor */
+Elements.ElementsPanel.PseudoStateMarkerDecorator = ElementsModule.ElementsPanel.PseudoStateMarkerDecorator;
+/** @constructor */
+Elements.ElementsTreeElement = ElementsModule.ElementsTreeElement.ElementsTreeElement;
+/** @constructor */
+Elements.ElementsTreeOutline = ElementsModule.ElementsTreeOutline.ElementsTreeOutline;
+/** @constructor */
+Elements.ElementsTreeOutline.Renderer = ElementsModule.ElementsTreeOutline.Renderer;
+/** @constructor */
+Elements.EventListenersWidget = ElementsModule.EventListenersWidget.EventListenersWidget;
+/** @constructor */
+Elements.InspectElementModeController = ElementsModule.InspectElementModeController.InspectElementModeController;
+/** @constructor */
+Elements.InspectElementModeController.ToggleSearchActionDelegate =
+    ElementsModule.InspectElementModeController.ToggleSearchActionDelegate;
+/** @interface */
+Elements.MarkerDecorator = ElementsModule.MarkerDecorator.MarkerDecorator;
+Elements.GenericDecorator = ElementsModule.MarkerDecorator.GenericDecorator;
+/** @constructor */
+Elements.LayoutSidebarPane = ElementsModule.LayoutSidebarPane.LayoutSidebarPane;
+/** @constructor */
+Elements.MetricsSidebarPane = ElementsModule.MetricsSidebarPane.MetricsSidebarPane;
+/** @constructor */
+Elements.NodeStackTraceWidget = ElementsModule.NodeStackTraceWidget.NodeStackTraceWidget;
+/** @constructor */
+Elements.PropertiesWidget = ElementsModule.PropertiesWidget.PropertiesWidget;
+/** @constructor */
+Elements.StylePropertyTreeElement = ElementsModule.StylePropertyTreeElement.StylePropertyTreeElement;
+/** @constructor */
+Elements.StylesSidebarPane = ElementsModule.StylesSidebarPane.StylesSidebarPane;
+/** @constructor */
+Elements.StylesSidebarPane.CSSPropertyPrompt = ElementsModule.StylesSidebarPane.CSSPropertyPrompt;
+/** @constructor */
+Elements.StylesSidebarPane.ButtonProvider = ElementsModule.StylesSidebarPane.ButtonProvider;
+/** @constructor */
+Elements.StylePropertiesSection = ElementsModule.StylesSidebarPane.StylePropertiesSection;
+//# sourceMappingURL=elements-legacy.js.map

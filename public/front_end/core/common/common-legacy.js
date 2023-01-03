@@ -1,1 +1,100 @@
-import*as e from"./common.js";self.Common=self.Common||{},Common=Common||{},Common.App=e.App.App,Common.AppProvider=e.AppProvider.AppProvider,Common.Color=e.Color.Color,Common.Color.Format=e.Color.Format,Common.console=e.Console.Console.instance(),Common.Console=e.Console.Console,Common.EventTarget={removeEventListeners:e.EventTarget.removeEventListeners},Common.JavaScriptMetadata=e.JavaScriptMetaData.JavaScriptMetaData,Common.Linkifier=e.Linkifier.Linkifier,Common.Object=e.ObjectWrapper.ObjectWrapper,Common.ParsedURL=e.ParsedURL.ParsedURL,Common.Progress=e.Progress.Progress,Common.CompositeProgress=e.Progress.CompositeProgress,Common.QueryParamHandler=e.QueryParamHandler.QueryParamHandler,Common.resourceTypes=e.ResourceType.resourceTypes,Common.Revealer=e.Revealer.Revealer,Common.Revealer.reveal=e.Revealer.reveal,Common.Revealer.setRevealForTest=e.Revealer.setRevealForTest,Common.Segment=e.SegmentedRange.Segment,Common.SegmentedRange=e.SegmentedRange.SegmentedRange,Common.Settings=e.Settings.Settings,Common.Settings.detectColorFormat=e.Settings.detectColorFormat,Common.Setting=e.Settings.Setting,Common.settingForTest=e.Settings.settingForTest,Common.VersionController=e.Settings.VersionController,Common.moduleSetting=e.Settings.moduleSetting,Common.StringOutputStream=e.StringOutputStream.StringOutputStream,Common.Throttler=e.Throttler.Throttler,Common.Trie=e.Trie.Trie,Common.settings;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as CommonModule from './common.js';
+self.Common = self.Common || {};
+Common = Common || {};
+/**
+ * @interface
+ */
+Common.App = CommonModule.App.App;
+/**
+ * @interface
+ */
+Common.AppProvider = CommonModule.AppProvider.AppProvider;
+/**
+ * @constructor
+ */
+Common.Color = CommonModule.Color.Color;
+/**
+ * @enum {string}
+ */
+Common.Color.Format = CommonModule.Color.Format;
+Common.console = CommonModule.Console.Console.instance();
+/**
+ * @constructor
+ */
+Common.Console = CommonModule.Console.Console;
+/**
+ * @interface
+ */
+Common.EventTarget = {
+    removeEventListeners: CommonModule.EventTarget.removeEventListeners,
+};
+/**
+ * @interface
+ */
+Common.JavaScriptMetadata = CommonModule.JavaScriptMetaData.JavaScriptMetaData;
+/**
+ * @interface
+ */
+Common.Linkifier = CommonModule.Linkifier.Linkifier;
+/**
+ * @constructor
+ */
+Common.Object = CommonModule.ObjectWrapper.ObjectWrapper;
+/**
+ * @constructor
+ */
+Common.ParsedURL = CommonModule.ParsedURL.ParsedURL;
+/**
+ * @interface
+ */
+Common.Progress = CommonModule.Progress.Progress;
+/**
+ * @constructor
+ */
+Common.CompositeProgress = CommonModule.Progress.CompositeProgress;
+/**
+ * @interface
+ */
+Common.QueryParamHandler = CommonModule.QueryParamHandler.QueryParamHandler;
+/**
+ * @enum {!CommonModule.ResourceType.ResourceType}
+ */
+Common.resourceTypes = CommonModule.ResourceType.resourceTypes;
+/**
+ * @interface
+ */
+Common.Revealer = CommonModule.Revealer.Revealer;
+Common.Revealer.reveal = CommonModule.Revealer.reveal;
+Common.Revealer.setRevealForTest = CommonModule.Revealer.setRevealForTest;
+/**
+ * @constructor
+ */
+Common.Segment = CommonModule.SegmentedRange.Segment;
+/**
+ * @constructor
+ */
+Common.SegmentedRange = CommonModule.SegmentedRange.SegmentedRange;
+/**
+ * @constructor
+ */
+Common.Settings = CommonModule.Settings.Settings;
+Common.Settings.detectColorFormat = CommonModule.Settings.detectColorFormat;
+Common.Setting = CommonModule.Settings.Setting;
+Common.settingForTest = CommonModule.Settings.settingForTest;
+/**
+ * @constructor
+ */
+Common.VersionController = CommonModule.Settings.VersionController;
+Common.moduleSetting = CommonModule.Settings.moduleSetting;
+Common.StringOutputStream = CommonModule.StringOutputStream.StringOutputStream;
+Common.Throttler = CommonModule.Throttler.Throttler;
+Common.Trie = CommonModule.Trie.Trie;
+/**
+ * @type {!Common.Settings}
+ */
+Common.settings;
+//# sourceMappingURL=common-legacy.js.map

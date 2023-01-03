@@ -1,1 +1,72 @@
-import*as r from"../../core/i18n/i18n.js";import*as o from"../../ui/legacy/legacy.js";const e={profiler:"Profiler",showProfiler:"Show Profiler",startStopRecording:"Start/stop recording"},i=r.i18n.registerUIStrings("panels/js_profiler/js_profiler-meta.ts",e),t=r.i18n.getLazilyComputedLocalizedString.bind(void 0,i);let n;async function a(){return n||(n=await import("../profiler/profiler.js")),n}o.ViewManager.registerViewExtension({location:"panel",id:"js_profiler",title:t(e.profiler),commandPrompt:t(e.showProfiler),order:65,loadView:async()=>(await a()).ProfilesPanel.JSProfilerPanel.instance()}),o.ActionRegistration.registerActionExtension({actionId:"profiler.js-toggle-recording",category:o.ActionRegistration.ActionCategory.JAVASCRIPT_PROFILER,title:t(e.startStopRecording),iconClass:"largeicon-start-recording",toggleable:!0,toggledIconClass:"largeicon-stop-recording",toggleWithRedColor:!0,contextTypes(){return r=r=>[r.ProfilesPanel.JSProfilerPanel],void 0===n?[]:r(n);var r},loadActionDelegate:async()=>(await a()).ProfilesPanel.JSProfilerPanel.instance(),bindings:[{platform:"windows,linux",shortcut:"Ctrl+E"},{platform:"mac",shortcut:"Meta+E"}]});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as i18n from '../../core/i18n/i18n.js';
+import * as UI from '../../ui/legacy/legacy.js';
+const UIStrings = {
+    /**
+    *@description Title of the Profiler tool
+    */
+    profiler: 'Profiler',
+    /**
+    *@description Command for showing the Profiler tool
+    */
+    showProfiler: 'Show Profiler',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (start/stop recording performance)
+    */
+    startStopRecording: 'Start/stop recording',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/js_profiler/js_profiler-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+let loadedProfilerModule;
+async function loadProfilerModule() {
+    if (!loadedProfilerModule) {
+        loadedProfilerModule = await import('../profiler/profiler.js');
+    }
+    return loadedProfilerModule;
+}
+function maybeRetrieveContextTypes(getClassCallBack) {
+    if (loadedProfilerModule === undefined) {
+        return [];
+    }
+    return getClassCallBack(loadedProfilerModule);
+}
+UI.ViewManager.registerViewExtension({
+    location: "panel" /* PANEL */,
+    id: 'js_profiler',
+    title: i18nLazyString(UIStrings.profiler),
+    commandPrompt: i18nLazyString(UIStrings.showProfiler),
+    order: 65,
+    async loadView() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.ProfilesPanel.JSProfilerPanel.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'profiler.js-toggle-recording',
+    category: UI.ActionRegistration.ActionCategory.JAVASCRIPT_PROFILER,
+    title: i18nLazyString(UIStrings.startStopRecording),
+    iconClass: "largeicon-start-recording" /* LARGEICON_START_RECORDING */,
+    toggleable: true,
+    toggledIconClass: "largeicon-stop-recording" /* LARGEICON_STOP_RECORDING */,
+    toggleWithRedColor: true,
+    contextTypes() {
+        return maybeRetrieveContextTypes(Profiler => [Profiler.ProfilesPanel.JSProfilerPanel]);
+    },
+    async loadActionDelegate() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.ProfilesPanel.JSProfilerPanel.instance();
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+E',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+E',
+        },
+    ],
+});
+//# sourceMappingURL=js_profiler-meta.js.map

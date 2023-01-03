@@ -1,1 +1,549 @@
-import*as e from"../../core/common/common.js";import*as t from"../../core/root/root.js";import*as n from"../../core/sdk/sdk.js";import*as o from"../../ui/legacy/legacy.js";import*as i from"../../core/i18n/i18n.js";const a={showElements:"Show Elements",elements:"Elements",showEventListeners:"Show Event Listeners",eventListeners:"Event Listeners",showProperties:"Show Properties",properties:"Properties",showStackTrace:"Show Stack Trace",stackTrace:"Stack Trace",showLayout:"Show Layout",layout:"Layout",hideElement:"Hide element",editAsHtml:"Edit as HTML",duplicateElement:"Duplicate element",undo:"Undo",redo:"Redo",captureAreaScreenshot:"Capture area screenshot",selectAnElementInThePageTo:"Select an element in the page to inspect it",wordWrap:"Word wrap",enableDomWordWrap:"Enable `DOM` word wrap",disableDomWordWrap:"Disable `DOM` word wrap",showHtmlComments:"Show `HTML` comments",hideHtmlComments:"Hide `HTML` comments",revealDomNodeOnHover:"Reveal `DOM` node on hover",showDetailedInspectTooltip:"Show detailed inspect tooltip",copyStyles:"Copy styles",showUserAgentShadowDOM:"Show user agent shadow `DOM`"},s=i.i18n.registerUIStrings("panels/elements/elements-meta.ts",a),r=i.i18n.getLazilyComputedLocalizedString.bind(void 0,s);let l;async function c(){return l||(l=await import("./elements.js")),l}function g(e){return void 0===l?[]:e(l)}o.ViewManager.registerViewExtension({location:"panel",id:"elements",commandPrompt:r(a.showElements),title:r(a.elements),order:10,persistence:"permanent",hasToolbar:!1,loadView:async()=>(await c()).ElementsPanel.ElementsPanel.instance()}),o.ViewManager.registerViewExtension({location:"elements-sidebar",id:"elements.eventListeners",commandPrompt:r(a.showEventListeners),title:r(a.eventListeners),order:5,hasToolbar:!0,persistence:"permanent",loadView:async()=>(await c()).EventListenersWidget.EventListenersWidget.instance()}),o.ViewManager.registerViewExtension({location:"elements-sidebar",id:"elements.domProperties",commandPrompt:r(a.showProperties),title:r(a.properties),order:7,persistence:"permanent",loadView:async()=>(await c()).PropertiesWidget.PropertiesWidget.instance()}),o.ViewManager.registerViewExtension({experiment:t.Runtime.ExperimentName.CAPTURE_NODE_CREATION_STACKS,location:"elements-sidebar",id:"elements.domCreation",commandPrompt:r(a.showStackTrace),title:r(a.stackTrace),order:10,persistence:"permanent",loadView:async()=>(await c()).NodeStackTraceWidget.NodeStackTraceWidget.instance()}),o.ViewManager.registerViewExtension({location:"elements-sidebar",id:"elements.layout",commandPrompt:r(a.showLayout),title:r(a.layout),order:4,persistence:"permanent",loadView:async()=>(await c()).LayoutSidebarPane.LayoutSidebarPane.instance()}),o.ActionRegistration.registerActionExtension({actionId:"elements.hide-element",category:o.ActionRegistration.ActionCategory.ELEMENTS,title:r(a.hideElement),loadActionDelegate:async()=>(await c()).ElementsPanel.ElementsActionDelegate.instance(),contextTypes:()=>g((e=>[e.ElementsPanel.ElementsPanel])),bindings:[{shortcut:"H"}]}),o.ActionRegistration.registerActionExtension({actionId:"elements.edit-as-html",category:o.ActionRegistration.ActionCategory.ELEMENTS,title:r(a.editAsHtml),loadActionDelegate:async()=>(await c()).ElementsPanel.ElementsActionDelegate.instance(),contextTypes:()=>g((e=>[e.ElementsPanel.ElementsPanel])),bindings:[{shortcut:"F2"}]}),o.ActionRegistration.registerActionExtension({actionId:"elements.duplicate-element",category:o.ActionRegistration.ActionCategory.ELEMENTS,title:r(a.duplicateElement),loadActionDelegate:async()=>(await c()).ElementsPanel.ElementsActionDelegate.instance(),contextTypes:()=>g((e=>[e.ElementsPanel.ElementsPanel])),bindings:[{shortcut:"Shift+Alt+Down"}]}),o.ActionRegistration.registerActionExtension({actionId:"elements.copy-styles",category:o.ActionRegistration.ActionCategory.ELEMENTS,title:r(a.copyStyles),loadActionDelegate:async()=>(await c()).ElementsPanel.ElementsActionDelegate.instance(),contextTypes:()=>g((e=>[e.ElementsPanel.ElementsPanel])),bindings:[{shortcut:"Ctrl+Alt+C",platform:"windows,linux"},{shortcut:"Meta+Alt+C",platform:"mac"}]}),o.ActionRegistration.registerActionExtension({actionId:"elements.undo",category:o.ActionRegistration.ActionCategory.ELEMENTS,title:r(a.undo),loadActionDelegate:async()=>(await c()).ElementsPanel.ElementsActionDelegate.instance(),contextTypes:()=>g((e=>[e.ElementsPanel.ElementsPanel])),bindings:[{shortcut:"Ctrl+Z",platform:"windows,linux"},{shortcut:"Meta+Z",platform:"mac"}]}),o.ActionRegistration.registerActionExtension({actionId:"elements.redo",category:o.ActionRegistration.ActionCategory.ELEMENTS,title:r(a.redo),loadActionDelegate:async()=>(await c()).ElementsPanel.ElementsActionDelegate.instance(),contextTypes:()=>g((e=>[e.ElementsPanel.ElementsPanel])),bindings:[{shortcut:"Ctrl+Y",platform:"windows,linux"},{shortcut:"Meta+Shift+Z",platform:"mac"}]}),o.ActionRegistration.registerActionExtension({actionId:"elements.capture-area-screenshot",loadActionDelegate:async()=>(await c()).InspectElementModeController.ToggleSearchActionDelegate.instance(),condition:t.Runtime.ConditionName.CAN_DOCK,title:r(a.captureAreaScreenshot),category:o.ActionRegistration.ActionCategory.SCREENSHOT}),o.ActionRegistration.registerActionExtension({category:o.ActionRegistration.ActionCategory.ELEMENTS,actionId:"elements.toggle-element-search",toggleable:!0,loadActionDelegate:async()=>(await c()).InspectElementModeController.ToggleSearchActionDelegate.instance(),title:r(a.selectAnElementInThePageTo),iconClass:"largeicon-node-search",bindings:[{shortcut:"Ctrl+Shift+C",platform:"windows,linux"},{shortcut:"Meta+Shift+C",platform:"mac"}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.ELEMENTS,storageType:e.Settings.SettingStorageType.Synced,order:1,title:r(a.showUserAgentShadowDOM),settingName:"showUAShadowDOM",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.ELEMENTS,storageType:e.Settings.SettingStorageType.Synced,order:2,title:r(a.wordWrap),settingName:"domWordWrap",settingType:e.Settings.SettingType.BOOLEAN,options:[{value:!0,title:r(a.enableDomWordWrap)},{value:!1,title:r(a.disableDomWordWrap)}],defaultValue:!0}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.ELEMENTS,storageType:e.Settings.SettingStorageType.Synced,order:3,title:r(a.showHtmlComments),settingName:"showHTMLComments",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:r(a.showHtmlComments)},{value:!1,title:r(a.hideHtmlComments)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.ELEMENTS,storageType:e.Settings.SettingStorageType.Synced,order:4,title:r(a.revealDomNodeOnHover),settingName:"highlightNodeOnHoverInOverlay",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.ELEMENTS,storageType:e.Settings.SettingStorageType.Synced,order:5,title:r(a.showDetailedInspectTooltip),settingName:"showDetailedInspectTooltip",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0}),e.Settings.registerSettingExtension({settingName:"showEventListenersForAncestors",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.ADORNER,storageType:e.Settings.SettingStorageType.Synced,settingName:"adornerSettings",settingType:e.Settings.SettingType.ARRAY,defaultValue:[]}),o.ContextMenu.registerProvider({contextTypes:()=>[n.RemoteObject.RemoteObject,n.DOMModel.DOMNode,n.DOMModel.DeferredDOMNode],loadProvider:async()=>(await c()).ElementsPanel.ContextMenuProvider.instance(),experiment:void 0}),o.ViewManager.registerLocationResolver({name:"elements-sidebar",category:o.ViewManager.ViewLocationCategoryValues.ELEMENTS,loadResolver:async()=>(await c()).ElementsPanel.ElementsPanel.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[n.DOMModel.DOMNode,n.DOMModel.DeferredDOMNode,n.RemoteObject.RemoteObject],destination:e.Revealer.RevealerDestination.ELEMENTS_PANEL,loadRevealer:async()=>(await c()).ElementsPanel.DOMNodeRevealer.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[n.CSSProperty.CSSProperty],destination:e.Revealer.RevealerDestination.STYLES_SIDEBAR,loadRevealer:async()=>(await c()).ElementsPanel.CSSPropertyRevealer.instance()}),o.Toolbar.registerToolbarItem({loadItem:async()=>(await c()).ElementStatePaneWidget.ButtonProvider.instance(),order:1,location:o.Toolbar.ToolbarItemLocation.STYLES_SIDEBARPANE_TOOLBAR,showLabel:void 0,condition:void 0,separator:void 0,actionId:void 0}),o.Toolbar.registerToolbarItem({loadItem:async()=>(await c()).ClassesPaneWidget.ButtonProvider.instance(),order:2,location:o.Toolbar.ToolbarItemLocation.STYLES_SIDEBARPANE_TOOLBAR,showLabel:void 0,condition:void 0,separator:void 0,actionId:void 0}),o.Toolbar.registerToolbarItem({loadItem:async()=>(await c()).StylesSidebarPane.ButtonProvider.instance(),order:100,location:o.Toolbar.ToolbarItemLocation.STYLES_SIDEBARPANE_TOOLBAR,showLabel:void 0,condition:void 0,separator:void 0,actionId:void 0}),o.Toolbar.registerToolbarItem({actionId:"elements.toggle-element-search",location:o.Toolbar.ToolbarItemLocation.MAIN_TOOLBAR_LEFT,order:0,showLabel:void 0,condition:void 0,separator:void 0,loadItem:void 0}),o.UIUtils.registerRenderer({contextTypes:()=>[n.DOMModel.DOMNode,n.DOMModel.DeferredDOMNode],loadRenderer:async()=>(await c()).ElementsTreeOutline.Renderer.instance()}),e.Linkifier.registerLinkifier({contextTypes:()=>[n.DOMModel.DOMNode,n.DOMModel.DeferredDOMNode],loadLinkifier:async()=>(await c()).DOMLinkifier.Linkifier.instance()});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as Root from '../../core/root/root.js';
+import * as SDK from '../../core/sdk/sdk.js';
+import * as UI from '../../ui/legacy/legacy.js';
+import * as i18n from '../../core/i18n/i18n.js';
+const UIStrings = {
+    /**
+    * @description Command for showing the 'Elements' panel. Elements refers to HTML elements.
+    */
+    showElements: 'Show Elements',
+    /**
+    * @description Title of the Elements Panel. Elements refers to HTML elements.
+    */
+    elements: 'Elements',
+    /**
+    * @description Command for showing the 'Event Listeners' tool. Refers to DOM Event listeners.
+    */
+    showEventListeners: 'Show Event Listeners',
+    /**
+    * @description Title of the 'Event Listeners' tool in the sidebar of the elements panel. Refers to
+    * DOM Event listeners.
+    */
+    eventListeners: 'Event Listeners',
+    /**
+    * @description Command for showing the 'Properties' tool. Refers to HTML properties.
+    */
+    showProperties: 'Show Properties',
+    /**
+    * @description Title of the 'Properties' tool in the sidebar of the elements tool. Refers to HTML
+    * properties.
+    */
+    properties: 'Properties',
+    /**
+    * @description Command for showing the 'Stack Trace' tool. Stack trace refers to the location in
+    * the code where the program was at a point in time.
+    */
+    showStackTrace: 'Show Stack Trace',
+    /**
+    * @description Text for the execution stack trace tool, which shows the stack trace from when this
+    * HTML element was created. Stack trace refers to the location in the code where the program was
+    * at a point in time.
+    */
+    stackTrace: 'Stack Trace',
+    /**
+    * @description Command for showing the 'Layout' tool
+    */
+    showLayout: 'Show Layout',
+    /**
+    * @description The title of the 'Layout' tool in the sidebar of the elements panel.
+    */
+    layout: 'Layout',
+    /**
+    * @description Command to hide a HTML element in the Elements tree.
+    */
+    hideElement: 'Hide element',
+    /**
+    * @description A context menu item (command) in the Elements panel that allows the user to edit the
+    * currently selected node as raw HTML text.
+    */
+    editAsHtml: 'Edit as HTML',
+    /**
+    * @description A context menu item (command) in the Elements panel that creates an exact copy of
+    * this HTML element.
+    */
+    duplicateElement: 'Duplicate element',
+    /**
+    * @description A command in the Elements panel to undo the last action the user took.
+    */
+    undo: 'Undo',
+    /**
+    * @description A command in the Elements panel to redo the last action the user took (undo an
+    * undo).
+    */
+    redo: 'Redo',
+    /**
+    * @description A command in the Elements panel to capture a screenshot of the selected area.
+    */
+    captureAreaScreenshot: 'Capture area screenshot',
+    /**
+    * @description Title/tooltip of an action in the elements panel to toggle element search on/off.
+    */
+    selectAnElementInThePageTo: 'Select an element in the page to inspect it',
+    /**
+    * @description Title of a setting under the Elements category in Settings. Whether words should be
+    * wrapped around at the end of lines or not.
+    */
+    wordWrap: 'Word wrap',
+    /**
+    * @description Title of a setting under the Elements category. Whether words should be wrapped
+    * around at the end of lines or not when showing DOM elements.
+    */
+    enableDomWordWrap: 'Enable `DOM` word wrap',
+    /**
+    * @description Title of a setting under the Elements category. Whether words should be wrapped
+    * around at the end of lines or not when showing DOM elements.
+    */
+    disableDomWordWrap: 'Disable `DOM` word wrap',
+    /**
+    * @description Title of a setting under the Elements category. Whether to show/hide code comments in HTML.
+    */
+    showHtmlComments: 'Show `HTML` comments',
+    /**
+    * @description Title of a setting under the Elements category. Whether to show/hide code comments in HTML.
+    */
+    hideHtmlComments: 'Hide `HTML` comments',
+    /**
+    * @description Title of a setting under the Elements category in Settings. Whether the position of
+    * the DOM node on the actual website should be highlighted/revealed to the user when they hover
+    * over the corresponding node in the DOM tree in DevTools.
+    */
+    revealDomNodeOnHover: 'Reveal `DOM` node on hover',
+    /**
+    * @description Title of a setting under the Elements category in Settings. Turns on a mode where
+    * the inspect tooltip (an information pane that hovers next to selected DOM elements) has extra
+    * detail.
+    */
+    showDetailedInspectTooltip: 'Show detailed inspect tooltip',
+    /**
+    *@description A context menu item (command) in the Elements panel that copy the styles of
+    * the HTML element.
+    */
+    copyStyles: 'Copy styles',
+    /**
+     * @description Title of a setting under the Elements category. Whether to show/hide hide
+     * the shadow DOM nodes of HTML elements that are built into the browser (e.g. the <input> element).
+     */
+    showUserAgentShadowDOM: 'Show user agent shadow `DOM`',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/elements/elements-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+let loadedElementsModule;
+async function loadElementsModule() {
+    if (!loadedElementsModule) {
+        loadedElementsModule = await import('./elements.js');
+    }
+    return loadedElementsModule;
+}
+function maybeRetrieveContextTypes(getClassCallBack) {
+    if (loadedElementsModule === undefined) {
+        return [];
+    }
+    return getClassCallBack(loadedElementsModule);
+}
+UI.ViewManager.registerViewExtension({
+    location: "panel" /* PANEL */,
+    id: 'elements',
+    commandPrompt: i18nLazyString(UIStrings.showElements),
+    title: i18nLazyString(UIStrings.elements),
+    order: 10,
+    persistence: "permanent" /* PERMANENT */,
+    hasToolbar: false,
+    async loadView() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsPanel.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    location: "elements-sidebar" /* ELEMENTS_SIDEBAR */,
+    id: 'elements.eventListeners',
+    commandPrompt: i18nLazyString(UIStrings.showEventListeners),
+    title: i18nLazyString(UIStrings.eventListeners),
+    order: 5,
+    hasToolbar: true,
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Elements = await loadElementsModule();
+        return Elements.EventListenersWidget.EventListenersWidget.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    location: "elements-sidebar" /* ELEMENTS_SIDEBAR */,
+    id: 'elements.domProperties',
+    commandPrompt: i18nLazyString(UIStrings.showProperties),
+    title: i18nLazyString(UIStrings.properties),
+    order: 7,
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Elements = await loadElementsModule();
+        return Elements.PropertiesWidget.PropertiesWidget.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    experiment: Root.Runtime.ExperimentName.CAPTURE_NODE_CREATION_STACKS,
+    location: "elements-sidebar" /* ELEMENTS_SIDEBAR */,
+    id: 'elements.domCreation',
+    commandPrompt: i18nLazyString(UIStrings.showStackTrace),
+    title: i18nLazyString(UIStrings.stackTrace),
+    order: 10,
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Elements = await loadElementsModule();
+        return Elements.NodeStackTraceWidget.NodeStackTraceWidget.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    location: "elements-sidebar" /* ELEMENTS_SIDEBAR */,
+    id: 'elements.layout',
+    commandPrompt: i18nLazyString(UIStrings.showLayout),
+    title: i18nLazyString(UIStrings.layout),
+    order: 4,
+    persistence: "permanent" /* PERMANENT */,
+    async loadView() {
+        const Elements = await loadElementsModule();
+        return Elements.LayoutSidebarPane.LayoutSidebarPane.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'elements.hide-element',
+    category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+    title: i18nLazyString(UIStrings.hideElement),
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Elements => [Elements.ElementsPanel.ElementsPanel]);
+    },
+    bindings: [
+        {
+            shortcut: 'H',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'elements.edit-as-html',
+    category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+    title: i18nLazyString(UIStrings.editAsHtml),
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Elements => [Elements.ElementsPanel.ElementsPanel]);
+    },
+    bindings: [
+        {
+            shortcut: 'F2',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'elements.duplicate-element',
+    category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+    title: i18nLazyString(UIStrings.duplicateElement),
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Elements => [Elements.ElementsPanel.ElementsPanel]);
+    },
+    bindings: [
+        {
+            shortcut: 'Shift+Alt+Down',
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'elements.copy-styles',
+    category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+    title: i18nLazyString(UIStrings.copyStyles),
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Elements => [Elements.ElementsPanel.ElementsPanel]);
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+Alt+C',
+            platform: "windows,linux" /* WindowsLinux */,
+        },
+        {
+            shortcut: 'Meta+Alt+C',
+            platform: "mac" /* Mac */,
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'elements.undo',
+    category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+    title: i18nLazyString(UIStrings.undo),
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Elements => [Elements.ElementsPanel.ElementsPanel]);
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+Z',
+            platform: "windows,linux" /* WindowsLinux */,
+        },
+        {
+            shortcut: 'Meta+Z',
+            platform: "mac" /* Mac */,
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'elements.redo',
+    category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+    title: i18nLazyString(UIStrings.redo),
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Elements => [Elements.ElementsPanel.ElementsPanel]);
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+Y',
+            platform: "windows,linux" /* WindowsLinux */,
+        },
+        {
+            shortcut: 'Meta+Shift+Z',
+            platform: "mac" /* Mac */,
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'elements.capture-area-screenshot',
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.InspectElementModeController.ToggleSearchActionDelegate.instance();
+    },
+    condition: Root.Runtime.ConditionName.CAN_DOCK,
+    title: i18nLazyString(UIStrings.captureAreaScreenshot),
+    category: UI.ActionRegistration.ActionCategory.SCREENSHOT,
+});
+UI.ActionRegistration.registerActionExtension({
+    category: UI.ActionRegistration.ActionCategory.ELEMENTS,
+    actionId: 'elements.toggle-element-search',
+    toggleable: true,
+    async loadActionDelegate() {
+        const Elements = await loadElementsModule();
+        return Elements.InspectElementModeController.ToggleSearchActionDelegate.instance();
+    },
+    title: i18nLazyString(UIStrings.selectAnElementInThePageTo),
+    iconClass: "largeicon-node-search" /* LARGEICON_NODE_SEARCH */,
+    bindings: [
+        {
+            shortcut: 'Ctrl+Shift+C',
+            platform: "windows,linux" /* WindowsLinux */,
+        },
+        {
+            shortcut: 'Meta+Shift+C',
+            platform: "mac" /* Mac */,
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.ELEMENTS,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    order: 1,
+    title: i18nLazyString(UIStrings.showUserAgentShadowDOM),
+    settingName: 'showUAShadowDOM',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.ELEMENTS,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    order: 2,
+    title: i18nLazyString(UIStrings.wordWrap),
+    settingName: 'domWordWrap',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.enableDomWordWrap),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.disableDomWordWrap),
+        },
+    ],
+    defaultValue: true,
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.ELEMENTS,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    order: 3,
+    title: i18nLazyString(UIStrings.showHtmlComments),
+    settingName: 'showHTMLComments',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.showHtmlComments),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.hideHtmlComments),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.ELEMENTS,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    order: 4,
+    title: i18nLazyString(UIStrings.revealDomNodeOnHover),
+    settingName: 'highlightNodeOnHoverInOverlay',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.ELEMENTS,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    order: 5,
+    title: i18nLazyString(UIStrings.showDetailedInspectTooltip),
+    settingName: 'showDetailedInspectTooltip',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+});
+Common.Settings.registerSettingExtension({
+    settingName: 'showEventListenersForAncestors',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.ADORNER,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    settingName: 'adornerSettings',
+    settingType: Common.Settings.SettingType.ARRAY,
+    defaultValue: [],
+});
+UI.ContextMenu.registerProvider({
+    contextTypes() {
+        return [
+            SDK.RemoteObject.RemoteObject,
+            SDK.DOMModel.DOMNode,
+            SDK.DOMModel.DeferredDOMNode,
+        ];
+    },
+    async loadProvider() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ContextMenuProvider.instance();
+    },
+    experiment: undefined,
+});
+UI.ViewManager.registerLocationResolver({
+    name: "elements-sidebar" /* ELEMENTS_SIDEBAR */,
+    category: UI.ViewManager.ViewLocationCategoryValues.ELEMENTS,
+    async loadResolver() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.ElementsPanel.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            SDK.DOMModel.DOMNode,
+            SDK.DOMModel.DeferredDOMNode,
+            SDK.RemoteObject.RemoteObject,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.ELEMENTS_PANEL,
+    async loadRevealer() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.DOMNodeRevealer.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            SDK.CSSProperty.CSSProperty,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.STYLES_SIDEBAR,
+    async loadRevealer() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsPanel.CSSPropertyRevealer.instance();
+    },
+});
+UI.Toolbar.registerToolbarItem({
+    async loadItem() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementStatePaneWidget.ButtonProvider.instance();
+    },
+    order: 1,
+    location: UI.Toolbar.ToolbarItemLocation.STYLES_SIDEBARPANE_TOOLBAR,
+    showLabel: undefined,
+    condition: undefined,
+    separator: undefined,
+    actionId: undefined,
+});
+UI.Toolbar.registerToolbarItem({
+    async loadItem() {
+        const Elements = await loadElementsModule();
+        return Elements.ClassesPaneWidget.ButtonProvider.instance();
+    },
+    order: 2,
+    location: UI.Toolbar.ToolbarItemLocation.STYLES_SIDEBARPANE_TOOLBAR,
+    showLabel: undefined,
+    condition: undefined,
+    separator: undefined,
+    actionId: undefined,
+});
+UI.Toolbar.registerToolbarItem({
+    async loadItem() {
+        const Elements = await loadElementsModule();
+        return Elements.StylesSidebarPane.ButtonProvider.instance();
+    },
+    order: 100,
+    location: UI.Toolbar.ToolbarItemLocation.STYLES_SIDEBARPANE_TOOLBAR,
+    showLabel: undefined,
+    condition: undefined,
+    separator: undefined,
+    actionId: undefined,
+});
+UI.Toolbar.registerToolbarItem({
+    actionId: 'elements.toggle-element-search',
+    location: UI.Toolbar.ToolbarItemLocation.MAIN_TOOLBAR_LEFT,
+    order: 0,
+    showLabel: undefined,
+    condition: undefined,
+    separator: undefined,
+    loadItem: undefined,
+});
+UI.UIUtils.registerRenderer({
+    contextTypes() {
+        return [SDK.DOMModel.DOMNode, SDK.DOMModel.DeferredDOMNode];
+    },
+    async loadRenderer() {
+        const Elements = await loadElementsModule();
+        return Elements.ElementsTreeOutline.Renderer.instance();
+    },
+});
+Common.Linkifier.registerLinkifier({
+    contextTypes() {
+        return [
+            SDK.DOMModel.DOMNode,
+            SDK.DOMModel.DeferredDOMNode,
+        ];
+    },
+    async loadLinkifier() {
+        const Elements = await loadElementsModule();
+        return Elements.DOMLinkifier.Linkifier.instance();
+    },
+});
+//# sourceMappingURL=elements-meta.js.map

@@ -1,1 +1,50 @@
-import*as e from"../../core/common/common.js";import*as a from"../../core/i18n/i18n.js";import*as i from"../../models/workspace_diff/workspace_diff.js";import*as n from"../../ui/legacy/legacy.js";let s;const o={changes:"Changes",showChanges:"Show Changes"},t=a.i18n.registerUIStrings("panels/changes/changes-meta.ts",o),r=a.i18n.getLazilyComputedLocalizedString.bind(void 0,t);async function c(){return s||(s=await import("./changes.js")),s}n.ViewManager.registerViewExtension({location:"drawer-view",id:"changes.changes",title:r(o.changes),commandPrompt:r(o.showChanges),persistence:"closeable",loadView:async()=>(await c()).ChangesView.ChangesView.instance()}),e.Revealer.registerRevealer({contextTypes:()=>[i.WorkspaceDiff.DiffUILocation],destination:e.Revealer.RevealerDestination.CHANGES_DRAWER,loadRevealer:async()=>(await c()).ChangesView.DiffUILocationRevealer.instance()});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as i18n from '../../core/i18n/i18n.js';
+import * as WorkspaceDiff from '../../models/workspace_diff/workspace_diff.js';
+import * as UI from '../../ui/legacy/legacy.js';
+let loadedChangesModule;
+const UIStrings = {
+    /**
+     * @description Title of the 'Changes' tool in the bottom drawer
+     */
+    changes: 'Changes',
+    /**
+     * @description Command for showing the 'Changes' tool in the bottom drawer
+     */
+    showChanges: 'Show Changes',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/changes/changes-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+async function loadChangesModule() {
+    if (!loadedChangesModule) {
+        loadedChangesModule = await import('./changes.js');
+    }
+    return loadedChangesModule;
+}
+UI.ViewManager.registerViewExtension({
+    location: "drawer-view" /* DRAWER_VIEW */,
+    id: 'changes.changes',
+    title: i18nLazyString(UIStrings.changes),
+    commandPrompt: i18nLazyString(UIStrings.showChanges),
+    persistence: "closeable" /* CLOSEABLE */,
+    async loadView() {
+        const Changes = await loadChangesModule();
+        return Changes.ChangesView.ChangesView.instance();
+    },
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            WorkspaceDiff.WorkspaceDiff.DiffUILocation,
+        ];
+    },
+    destination: Common.Revealer.RevealerDestination.CHANGES_DRAWER,
+    async loadRevealer() {
+        const Changes = await loadChangesModule();
+        return Changes.ChangesView.DiffUILocationRevealer.instance();
+    },
+});
+//# sourceMappingURL=changes-meta.js.map
