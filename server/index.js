@@ -19,7 +19,7 @@ async function start({
   sslKey,
   basePath = '/',
 } = {}) {
-  domain = `${process.env.DOMAIN || 'localhost'}:${port}`;
+  domain = `${process.env.DOMAIN || 'localhost'}` + process.env.NODE_ENV === 'production' ? '': `:${port}`;
   if (!endWith(basePath, '/')) {
     basePath += '/';
   }
