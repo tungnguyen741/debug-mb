@@ -19,7 +19,7 @@ async function start({
   sslKey,
   basePath = '/',
 } = {}) {
-  domain = domain + `:${port}`;
+  const domainLogging = domain + `:${port}`;
   if (!endWith(basePath, '/')) {
     basePath += '/';
   }
@@ -33,7 +33,7 @@ async function start({
     server.on('request', app.callback());
     wss.start(server);
   } else {
-    util.log(`starting server at ${domain}${basePath}`);
+    util.log(`starting server at ${domainLogging}${basePath}`);
     if (useHttps) {
       const cert = await fs.readFile(sslCert, 'utf8');
       const key = await fs.readFile(sslKey, 'utf8');
