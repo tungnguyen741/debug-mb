@@ -30,19 +30,11 @@
     "es5": "es-check es5 public/target.js test/demo.js",
     "start": "node server/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liriliri/chii.git"
-  },
   "keywords": [
     "devtools"
   ],
-  "author": "redhoodsu",
+  "author": "Tungnt",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/liriliri/chii/issues"
-  },
-  "homepage": "https://github.com/liriliri/chii#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
