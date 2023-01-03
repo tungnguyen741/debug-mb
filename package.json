@@ -25,7 +25,7 @@
     "lint:target": "eslint \"src/**/*.ts\"",
     "init:front_end": "cd devtools && rm -rf devtools-frontend && gclient sync --with_branch_heads --verbose && cd ../ && python3 script/apply_all_patches.py patches/config.json",
     "es5": "es-check es5 public/target.js test/demo.js",
-    "start":"node server/index.js"
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -68,6 +68,7 @@
     "koa-compress": "^4.0.1",
     "koa-router": "^8.0.8",
     "koa-send": "^5.0.0",
+    "koa-static": "^5.0.0",
     "licia": "^1.37.0",
     "request": "^2.88.2",
     "ws": "^7.2.3"

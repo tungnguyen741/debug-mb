@@ -1,5 +1,7 @@
 const Koa = require('koa');
+const serve = require('koa-static')
 const https = require('https');
+const path = require('path');
 
 const router = require('./middle/router');
 const compress = require('./middle/compress');
@@ -28,6 +30,10 @@ async function start({
   const wss = new WebSocketServer();
 
   app.use(compress()).use(router(wss.channelManager, process.env.NODE_ENV === 'production' ? domain : domainLogging, cdn, basePath));
+  app.use(serve(path.join(__dirname, '../../public/front_end')))
+  app.use(serve(path.join(__dirname, '/public')))
+  app.use(serve(path.join(__dirname, '../public')))
+  app.use(serve(path.join(__dirname, '../../public')))
 
   if (server) {
     server.on('request', app.callback());
