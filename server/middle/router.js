@@ -30,12 +30,12 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   });
 
   // if (cdn) {
-    router.get(`${basePath}front_end/chii_app.html`, async ctx => {
-      const tpl = await readTpl('chii_app');
-      ctx.body = tpl({
-        cdn,
-      });
-    });
+    // router.get(`${basePath}front_end/chii_app.html`, async ctx => {
+    //   const tpl = await readTpl('chii_app');
+    //   ctx.body = tpl({
+    //     cdn,
+    //   });
+    // });
   // }
 
   let timestamp = now();
