@@ -71,7 +71,7 @@ module.exports = function (channelManager, domain, cdn, basePath) {
 
     router.get(`${basePath}${prefix}/*`, async ctx => {
       await send(ctx, ctx.path.slice(basePath.length + prefix.length), {
-        root: path.resolve(__dirname, `../..${folder}`),
+        root: path.resolve(__dirname, `../..${folder}`).replace('/app', ''),
         maxAge,
       });
     });
@@ -80,7 +80,7 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   function createStaticFile(file) {
     router.get(`${basePath}${file}`, async ctx => {
       await send(ctx, file, {
-        root: path.resolve(__dirname, '../../public'),
+        root: path.resolve(__dirname, '../../public').replace('/app', ''),
         maxAge,
       });
     });
