@@ -9,7 +9,7 @@ const endWith = require('licia/endWith');
 const WebSocketServer = require('./lib/WebSocketServer');
 
 async function start({
-  port = 8080,
+  port = process.env.PORT || 8080,
   host,
   domain,
   server,
