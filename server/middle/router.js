@@ -62,16 +62,16 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   });
 
   function createStatic(prefix, folder) {
-    console.log('___createStatic RUN___')
-    console.log('folder:', folder)
-    console.log('GET PATH: ', `${basePath}${prefix}/*`)
-    console.log('ROOT PATH',path.resolve(__dirname, `../..${folder}`));
-    console.log('ROOT PATH2',path.join(__dirname, `../..${folder}`));
-    console.log('___END___')
-
     router.get(`${basePath}${prefix}/*`, async ctx => {
+      console.log('____createStatic____')
+      console.log('ctx.path:', ctx.path);
+      console.log('ctx slice', ctx.path.slice(basePath.length + prefix.length));
+      console.log('ROOT PATH', path.resolve(__dirname, `../..${folder}`));
+      console.log('DIR', path.resolve(__dirname));
+      console.log('folder', folder);
+      console.log('____createStatic END____\n\n\n')
       await send(ctx, ctx.path.slice(basePath.length + prefix.length), {
-        root: path.resolve(__dirname, `../..${folder}`).replace('/app', ''),
+        root: path.resolve(__dirname, `../..${folder}`),
         maxAge,
       });
     });
