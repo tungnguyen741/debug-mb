@@ -80,7 +80,7 @@ module.exports = function (channelManager, domain, cdn, basePath) {
   function createStaticFile(file) {
     router.get(`${basePath}${file}`, async ctx => {
       await send(ctx, file, {
-        root: path.resolve(__dirname, '../../public').replace('/app', ''),
+        root: path.resolve(__dirname, '../../public'),
         maxAge,
       });
     });
