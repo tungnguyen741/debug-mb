@@ -2,7 +2,7 @@
   "name": "chii",
   "version": "1.7.2",
   "description": "Chrome devtools framework",
-  "main": "./server/index.js",
+  "main": "./index.js",
   "bin": {
     "chii": "./bin/chii.js"
   },
@@ -28,7 +28,7 @@
     "lint:target": "eslint \"src/**/*.ts\"",
     "init:front_end": "cd devtools && rm -rf devtools-frontend && gclient sync --with_branch_heads --verbose && cd ../ && python3 script/apply_all_patches.py patches/config.json",
     "es5": "es-check es5 public/target.js test/demo.js",
-    "start": "node server/index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "devtools"
