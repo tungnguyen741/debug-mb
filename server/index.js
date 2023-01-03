@@ -11,7 +11,7 @@ const WebSocketServer = require('./lib/WebSocketServer');
 async function start({
   port = process.env.PORT || 8080,
   host,
-  domain,
+  domain = process.env.DOMAIN || 'localhost',
   server,
   cdn,
   https: useHttps,
@@ -19,7 +19,7 @@ async function start({
   sslKey,
   basePath = '/',
 } = {}) {
-  domain = `${process.env.DOMAIN || 'localhost'}` + process.env.NODE_ENV === 'production' ? '': `:${port}`;
+  domain = domain + `:${port}`;
   if (!endWith(basePath, '/')) {
     basePath += '/';
   }
