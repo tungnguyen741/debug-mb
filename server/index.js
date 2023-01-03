@@ -27,7 +27,7 @@ async function start({
   const app = new Koa();
   const wss = new WebSocketServer();
 
-  app.use(compress()).use(router(wss.channelManager, domain, cdn, basePath));
+  app.use(compress()).use(router(wss.channelManager, process.env.NODE_ENV === 'production' ? domain : domainLogging, cdn, basePath));
 
   if (server) {
     server.on('request', app.callback());
