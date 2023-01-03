@@ -1,1 +1,37 @@
-import*as e from"../../core/i18n/i18n.js";import*as i from"../../ui/legacy/legacy.js";const t={security:"Security",showSecurity:"Show Security"},r=e.i18n.registerUIStrings("panels/security/security-meta.ts",t),s=e.i18n.getLazilyComputedLocalizedString.bind(void 0,r);let c;i.ViewManager.registerViewExtension({location:"panel",id:"security",title:s(t.security),commandPrompt:s(t.showSecurity),order:80,persistence:"closeable",loadView:async()=>(await async function(){return c||(c=await import("./security.js")),c}()).SecurityPanel.SecurityPanel.instance()});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as i18n from '../../core/i18n/i18n.js';
+import * as UI from '../../ui/legacy/legacy.js';
+const UIStrings = {
+    /**
+      *@description Title of the security panel
+      */
+    security: 'Security',
+    /**
+      *@description Command to open the security panel
+      */
+    showSecurity: 'Show Security',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/security/security-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+let loadedSecurityModule;
+async function loadSecurityModule() {
+    if (!loadedSecurityModule) {
+        loadedSecurityModule = await import('./security.js');
+    }
+    return loadedSecurityModule;
+}
+UI.ViewManager.registerViewExtension({
+    location: "panel" /* PANEL */,
+    id: 'security',
+    title: i18nLazyString(UIStrings.security),
+    commandPrompt: i18nLazyString(UIStrings.showSecurity),
+    order: 80,
+    persistence: "closeable" /* CLOSEABLE */,
+    async loadView() {
+        const Security = await loadSecurityModule();
+        return Security.SecurityPanel.SecurityPanel.instance();
+    },
+});
+//# sourceMappingURL=security-meta.js.map

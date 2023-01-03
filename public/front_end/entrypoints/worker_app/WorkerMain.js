@@ -1,1 +1,51 @@
-import*as e from"../../core/common/common.js";import*as a from"../../core/i18n/i18n.js";import*as n from"../../core/sdk/sdk.js";import*as t from"../../panels/mobile_throttling/mobile_throttling.js";import*as r from"../../ui/legacy/components/utils/utils.js";const i={main:"Main"},o=a.i18n.registerUIStrings("entrypoints/worker_app/WorkerMain.ts",i),s=a.i18n.getLocalizedString.bind(void 0,o);let g;class c{static instance(e={forceNew:null}){const{forceNew:a}=e;return g&&!a||(g=new c),g}async run(){n.Connections.initMainConnection((async()=>{await n.TargetManager.TargetManager.instance().maybeAttachInitialTarget()||n.TargetManager.TargetManager.instance().createTarget("main",s(i.main),n.Target.Type.ServiceWorker,null)}),r.TargetDetachedDialog.TargetDetachedDialog.webSocketConnectionLost),new t.NetworkPanelIndicator.NetworkPanelIndicator}}e.Runnable.registerEarlyInitializationRunnable(c.instance),n.ChildTargetManager.ChildTargetManager.install((async({target:e,waitingForDebugger:a})=>{if(e.parentTarget()||e.type()!==n.Target.Type.ServiceWorker||!a)return;const t=e.model(n.DebuggerModel.DebuggerModel);t&&(t.isReadyToPause()||await t.once(n.DebuggerModel.Events.DebuggerIsReadyToPause),t.pause())}));export{c as WorkerMainImpl};
+// Copyright 2018 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as i18n from '../../core/i18n/i18n.js';
+import * as SDK from '../../core/sdk/sdk.js';
+import * as MobileThrottling from '../../panels/mobile_throttling/mobile_throttling.js';
+import * as Components from '../../ui/legacy/components/utils/utils.js';
+const UIStrings = {
+    /**
+    *@description Text that refers to the main target.
+    */
+    main: 'Main',
+};
+const str_ = i18n.i18n.registerUIStrings('entrypoints/worker_app/WorkerMain.ts', UIStrings);
+const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
+let workerMainImplInstance;
+export class WorkerMainImpl {
+    static instance(opts = { forceNew: null }) {
+        const { forceNew } = opts;
+        if (!workerMainImplInstance || forceNew) {
+            workerMainImplInstance = new WorkerMainImpl();
+        }
+        return workerMainImplInstance;
+    }
+    async run() {
+        SDK.Connections.initMainConnection(async () => {
+            if (await SDK.TargetManager.TargetManager.instance().maybeAttachInitialTarget()) {
+                return;
+            }
+            SDK.TargetManager.TargetManager.instance().createTarget('main', i18nString(UIStrings.main), SDK.Target.Type.ServiceWorker, null);
+        }, Components.TargetDetachedDialog.TargetDetachedDialog.webSocketConnectionLost);
+        new MobileThrottling.NetworkPanelIndicator.NetworkPanelIndicator();
+    }
+}
+Common.Runnable.registerEarlyInitializationRunnable(WorkerMainImpl.instance);
+SDK.ChildTargetManager.ChildTargetManager.install(async ({ target, waitingForDebugger }) => {
+    // Only pause the new worker if debugging SW - we are going through the pause on start checkbox.
+    if (target.parentTarget() || target.type() !== SDK.Target.Type.ServiceWorker || !waitingForDebugger) {
+        return;
+    }
+    const debuggerModel = target.model(SDK.DebuggerModel.DebuggerModel);
+    if (!debuggerModel) {
+        return;
+    }
+    if (!debuggerModel.isReadyToPause()) {
+        await debuggerModel.once(SDK.DebuggerModel.Events.DebuggerIsReadyToPause);
+    }
+    debuggerModel.pause();
+});
+//# sourceMappingURL=WorkerMain.js.map

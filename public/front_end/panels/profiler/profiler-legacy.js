@@ -1,1 +1,82 @@
-import*as e from"./profiler.js";self.Profiler=self.Profiler||{},Profiler=Profiler||{},Profiler.CPUProfileFlameChart=e.CPUProfileFlameChart.CPUProfileFlameChart,Profiler.CPUProfileView=e.CPUProfileView.CPUProfileView,Profiler.CPUProfileHeader=e.CPUProfileView.CPUProfileHeader,Profiler.HeapProfileView=e.HeapProfileView.HeapProfileView,Profiler.SamplingHeapProfileType=e.HeapProfileView.SamplingHeapProfileType,Profiler.SamplingHeapProfileNode=e.HeapProfileView.SamplingHeapProfileNode,Profiler.HeapProfilerPanel=e.HeapProfilerPanel.HeapProfilerPanel,Profiler.HeapSnapshotSortableDataGrid=e.HeapSnapshotDataGrids.HeapSnapshotSortableDataGrid,Profiler.HeapSnapshotSortableDataGridEvents=e.HeapSnapshotDataGrids.HeapSnapshotSortableDataGridEvents,Profiler.HeapSnapshotContainmentDataGrid=e.HeapSnapshotDataGrids.HeapSnapshotContainmentDataGrid,Profiler.HeapSnapshotRetainmentDataGrid=e.HeapSnapshotDataGrids.HeapSnapshotRetainmentDataGrid,Profiler.HeapSnapshotRetainmentDataGridEvents=e.HeapSnapshotDataGrids.HeapSnapshotRetainmentDataGridEvents,Profiler.HeapSnapshotConstructorsDataGrid=e.HeapSnapshotDataGrids.HeapSnapshotConstructorsDataGrid,Profiler.HeapSnapshotDiffDataGrid=e.HeapSnapshotDataGrids.HeapSnapshotDiffDataGrid,Profiler.HeapSnapshotGridNode=e.HeapSnapshotGridNodes.HeapSnapshotGridNode,Profiler.HeapSnapshotDiffNode=e.HeapSnapshotGridNodes.HeapSnapshotDiffNode,Profiler.HeapSnapshotProxy=e.HeapSnapshotProxy.HeapSnapshotProxy,Profiler.HeapSnapshotWorkerProxy=e.HeapSnapshotProxy.HeapSnapshotWorkerProxy,Profiler.HeapSnapshotProviderProxy=e.HeapSnapshotProxy.HeapSnapshotProviderProxy,Profiler.HeapSnapshotView=e.HeapSnapshotView.HeapSnapshotView,Profiler.HeapSnapshotProfileType=e.HeapSnapshotView.HeapSnapshotProfileType,Profiler.HeapProfileHeader=e.HeapSnapshotView.HeapProfileHeader,Profiler.HeapTimelineOverview=e.HeapTimelineOverview.HeapTimelineOverview,Profiler.IsolateSelector=e.IsolateSelector.IsolateSelector,Profiler.LiveHeapProfileView=e.LiveHeapProfileView.LiveHeapProfileView,Profiler.LiveHeapProfileView.ActionDelegate=e.LiveHeapProfileView.ActionDelegate,Profiler.ProfileDataGridNode=e.ProfileDataGrid.ProfileDataGridNode,Profiler.ProfileHeader=e.ProfileHeader.ProfileHeader,Profiler.ProfileHeader.Events=e.ProfileHeader.Events,Profiler.ProfileLauncherView=e.ProfileLauncherView.ProfileLauncherView,Profiler.ProfileType=e.ProfileHeader.ProfileType,Profiler.ProfileTypeRegistry=e.ProfileTypeRegistry.ProfileTypeRegistry,Profiler.ProfileTypeRegistry.instance=e.ProfileTypeRegistry.instance,Profiler.ProfileView=e.ProfileView.ProfileView,Profiler.ProfilesPanel=e.ProfilesPanel.ProfilesPanel,Profiler.ProfileTypeSidebarSection=e.ProfilesPanel.ProfileTypeSidebarSection,Profiler.JSProfilerPanel=e.ProfilesPanel.JSProfilerPanel;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as ProfilerModule from './profiler.js';
+self.Profiler = self.Profiler || {};
+Profiler = Profiler || {};
+/** @constructor */
+Profiler.CPUProfileFlameChart = ProfilerModule.CPUProfileFlameChart.CPUProfileFlameChart;
+/** @constructor */
+Profiler.CPUProfileView = ProfilerModule.CPUProfileView.CPUProfileView;
+/** @constructor */
+Profiler.CPUProfileHeader = ProfilerModule.CPUProfileView.CPUProfileHeader;
+/** @constructor */
+Profiler.HeapProfileView = ProfilerModule.HeapProfileView.HeapProfileView;
+/** @constructor */
+Profiler.SamplingHeapProfileType = ProfilerModule.HeapProfileView.SamplingHeapProfileType;
+/** @constructor */
+Profiler.SamplingHeapProfileNode = ProfilerModule.HeapProfileView.SamplingHeapProfileNode;
+/** @constructor */
+Profiler.HeapProfilerPanel = ProfilerModule.HeapProfilerPanel.HeapProfilerPanel;
+/** @constructor */
+Profiler.HeapSnapshotSortableDataGrid = ProfilerModule.HeapSnapshotDataGrids.HeapSnapshotSortableDataGrid;
+/** @enum {symbol} */
+Profiler.HeapSnapshotSortableDataGridEvents = ProfilerModule.HeapSnapshotDataGrids.HeapSnapshotSortableDataGridEvents;
+/** @constructor */
+Profiler.HeapSnapshotContainmentDataGrid = ProfilerModule.HeapSnapshotDataGrids.HeapSnapshotContainmentDataGrid;
+/** @constructor */
+Profiler.HeapSnapshotRetainmentDataGrid = ProfilerModule.HeapSnapshotDataGrids.HeapSnapshotRetainmentDataGrid;
+/** @enum {symbol} */
+Profiler.HeapSnapshotRetainmentDataGridEvents =
+    ProfilerModule.HeapSnapshotDataGrids.HeapSnapshotRetainmentDataGridEvents;
+/** @constructor */
+Profiler.HeapSnapshotConstructorsDataGrid = ProfilerModule.HeapSnapshotDataGrids.HeapSnapshotConstructorsDataGrid;
+/** @constructor */
+Profiler.HeapSnapshotDiffDataGrid = ProfilerModule.HeapSnapshotDataGrids.HeapSnapshotDiffDataGrid;
+/** @constructor */
+Profiler.HeapSnapshotGridNode = ProfilerModule.HeapSnapshotGridNodes.HeapSnapshotGridNode;
+/** @constructor */
+Profiler.HeapSnapshotDiffNode = ProfilerModule.HeapSnapshotGridNodes.HeapSnapshotDiffNode;
+/** @constructor */
+Profiler.HeapSnapshotProxy = ProfilerModule.HeapSnapshotProxy.HeapSnapshotProxy;
+/** @constructor */
+Profiler.HeapSnapshotWorkerProxy = ProfilerModule.HeapSnapshotProxy.HeapSnapshotWorkerProxy;
+/** @constructor */
+Profiler.HeapSnapshotProviderProxy = ProfilerModule.HeapSnapshotProxy.HeapSnapshotProviderProxy;
+/** @constructor */
+Profiler.HeapSnapshotView = ProfilerModule.HeapSnapshotView.HeapSnapshotView;
+/** @constructor */
+Profiler.HeapSnapshotProfileType = ProfilerModule.HeapSnapshotView.HeapSnapshotProfileType;
+/** @constructor */
+Profiler.HeapProfileHeader = ProfilerModule.HeapSnapshotView.HeapProfileHeader;
+/** @constructor */
+Profiler.HeapTimelineOverview = ProfilerModule.HeapTimelineOverview.HeapTimelineOverview;
+/** @constructor */
+Profiler.IsolateSelector = ProfilerModule.IsolateSelector.IsolateSelector;
+/** @constructor */
+Profiler.LiveHeapProfileView = ProfilerModule.LiveHeapProfileView.LiveHeapProfileView;
+/** @constructor */
+Profiler.LiveHeapProfileView.ActionDelegate = ProfilerModule.LiveHeapProfileView.ActionDelegate;
+/** @constructor */
+Profiler.ProfileDataGridNode = ProfilerModule.ProfileDataGrid.ProfileDataGridNode;
+/** @constructor */
+Profiler.ProfileHeader = ProfilerModule.ProfileHeader.ProfileHeader;
+/** @enum {symbol} */
+Profiler.ProfileHeader.Events = ProfilerModule.ProfileHeader.Events;
+/** @constructor */
+Profiler.ProfileLauncherView = ProfilerModule.ProfileLauncherView.ProfileLauncherView;
+/** @constructor */
+Profiler.ProfileType = ProfilerModule.ProfileHeader.ProfileType;
+/** @constructor */
+Profiler.ProfileTypeRegistry = ProfilerModule.ProfileTypeRegistry.ProfileTypeRegistry;
+Profiler.ProfileTypeRegistry.instance = ProfilerModule.ProfileTypeRegistry.instance;
+/** @constructor */
+Profiler.ProfileView = ProfilerModule.ProfileView.ProfileView;
+/** @constructor */
+Profiler.ProfilesPanel = ProfilerModule.ProfilesPanel.ProfilesPanel;
+/** @constructor */
+Profiler.ProfileTypeSidebarSection = ProfilerModule.ProfilesPanel.ProfileTypeSidebarSection;
+/** @constructor */
+Profiler.JSProfilerPanel = ProfilerModule.ProfilesPanel.JSProfilerPanel;
+//# sourceMappingURL=profiler-legacy.js.map

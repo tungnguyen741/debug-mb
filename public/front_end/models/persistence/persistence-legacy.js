@@ -1,1 +1,44 @@
-import*as e from"./persistence.js";self.Persistence=self.Persistence||{},Persistence=Persistence||{},Persistence.Automapping=e.Automapping.Automapping,Persistence.AutomappingStatus=e.Automapping.AutomappingStatus,Persistence.FileSystemWorkspaceBinding=e.FileSystemWorkspaceBinding.FileSystemWorkspaceBinding,Persistence.FileSystemWorkspaceBinding.FileSystem=e.FileSystemWorkspaceBinding.FileSystem,Persistence.IsolatedFileSystem=e.IsolatedFileSystem.IsolatedFileSystem,Persistence.IsolatedFileSystemManager=e.IsolatedFileSystemManager.IsolatedFileSystemManager,Persistence.IsolatedFileSystemManager.Events=e.IsolatedFileSystemManager.Events,Persistence.NetworkPersistenceManager=e.NetworkPersistenceManager.NetworkPersistenceManager,Persistence.NetworkPersistenceManager.Events=e.NetworkPersistenceManager.Events,Persistence.PersistenceActions={},Persistence.PersistenceActions.ContextMenuProvider=e.PersistenceActions.ContextMenuProvider,Persistence.Persistence=e.Persistence.PersistenceImpl,Persistence.Persistence.Events=e.Persistence.Events,Persistence.Persistence._NodeShebang=e.Persistence.NodeShebang,Persistence.Persistence._NodePrefix=e.Persistence.NodePrefix,Persistence.Persistence._NodeSuffix=e.Persistence.NodeSuffix,Persistence.PathEncoder=e.Persistence.PathEncoder,Persistence.PersistenceBinding=e.Persistence.PersistenceBinding,Persistence.PersistenceUtils=e.PersistenceUtils.PersistenceUtils,Persistence.PlatformFileSystem=e.PlatformFileSystem.PlatformFileSystem,Persistence.WorkspaceSettingsTab=e.WorkspaceSettingsTab.WorkspaceSettingsTab;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as PersistenceModule from './persistence.js';
+self.Persistence = self.Persistence || {};
+Persistence = Persistence || {};
+/** @constructor */
+Persistence.Automapping = PersistenceModule.Automapping.Automapping;
+/** @constructor */
+Persistence.AutomappingStatus = PersistenceModule.Automapping.AutomappingStatus;
+/** @constructor */
+Persistence.FileSystemWorkspaceBinding = PersistenceModule.FileSystemWorkspaceBinding.FileSystemWorkspaceBinding;
+/** @constructor */
+Persistence.FileSystemWorkspaceBinding.FileSystem = PersistenceModule.FileSystemWorkspaceBinding.FileSystem;
+/** @constructor */
+Persistence.IsolatedFileSystem = PersistenceModule.IsolatedFileSystem.IsolatedFileSystem;
+/** @constructor */
+Persistence.IsolatedFileSystemManager = PersistenceModule.IsolatedFileSystemManager.IsolatedFileSystemManager;
+/** @enum {symbol} */
+Persistence.IsolatedFileSystemManager.Events = PersistenceModule.IsolatedFileSystemManager.Events;
+/** @constructor */
+Persistence.NetworkPersistenceManager = PersistenceModule.NetworkPersistenceManager.NetworkPersistenceManager;
+Persistence.NetworkPersistenceManager.Events = PersistenceModule.NetworkPersistenceManager.Events;
+Persistence.PersistenceActions = {};
+/** @constructor */
+Persistence.PersistenceActions.ContextMenuProvider = PersistenceModule.PersistenceActions.ContextMenuProvider;
+/** @constructor */
+Persistence.Persistence = PersistenceModule.Persistence.PersistenceImpl;
+Persistence.Persistence.Events = PersistenceModule.Persistence.Events;
+Persistence.Persistence._NodeShebang = PersistenceModule.Persistence.NodeShebang;
+Persistence.Persistence._NodePrefix = PersistenceModule.Persistence.NodePrefix;
+Persistence.Persistence._NodeSuffix = PersistenceModule.Persistence.NodeSuffix;
+/** @constructor */
+Persistence.PathEncoder = PersistenceModule.Persistence.PathEncoder;
+/** @constructor */
+Persistence.PersistenceBinding = PersistenceModule.Persistence.PersistenceBinding;
+/** @constructor */
+Persistence.PersistenceUtils = PersistenceModule.PersistenceUtils.PersistenceUtils;
+/** @constructor */
+Persistence.PlatformFileSystem = PersistenceModule.PlatformFileSystem.PlatformFileSystem;
+/** @constructor */
+Persistence.WorkspaceSettingsTab = PersistenceModule.WorkspaceSettingsTab.WorkspaceSettingsTab;
+//# sourceMappingURL=persistence-legacy.js.map

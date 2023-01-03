@@ -1,1 +1,21 @@
-import*as o from"./protocol_client.js";self.ProtocolClient=self.ProtocolClient||{},ProtocolClient=ProtocolClient||{},ProtocolClient.DevToolsStubErrorCode=o.InspectorBackend.DevToolsStubErrorCode,ProtocolClient.SessionRouter=o.InspectorBackend.SessionRouter,ProtocolClient.InspectorBackend=o.InspectorBackend.InspectorBackend,ProtocolClient.Connection=o.InspectorBackend.Connection,ProtocolClient.inspectorBackend=o.InspectorBackend.inspectorBackend,ProtocolClient.test=o.InspectorBackend.test,ProtocolClient.TargetBase=o.InspectorBackend.TargetBase,ProtocolClient.NodeURL=o.NodeURL.NodeURL;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as ProtocolClientModule from './protocol_client.js';
+self.ProtocolClient = self.ProtocolClient || {};
+ProtocolClient = ProtocolClient || {};
+ProtocolClient.DevToolsStubErrorCode = ProtocolClientModule.InspectorBackend.DevToolsStubErrorCode;
+ProtocolClient.SessionRouter = ProtocolClientModule.InspectorBackend.SessionRouter;
+/** @constructor */
+ProtocolClient.InspectorBackend = ProtocolClientModule.InspectorBackend.InspectorBackend;
+/** @interface */
+ProtocolClient.Connection = ProtocolClientModule.InspectorBackend.Connection;
+/** @type {!ProtocolClientModule.InspectorBackend.InspectorBackend} */
+ProtocolClient.inspectorBackend = ProtocolClientModule.InspectorBackend.inspectorBackend;
+ProtocolClient.test = ProtocolClientModule.InspectorBackend.test;
+/** @constructor */
+ProtocolClient.TargetBase = ProtocolClientModule.InspectorBackend.TargetBase;
+/** @constructor */
+ProtocolClient.NodeURL = ProtocolClientModule.NodeURL.NodeURL;
+//# sourceMappingURL=protocol_client-legacy.js.map

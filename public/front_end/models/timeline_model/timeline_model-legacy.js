@@ -1,1 +1,73 @@
-import*as e from"./timeline_model.js";self.TimelineModel=self.TimelineModel||{},TimelineModel=TimelineModel||{},TimelineModel.TimelineFrameModel=e.TimelineFrameModel.TimelineFrameModel,TimelineModel.TracingFrameLayerTree=e.TimelineFrameModel.TracingFrameLayerTree,TimelineModel.TimelineFrame=e.TimelineFrameModel.TimelineFrame,TimelineModel.LayerPaintEvent=e.TimelineFrameModel.LayerPaintEvent,TimelineModel.PendingFrame=e.TimelineFrameModel.PendingFrame,TimelineModel.TimelineIRModel=e.TimelineIRModel.TimelineIRModel,TimelineModel.TimelineIRModel.Phases=e.TimelineIRModel.Phases,TimelineModel.TimelineIRModel.InputEvents=e.TimelineIRModel.InputEvents,TimelineModel.TimelineJSProfileProcessor=e.TimelineJSProfile.TimelineJSProfileProcessor,TimelineModel.TimelineModel=e.TimelineModel.TimelineModelImpl,TimelineModel.TimelineModel.Track=e.TimelineModel.Track,TimelineModel.TimelineModel.TrackType=e.TimelineModel.TrackType,TimelineModel.TimelineModel.RecordType=e.TimelineModel.RecordType,TimelineModel.TimelineModel.PageFrame=e.TimelineModel.PageFrame,TimelineModel.TimelineModel.NetworkRequest=e.TimelineModel.NetworkRequest,TimelineModel.InvalidationTrackingEvent=e.TimelineModel.InvalidationTrackingEvent,TimelineModel.InvalidationTracker=e.TimelineModel.InvalidationTracker,TimelineModel.TimelineAsyncEventTracker=e.TimelineModel.TimelineAsyncEventTracker,TimelineModel.TimelineData=e.TimelineModel.TimelineData,TimelineModel.TimelineModelFilter=e.TimelineModelFilter.TimelineModelFilter,TimelineModel.TimelineVisibleEventsFilter=e.TimelineModelFilter.TimelineVisibleEventsFilter,TimelineModel.TimelineInvisibleEventsFilter=e.TimelineModelFilter.TimelineInvisibleEventsFilter,TimelineModel.ExclusiveNameFilter=e.TimelineModelFilter.ExclusiveNameFilter,TimelineModel.TimelineProfileTree={},TimelineModel.TimelineProfileTree.Node=e.TimelineProfileTree.Node,TimelineModel.TimelineProfileTree.TopDownNode=e.TimelineProfileTree.TopDownNode,TimelineModel.TimelineProfileTree.TopDownRootNode=e.TimelineProfileTree.TopDownRootNode,TimelineModel.TimelineProfileTree.BottomUpRootNode=e.TimelineProfileTree.BottomUpRootNode,TimelineModel.TimelineProfileTree.GroupNode=e.TimelineProfileTree.GroupNode,TimelineModel.TimelineProfileTree.BottomUpNode=e.TimelineProfileTree.BottomUpNode,TimelineModel.TimelineProfileTree.eventURL=e.TimelineProfileTree.eventURL,TimelineModel.TimelineProfileTree.eventStackFrame=e.TimelineProfileTree.eventStackFrame,TimelineModel.TracingLayerTree=e.TracingLayerTree.TracingLayerTree,TimelineModel.TracingLayer=e.TracingLayerTree.TracingLayer;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as TimelineModelModule from './timeline_model.js';
+self.TimelineModel = self.TimelineModel || {};
+TimelineModel = TimelineModel || {};
+/** @constructor */
+TimelineModel.TimelineFrameModel = TimelineModelModule.TimelineFrameModel.TimelineFrameModel;
+/** @constructor */
+TimelineModel.TracingFrameLayerTree = TimelineModelModule.TimelineFrameModel.TracingFrameLayerTree;
+/** @constructor */
+TimelineModel.TimelineFrame = TimelineModelModule.TimelineFrameModel.TimelineFrame;
+/** @constructor */
+TimelineModel.LayerPaintEvent = TimelineModelModule.TimelineFrameModel.LayerPaintEvent;
+/** @constructor */
+TimelineModel.PendingFrame = TimelineModelModule.TimelineFrameModel.PendingFrame;
+/** @constructor */
+TimelineModel.TimelineIRModel = TimelineModelModule.TimelineIRModel.TimelineIRModel;
+/** @enum {string} */
+TimelineModel.TimelineIRModel.Phases = TimelineModelModule.TimelineIRModel.Phases;
+/** @enum {string} */
+TimelineModel.TimelineIRModel.InputEvents = TimelineModelModule.TimelineIRModel.InputEvents;
+/** @constructor */
+TimelineModel.TimelineJSProfileProcessor = TimelineModelModule.TimelineJSProfile.TimelineJSProfileProcessor;
+/** @constructor */
+TimelineModel.TimelineModel = TimelineModelModule.TimelineModel.TimelineModelImpl;
+/** @constructor */
+TimelineModel.TimelineModel.Track = TimelineModelModule.TimelineModel.Track;
+/** @enum {symbol} */
+TimelineModel.TimelineModel.TrackType = TimelineModelModule.TimelineModel.TrackType;
+/** @enum {string} */
+TimelineModel.TimelineModel.RecordType = TimelineModelModule.TimelineModel.RecordType;
+/** @constructor */
+TimelineModel.TimelineModel.PageFrame = TimelineModelModule.TimelineModel.PageFrame;
+/** @constructor */
+TimelineModel.TimelineModel.NetworkRequest = TimelineModelModule.TimelineModel.NetworkRequest;
+/** @constructor */
+TimelineModel.InvalidationTrackingEvent = TimelineModelModule.TimelineModel.InvalidationTrackingEvent;
+/** @constructor */
+TimelineModel.InvalidationTracker = TimelineModelModule.TimelineModel.InvalidationTracker;
+/** @constructor */
+TimelineModel.TimelineAsyncEventTracker = TimelineModelModule.TimelineModel.TimelineAsyncEventTracker;
+/** @constructor */
+TimelineModel.TimelineData = TimelineModelModule.TimelineModel.TimelineData;
+/** @constructor */
+TimelineModel.TimelineModelFilter = TimelineModelModule.TimelineModelFilter.TimelineModelFilter;
+/** @constructor */
+TimelineModel.TimelineVisibleEventsFilter = TimelineModelModule.TimelineModelFilter.TimelineVisibleEventsFilter;
+/** @constructor */
+TimelineModel.TimelineInvisibleEventsFilter = TimelineModelModule.TimelineModelFilter.TimelineInvisibleEventsFilter;
+/** @constructor */
+TimelineModel.ExclusiveNameFilter = TimelineModelModule.TimelineModelFilter.ExclusiveNameFilter;
+TimelineModel.TimelineProfileTree = {};
+/** @constructor */
+TimelineModel.TimelineProfileTree.Node = TimelineModelModule.TimelineProfileTree.Node;
+/** @constructor */
+TimelineModel.TimelineProfileTree.TopDownNode = TimelineModelModule.TimelineProfileTree.TopDownNode;
+/** @constructor */
+TimelineModel.TimelineProfileTree.TopDownRootNode = TimelineModelModule.TimelineProfileTree.TopDownRootNode;
+/** @constructor */
+TimelineModel.TimelineProfileTree.BottomUpRootNode = TimelineModelModule.TimelineProfileTree.BottomUpRootNode;
+/** @constructor */
+TimelineModel.TimelineProfileTree.GroupNode = TimelineModelModule.TimelineProfileTree.GroupNode;
+/** @constructor */
+TimelineModel.TimelineProfileTree.BottomUpNode = TimelineModelModule.TimelineProfileTree.BottomUpNode;
+TimelineModel.TimelineProfileTree.eventURL = TimelineModelModule.TimelineProfileTree.eventURL;
+TimelineModel.TimelineProfileTree.eventStackFrame = TimelineModelModule.TimelineProfileTree.eventStackFrame;
+/** @constructor */
+TimelineModel.TracingLayerTree = TimelineModelModule.TracingLayerTree.TracingLayerTree;
+/** @constructor */
+TimelineModel.TracingLayer = TimelineModelModule.TracingLayerTree.TracingLayer;
+//# sourceMappingURL=timeline_model-legacy.js.map

@@ -1,1 +1,166 @@
-import*as e from"../../core/common/common.js";import*as t from"../../core/i18n/i18n.js";import*as o from"../../core/root/root.js";import*as i from"../../core/sdk/sdk.js";import*as r from"../../ui/legacy/legacy.js";let a;const n={memory:"Memory",liveHeapProfile:"Live Heap Profile",startRecordingHeapAllocations:"Start recording heap allocations",stopRecordingHeapAllocations:"Stop recording heap allocations",startRecordingHeapAllocationsAndReload:"Start recording heap allocations and reload the page",startStopRecording:"Start/stop recording",showNativeFunctions:"Show native functions in JS Profile",showMemory:"Show Memory",showLiveHeapProfile:"Show Live Heap Profile"},l=t.i18n.registerUIStrings("panels/profiler/profiler-meta.ts",n),s=t.i18n.getLazilyComputedLocalizedString.bind(void 0,l);async function c(){return a||(a=await import("./profiler.js")),a}r.ViewManager.registerViewExtension({location:"panel",id:"heap_profiler",commandPrompt:s(n.showMemory),title:s(n.memory),order:60,loadView:async()=>(await c()).HeapProfilerPanel.HeapProfilerPanel.instance()}),r.ViewManager.registerViewExtension({location:"drawer-view",id:"live_heap_profile",commandPrompt:s(n.showLiveHeapProfile),title:s(n.liveHeapProfile),persistence:"closeable",order:100,loadView:async()=>(await c()).LiveHeapProfileView.LiveHeapProfileView.instance(),experiment:o.Runtime.ExperimentName.LIVE_HEAP_PROFILE}),r.ActionRegistration.registerActionExtension({actionId:"live-heap-profile.toggle-recording",iconClass:"largeicon-start-recording",toggleable:!0,toggledIconClass:"largeicon-stop-recording",toggleWithRedColor:!0,loadActionDelegate:async()=>(await c()).LiveHeapProfileView.ActionDelegate.instance(),category:r.ActionRegistration.ActionCategory.MEMORY,experiment:o.Runtime.ExperimentName.LIVE_HEAP_PROFILE,options:[{value:!0,title:s(n.startRecordingHeapAllocations)},{value:!1,title:s(n.stopRecordingHeapAllocations)}]}),r.ActionRegistration.registerActionExtension({actionId:"live-heap-profile.start-with-reload",iconClass:"largeicon-refresh",loadActionDelegate:async()=>(await c()).LiveHeapProfileView.ActionDelegate.instance(),category:r.ActionRegistration.ActionCategory.MEMORY,experiment:o.Runtime.ExperimentName.LIVE_HEAP_PROFILE,title:s(n.startRecordingHeapAllocationsAndReload)}),r.ActionRegistration.registerActionExtension({actionId:"profiler.heap-toggle-recording",category:r.ActionRegistration.ActionCategory.MEMORY,iconClass:"largeicon-start-recording",title:s(n.startStopRecording),toggleable:!0,toggledIconClass:"largeicon-stop-recording",toggleWithRedColor:!0,contextTypes(){return e=e=>[e.HeapProfilerPanel.HeapProfilerPanel],void 0===a?[]:e(a);var e},loadActionDelegate:async()=>(await c()).HeapProfilerPanel.HeapProfilerPanel.instance(),bindings:[{platform:"windows,linux",shortcut:"Ctrl+E"},{platform:"mac",shortcut:"Meta+E"}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.PERFORMANCE,storageType:e.Settings.SettingStorageType.Synced,title:s(n.showNativeFunctions),settingName:"showNativeFunctionsInJSProfile",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0}),r.ContextMenu.registerProvider({contextTypes:()=>[i.RemoteObject.RemoteObject],loadProvider:async()=>(await c()).HeapProfilerPanel.HeapProfilerPanel.instance(),experiment:void 0});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as i18n from '../../core/i18n/i18n.js';
+import * as Root from '../../core/root/root.js';
+import * as SDK from '../../core/sdk/sdk.js';
+import * as UI from '../../ui/legacy/legacy.js';
+let loadedProfilerModule;
+const UIStrings = {
+    /**
+    *@description Title for the profiler tab
+    */
+    memory: 'Memory',
+    /**
+    *@description Title of the 'Live Heap Profile' tool in the bottom drawer
+    */
+    liveHeapProfile: 'Live Heap Profile',
+    /**
+    *@description Title of an action under the Performance category that can be invoked through the Command Menu
+    */
+    startRecordingHeapAllocations: 'Start recording heap allocations',
+    /**
+    *@description Title of an action under the Performance category that can be invoked through the Command Menu
+    */
+    stopRecordingHeapAllocations: 'Stop recording heap allocations',
+    /**
+    *@description Title of an action in the live heap profile tool to start with reload
+    */
+    startRecordingHeapAllocationsAndReload: 'Start recording heap allocations and reload the page',
+    /**
+    *@description Text in the Shortcuts page to explain a keyboard shortcut (start/stop recording performance)
+    */
+    startStopRecording: 'Start/stop recording',
+    /**
+    *@description Title of a setting under the Performance category in Settings
+    */
+    showNativeFunctions: 'Show native functions in JS Profile',
+    /**
+    *@description Command for shwoing the profiler tab
+    */
+    showMemory: 'Show Memory',
+    /**
+    *@description Command for showing the 'Live Heap Profile' tool in the bottom drawer
+    */
+    showLiveHeapProfile: 'Show Live Heap Profile',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/profiler/profiler-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+async function loadProfilerModule() {
+    if (!loadedProfilerModule) {
+        loadedProfilerModule = await import('./profiler.js');
+    }
+    return loadedProfilerModule;
+}
+function maybeRetrieveContextTypes(getClassCallBack) {
+    if (loadedProfilerModule === undefined) {
+        return [];
+    }
+    return getClassCallBack(loadedProfilerModule);
+}
+UI.ViewManager.registerViewExtension({
+    location: "panel" /* PANEL */,
+    id: 'heap_profiler',
+    commandPrompt: i18nLazyString(UIStrings.showMemory),
+    title: i18nLazyString(UIStrings.memory),
+    order: 60,
+    async loadView() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.HeapProfilerPanel.HeapProfilerPanel.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    location: "drawer-view" /* DRAWER_VIEW */,
+    id: 'live_heap_profile',
+    commandPrompt: i18nLazyString(UIStrings.showLiveHeapProfile),
+    title: i18nLazyString(UIStrings.liveHeapProfile),
+    persistence: "closeable" /* CLOSEABLE */,
+    order: 100,
+    async loadView() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.LiveHeapProfileView.LiveHeapProfileView.instance();
+    },
+    experiment: Root.Runtime.ExperimentName.LIVE_HEAP_PROFILE,
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'live-heap-profile.toggle-recording',
+    iconClass: "largeicon-start-recording" /* LARGEICON_START_RECORDING */,
+    toggleable: true,
+    toggledIconClass: "largeicon-stop-recording" /* LARGEICON_STOP_RECORDING */,
+    toggleWithRedColor: true,
+    async loadActionDelegate() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.LiveHeapProfileView.ActionDelegate.instance();
+    },
+    category: UI.ActionRegistration.ActionCategory.MEMORY,
+    experiment: Root.Runtime.ExperimentName.LIVE_HEAP_PROFILE,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.startRecordingHeapAllocations),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.stopRecordingHeapAllocations),
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'live-heap-profile.start-with-reload',
+    iconClass: "largeicon-refresh" /* LARGEICON_REFRESH */,
+    async loadActionDelegate() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.LiveHeapProfileView.ActionDelegate.instance();
+    },
+    category: UI.ActionRegistration.ActionCategory.MEMORY,
+    experiment: Root.Runtime.ExperimentName.LIVE_HEAP_PROFILE,
+    title: i18nLazyString(UIStrings.startRecordingHeapAllocationsAndReload),
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'profiler.heap-toggle-recording',
+    category: UI.ActionRegistration.ActionCategory.MEMORY,
+    iconClass: "largeicon-start-recording" /* LARGEICON_START_RECORDING */,
+    title: i18nLazyString(UIStrings.startStopRecording),
+    toggleable: true,
+    toggledIconClass: "largeicon-stop-recording" /* LARGEICON_STOP_RECORDING */,
+    toggleWithRedColor: true,
+    contextTypes() {
+        return maybeRetrieveContextTypes(Profiler => [Profiler.HeapProfilerPanel.HeapProfilerPanel]);
+    },
+    async loadActionDelegate() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.HeapProfilerPanel.HeapProfilerPanel.instance();
+    },
+    bindings: [
+        {
+            platform: "windows,linux" /* WindowsLinux */,
+            shortcut: 'Ctrl+E',
+        },
+        {
+            platform: "mac" /* Mac */,
+            shortcut: 'Meta+E',
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.PERFORMANCE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.showNativeFunctions),
+    settingName: 'showNativeFunctionsInJSProfile',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+});
+UI.ContextMenu.registerProvider({
+    contextTypes() {
+        return [
+            SDK.RemoteObject.RemoteObject,
+        ];
+    },
+    async loadProvider() {
+        const Profiler = await loadProfilerModule();
+        return Profiler.HeapProfilerPanel.HeapProfilerPanel.instance();
+    },
+    experiment: undefined,
+});
+//# sourceMappingURL=profiler-meta.js.map

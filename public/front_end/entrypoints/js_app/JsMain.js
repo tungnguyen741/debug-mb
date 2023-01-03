@@ -1,1 +1,35 @@
-import*as n from"../../core/common/common.js";import*as e from"../../core/host/host.js";import*as t from"../../core/i18n/i18n.js";import*as i from"../../core/sdk/sdk.js";import*as o from"../../ui/legacy/components/utils/utils.js";const r={main:"Main"},a=t.i18n.registerUIStrings("entrypoints/js_app/JsMain.ts",r),s=t.i18n.getLocalizedString.bind(void 0,a);let c;class g{static instance(n={forceNew:null}){const{forceNew:e}=n;return c&&!e||(c=new g),c}async run(){e.userMetrics.actionTaken(e.UserMetrics.Action.ConnectToNodeJSDirectly),i.Connections.initMainConnection((async()=>{i.TargetManager.TargetManager.instance().createTarget("main",s(r.main),i.Target.Type.Node,null).runtimeAgent().invoke_runIfWaitingForDebugger()}),o.TargetDetachedDialog.TargetDetachedDialog.webSocketConnectionLost)}}n.Runnable.registerEarlyInitializationRunnable(g.instance);export{g as JsMainImpl};
+// Copyright 2018 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as Host from '../../core/host/host.js';
+import * as i18n from '../../core/i18n/i18n.js';
+import * as SDK from '../../core/sdk/sdk.js';
+import * as Components from '../../ui/legacy/components/utils/utils.js';
+const UIStrings = {
+    /**
+    *@description Text that refers to the main target.
+    */
+    main: 'Main',
+};
+const str_ = i18n.i18n.registerUIStrings('entrypoints/js_app/JsMain.ts', UIStrings);
+const i18nString = i18n.i18n.getLocalizedString.bind(undefined, str_);
+let jsMainImplInstance;
+export class JsMainImpl {
+    static instance(opts = { forceNew: null }) {
+        const { forceNew } = opts;
+        if (!jsMainImplInstance || forceNew) {
+            jsMainImplInstance = new JsMainImpl();
+        }
+        return jsMainImplInstance;
+    }
+    async run() {
+        Host.userMetrics.actionTaken(Host.UserMetrics.Action.ConnectToNodeJSDirectly);
+        SDK.Connections.initMainConnection(async () => {
+            const target = SDK.TargetManager.TargetManager.instance().createTarget('main', i18nString(UIStrings.main), SDK.Target.Type.Node, null);
+            target.runtimeAgent().invoke_runIfWaitingForDebugger();
+        }, Components.TargetDetachedDialog.TargetDetachedDialog.webSocketConnectionLost);
+    }
+}
+Common.Runnable.registerEarlyInitializationRunnable(JsMainImpl.instance);
+//# sourceMappingURL=JsMain.js.map

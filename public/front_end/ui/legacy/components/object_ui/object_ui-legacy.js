@@ -1,1 +1,49 @@
-import*as e from"./object_ui.js";self.ObjectUI=self.ObjectUI||{},ObjectUI=ObjectUI||{},ObjectUI.CustomPreviewComponent=e.CustomPreviewComponent.CustomPreviewComponent,ObjectUI.JavaScriptREPL=e.JavaScriptREPL.JavaScriptREPL,Object.defineProperty(ObjectUI.JavaScriptREPL,"_MaxLengthForEvaluation",{set:e.JavaScriptREPL.setMaxLengthForEvaluation,get:e.JavaScriptREPL.getMaxLengthForEvaluation}),ObjectUI.ObjectPopoverHelper=e.ObjectPopoverHelper.ObjectPopoverHelper,ObjectUI.ArrayGroupingTreeElement=e.ObjectPropertiesSection.ArrayGroupingTreeElement,ObjectUI.ExpandableTextPropertyValue=e.ObjectPropertiesSection.ExpandableTextPropertyValue,ObjectUI.ObjectPropertiesSection=e.ObjectPropertiesSection.ObjectPropertiesSection,Object.defineProperty(ObjectUI.ObjectPropertiesSection,"_maxRenderableStringLength",{set:e.ObjectPropertiesSection.setMaxRenderableStringLength,get:e.ObjectPropertiesSection.getMaxRenderableStringLength}),ObjectUI.ObjectPropertiesSection.getObjectPropertiesSectionFrom=e.ObjectPropertiesSection.getObjectPropertiesSectionFrom,ObjectUI.ObjectPropertiesSectionsTreeOutline=e.ObjectPropertiesSection.ObjectPropertiesSectionsTreeOutline,ObjectUI.ObjectPropertiesSection.RootElement=e.ObjectPropertiesSection.RootElement,ObjectUI.ObjectPropertiesSection.Renderer=e.ObjectPropertiesSection.Renderer,ObjectUI.ObjectPropertyTreeElement=e.ObjectPropertiesSection.ObjectPropertyTreeElement,ObjectUI.ObjectPropertyPrompt=e.ObjectPropertiesSection.ObjectPropertyPrompt,ObjectUI.ObjectPropertiesSectionsTreeExpandController=e.ObjectPropertiesSection.ObjectPropertiesSectionsTreeExpandController,ObjectUI.RemoteObjectPreviewFormatter=e.RemoteObjectPreviewFormatter.RemoteObjectPreviewFormatter;
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+// @ts-nocheck
+import * as ObjectUIModule from './object_ui.js';
+self.ObjectUI = self.ObjectUI || {};
+ObjectUI = ObjectUI || {};
+/** @constructor */
+ObjectUI.CustomPreviewComponent = ObjectUIModule.CustomPreviewComponent.CustomPreviewComponent;
+/** @constructor */
+ObjectUI.JavaScriptREPL = ObjectUIModule.JavaScriptREPL.JavaScriptREPL;
+Object.defineProperty(ObjectUI.JavaScriptREPL, '_MaxLengthForEvaluation', {
+    set: ObjectUIModule.JavaScriptREPL.setMaxLengthForEvaluation,
+    get: ObjectUIModule.JavaScriptREPL.getMaxLengthForEvaluation,
+});
+/** @constructor */
+ObjectUI.ObjectPopoverHelper = ObjectUIModule.ObjectPopoverHelper.ObjectPopoverHelper;
+ObjectUI.ArrayGroupingTreeElement = ObjectUIModule.ObjectPropertiesSection.ArrayGroupingTreeElement;
+/** @constructor */
+ObjectUI.ExpandableTextPropertyValue = ObjectUIModule.ObjectPropertiesSection.ExpandableTextPropertyValue;
+/** @constructor */
+ObjectUI.ObjectPropertiesSection = ObjectUIModule.ObjectPropertiesSection.ObjectPropertiesSection;
+Object.defineProperty(ObjectUI.ObjectPropertiesSection, '_maxRenderableStringLength', {
+    set: ObjectUIModule.ObjectPropertiesSection.setMaxRenderableStringLength,
+    get: ObjectUIModule.ObjectPropertiesSection.getMaxRenderableStringLength,
+});
+ObjectUI.ObjectPropertiesSection.getObjectPropertiesSectionFrom =
+    ObjectUIModule.ObjectPropertiesSection.getObjectPropertiesSectionFrom;
+/** @constructor */
+ObjectUI.ObjectPropertiesSectionsTreeOutline =
+    ObjectUIModule.ObjectPropertiesSection.ObjectPropertiesSectionsTreeOutline;
+/**
+ * @constructor
+ */
+ObjectUI.ObjectPropertiesSection.RootElement = ObjectUIModule.ObjectPropertiesSection.RootElement;
+/**
+ * @constructor
+ */
+ObjectUI.ObjectPropertiesSection.Renderer = ObjectUIModule.ObjectPropertiesSection.Renderer;
+/** @constructor */
+ObjectUI.ObjectPropertyTreeElement = ObjectUIModule.ObjectPropertiesSection.ObjectPropertyTreeElement;
+/** @constructor */
+ObjectUI.ObjectPropertyPrompt = ObjectUIModule.ObjectPropertiesSection.ObjectPropertyPrompt;
+/** @constructor */
+ObjectUI.ObjectPropertiesSectionsTreeExpandController =
+    ObjectUIModule.ObjectPropertiesSection.ObjectPropertiesSectionsTreeExpandController;
+/** @constructor */
+ObjectUI.RemoteObjectPreviewFormatter = ObjectUIModule.RemoteObjectPreviewFormatter.RemoteObjectPreviewFormatter;
+//# sourceMappingURL=object_ui-legacy.js.map

@@ -1,1 +1,368 @@
-import*as e from"../../core/common/common.js";import*as t from"../../ui/legacy/legacy.js";import*as o from"../../core/i18n/i18n.js";const s={console:"Console",showConsole:"Show Console",clearConsole:"Clear console",clearConsoleHistory:"Clear console history",createLiveExpression:"Create live expression",hideNetworkMessages:"Hide network messages",showNetworkMessages:"Show network messages",selectedContextOnly:"Selected context only",onlyShowMessagesFromTheCurrent:"Only show messages from the current context (`top`, `iframe`, `worker`, extension)",showMessagesFromAllContexts:"Show messages from all contexts",logXmlhttprequests:"Log XMLHttpRequests",showTimestamps:"Show timestamps",hideTimestamps:"Hide timestamps",autocompleteFromHistory:"Autocomplete from history",doNotAutocompleteFromHistory:"Do not autocomplete from history",groupSimilarMessagesInConsole:"Group similar messages in console",doNotGroupSimilarMessagesIn:"Do not group similar messages in console",showCorsErrorsInConsole:"Show `CORS` errors in console",doNotShowCorsErrorsIn:"Do not show `CORS` errors in console",eagerEvaluation:"Eager evaluation",eagerlyEvaluateConsolePromptText:"Eagerly evaluate console prompt text",doNotEagerlyEvaluateConsole:"Do not eagerly evaluate console prompt text",evaluateTriggersUserActivation:"Evaluate triggers user activation",treatEvaluationAsUserActivation:"Treat evaluation as user activation",doNotTreatEvaluationAsUser:"Do not treat evaluation as user activation"},i=o.i18n.registerUIStrings("panels/console/console-meta.ts",s),n=o.i18n.getLazilyComputedLocalizedString.bind(void 0,i);let a;async function r(){return a||(a=await import("./console.js")),a}t.ViewManager.registerViewExtension({location:"panel",id:"console",title:n(s.console),commandPrompt:n(s.showConsole),order:20,loadView:async()=>(await r()).ConsolePanel.ConsolePanel.instance()}),t.ViewManager.registerViewExtension({location:"drawer-view",id:"console-view",title:n(s.console),commandPrompt:n(s.showConsole),persistence:"permanent",order:0,loadView:async()=>(await r()).ConsolePanel.WrapperView.instance()}),t.ActionRegistration.registerActionExtension({actionId:"console.show",category:t.ActionRegistration.ActionCategory.CONSOLE,title:n(s.showConsole),loadActionDelegate:async()=>(await r()).ConsoleView.ActionDelegate.instance(),bindings:[{shortcut:"Ctrl+`",keybindSets:["devToolsDefault","vsCode"]}]}),t.ActionRegistration.registerActionExtension({actionId:"console.clear",category:t.ActionRegistration.ActionCategory.CONSOLE,title:n(s.clearConsole),iconClass:"largeicon-clear",loadActionDelegate:async()=>(await r()).ConsoleView.ActionDelegate.instance(),contextTypes(){return e=e=>[e.ConsoleView.ConsoleView],void 0===a?[]:e(a);var e},bindings:[{shortcut:"Ctrl+L"},{shortcut:"Meta+K",platform:"mac"}]}),t.ActionRegistration.registerActionExtension({actionId:"console.clear.history",category:t.ActionRegistration.ActionCategory.CONSOLE,title:n(s.clearConsoleHistory),loadActionDelegate:async()=>(await r()).ConsoleView.ActionDelegate.instance()}),t.ActionRegistration.registerActionExtension({actionId:"console.create-pin",category:t.ActionRegistration.ActionCategory.CONSOLE,title:n(s.createLiveExpression),iconClass:"largeicon-visibility",loadActionDelegate:async()=>(await r()).ConsoleView.ActionDelegate.instance()}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,storageType:e.Settings.SettingStorageType.Synced,title:n(s.hideNetworkMessages),settingName:"hideNetworkMessages",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1,options:[{value:!0,title:n(s.hideNetworkMessages)},{value:!1,title:n(s.showNetworkMessages)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,storageType:e.Settings.SettingStorageType.Synced,title:n(s.selectedContextOnly),settingName:"selectedContextFilterEnabled",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1,options:[{value:!0,title:n(s.onlyShowMessagesFromTheCurrent)},{value:!1,title:n(s.showMessagesFromAllContexts)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,storageType:e.Settings.SettingStorageType.Synced,title:n(s.logXmlhttprequests),settingName:"monitoringXHREnabled",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,storageType:e.Settings.SettingStorageType.Synced,title:n(s.showTimestamps),settingName:"consoleTimestampsEnabled",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!1,options:[{value:!0,title:n(s.showTimestamps)},{value:!1,title:n(s.hideTimestamps)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,title:n(s.autocompleteFromHistory),settingName:"consoleHistoryAutocomplete",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:n(s.autocompleteFromHistory)},{value:!1,title:n(s.doNotAutocompleteFromHistory)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,storageType:e.Settings.SettingStorageType.Synced,title:n(s.groupSimilarMessagesInConsole),settingName:"consoleGroupSimilar",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:n(s.groupSimilarMessagesInConsole)},{value:!1,title:n(s.doNotGroupSimilarMessagesIn)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,title:n(s.showCorsErrorsInConsole),settingName:"consoleShowsCorsErrors",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:n(s.showCorsErrorsInConsole)},{value:!1,title:n(s.doNotShowCorsErrorsIn)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,storageType:e.Settings.SettingStorageType.Synced,title:n(s.eagerEvaluation),settingName:"consoleEagerEval",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:n(s.eagerlyEvaluateConsolePromptText)},{value:!1,title:n(s.doNotEagerlyEvaluateConsole)}]}),e.Settings.registerSettingExtension({category:e.Settings.SettingCategory.CONSOLE,storageType:e.Settings.SettingStorageType.Synced,title:n(s.evaluateTriggersUserActivation),settingName:"consoleUserActivationEval",settingType:e.Settings.SettingType.BOOLEAN,defaultValue:!0,options:[{value:!0,title:n(s.treatEvaluationAsUserActivation)},{value:!1,title:n(s.doNotTreatEvaluationAsUser)}]}),e.Revealer.registerRevealer({contextTypes:()=>[e.Console.Console],loadRevealer:async()=>(await r()).ConsolePanel.ConsoleRevealer.instance(),destination:void 0});
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import * as Common from '../../core/common/common.js';
+import * as UI from '../../ui/legacy/legacy.js';
+import * as i18n from '../../core/i18n/i18n.js';
+const UIStrings = {
+    /**
+    *@description Title of the Console tool
+    */
+    console: 'Console',
+    /**
+    *@description Title of an action that shows the console.
+    */
+    showConsole: 'Show Console',
+    /**
+    *@description Text to clear the console
+    */
+    clearConsole: 'Clear console',
+    /**
+    *@description Title of an action in the console tool to clear
+    */
+    clearConsoleHistory: 'Clear console history',
+    /**
+    *@description Title of an action in the console tool to create pin. A live expression is code that the user can enter into the console and it will be pinned in the UI. Live expressions are constantly evaluated as the user interacts with the console (hence 'live').
+    */
+    createLiveExpression: 'Create live expression',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    hideNetworkMessages: 'Hide network messages',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    showNetworkMessages: 'Show network messages',
+    /**
+    *@description Alternative title text of a setting in Console View of the Console panel
+    */
+    selectedContextOnly: 'Selected context only',
+    /**
+    *@description Tooltip text that appears on the setting when hovering over it in Console View of the Console panel
+    */
+    onlyShowMessagesFromTheCurrent: 'Only show messages from the current context (`top`, `iframe`, `worker`, extension)',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    showMessagesFromAllContexts: 'Show messages from all contexts',
+    /**
+    *@description Title of a setting under the Console category in Settings
+    */
+    logXmlhttprequests: 'Log XMLHttpRequests',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    showTimestamps: 'Show timestamps',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    hideTimestamps: 'Hide timestamps',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    autocompleteFromHistory: 'Autocomplete from history',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    doNotAutocompleteFromHistory: 'Do not autocomplete from history',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    groupSimilarMessagesInConsole: 'Group similar messages in console',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    doNotGroupSimilarMessagesIn: 'Do not group similar messages in console',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    showCorsErrorsInConsole: 'Show `CORS` errors in console',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    doNotShowCorsErrorsIn: 'Do not show `CORS` errors in console',
+    /**
+    *@description Title of a setting under the Console category in Settings
+    */
+    eagerEvaluation: 'Eager evaluation',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    eagerlyEvaluateConsolePromptText: 'Eagerly evaluate console prompt text',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    doNotEagerlyEvaluateConsole: 'Do not eagerly evaluate console prompt text',
+    /**
+    *@description Title of a setting under the Console category in Settings
+    */
+    evaluateTriggersUserActivation: 'Evaluate triggers user activation',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    treatEvaluationAsUserActivation: 'Treat evaluation as user activation',
+    /**
+    *@description Title of a setting under the Console category that can be invoked through the Command Menu
+    */
+    doNotTreatEvaluationAsUser: 'Do not treat evaluation as user activation',
+};
+const str_ = i18n.i18n.registerUIStrings('panels/console/console-meta.ts', UIStrings);
+const i18nLazyString = i18n.i18n.getLazilyComputedLocalizedString.bind(undefined, str_);
+let loadedConsoleModule;
+async function loadConsoleModule() {
+    if (!loadedConsoleModule) {
+        loadedConsoleModule = await import('./console.js');
+    }
+    return loadedConsoleModule;
+}
+function maybeRetrieveContextTypes(getClassCallBack) {
+    if (loadedConsoleModule === undefined) {
+        return [];
+    }
+    return getClassCallBack(loadedConsoleModule);
+}
+UI.ViewManager.registerViewExtension({
+    location: "panel" /* PANEL */,
+    id: 'console',
+    title: i18nLazyString(UIStrings.console),
+    commandPrompt: i18nLazyString(UIStrings.showConsole),
+    order: 20,
+    async loadView() {
+        const Console = await loadConsoleModule();
+        return Console.ConsolePanel.ConsolePanel.instance();
+    },
+});
+UI.ViewManager.registerViewExtension({
+    location: "drawer-view" /* DRAWER_VIEW */,
+    id: 'console-view',
+    title: i18nLazyString(UIStrings.console),
+    commandPrompt: i18nLazyString(UIStrings.showConsole),
+    persistence: "permanent" /* PERMANENT */,
+    order: 0,
+    async loadView() {
+        const Console = await loadConsoleModule();
+        return Console.ConsolePanel.WrapperView.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'console.show',
+    category: UI.ActionRegistration.ActionCategory.CONSOLE,
+    title: i18nLazyString(UIStrings.showConsole),
+    async loadActionDelegate() {
+        const Console = await loadConsoleModule();
+        return Console.ConsoleView.ActionDelegate.instance();
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+`',
+            keybindSets: [
+                "devToolsDefault" /* DEVTOOLS_DEFAULT */,
+                "vsCode" /* VS_CODE */,
+            ],
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'console.clear',
+    category: UI.ActionRegistration.ActionCategory.CONSOLE,
+    title: i18nLazyString(UIStrings.clearConsole),
+    iconClass: "largeicon-clear" /* LARGEICON_CLEAR */,
+    async loadActionDelegate() {
+        const Console = await loadConsoleModule();
+        return Console.ConsoleView.ActionDelegate.instance();
+    },
+    contextTypes() {
+        return maybeRetrieveContextTypes(Console => [Console.ConsoleView.ConsoleView]);
+    },
+    bindings: [
+        {
+            shortcut: 'Ctrl+L',
+        },
+        {
+            shortcut: 'Meta+K',
+            platform: "mac" /* Mac */,
+        },
+    ],
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'console.clear.history',
+    category: UI.ActionRegistration.ActionCategory.CONSOLE,
+    title: i18nLazyString(UIStrings.clearConsoleHistory),
+    async loadActionDelegate() {
+        const Console = await loadConsoleModule();
+        return Console.ConsoleView.ActionDelegate.instance();
+    },
+});
+UI.ActionRegistration.registerActionExtension({
+    actionId: 'console.create-pin',
+    category: UI.ActionRegistration.ActionCategory.CONSOLE,
+    title: i18nLazyString(UIStrings.createLiveExpression),
+    iconClass: "largeicon-visibility" /* LARGEICON_VISIBILITY */,
+    async loadActionDelegate() {
+        const Console = await loadConsoleModule();
+        return Console.ConsoleView.ActionDelegate.instance();
+    },
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.hideNetworkMessages),
+    settingName: 'hideNetworkMessages',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.hideNetworkMessages),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.showNetworkMessages),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.selectedContextOnly),
+    settingName: 'selectedContextFilterEnabled',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.onlyShowMessagesFromTheCurrent),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.showMessagesFromAllContexts),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.logXmlhttprequests),
+    settingName: 'monitoringXHREnabled',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.showTimestamps),
+    settingName: 'consoleTimestampsEnabled',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: false,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.showTimestamps),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.hideTimestamps),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    title: i18nLazyString(UIStrings.autocompleteFromHistory),
+    settingName: 'consoleHistoryAutocomplete',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.autocompleteFromHistory),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotAutocompleteFromHistory),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.groupSimilarMessagesInConsole),
+    settingName: 'consoleGroupSimilar',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.groupSimilarMessagesInConsole),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotGroupSimilarMessagesIn),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    title: i18nLazyString(UIStrings.showCorsErrorsInConsole),
+    settingName: 'consoleShowsCorsErrors',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.showCorsErrorsInConsole),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotShowCorsErrorsIn),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.eagerEvaluation),
+    settingName: 'consoleEagerEval',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.eagerlyEvaluateConsolePromptText),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotEagerlyEvaluateConsole),
+        },
+    ],
+});
+Common.Settings.registerSettingExtension({
+    category: Common.Settings.SettingCategory.CONSOLE,
+    storageType: Common.Settings.SettingStorageType.Synced,
+    title: i18nLazyString(UIStrings.evaluateTriggersUserActivation),
+    settingName: 'consoleUserActivationEval',
+    settingType: Common.Settings.SettingType.BOOLEAN,
+    defaultValue: true,
+    options: [
+        {
+            value: true,
+            title: i18nLazyString(UIStrings.treatEvaluationAsUserActivation),
+        },
+        {
+            value: false,
+            title: i18nLazyString(UIStrings.doNotTreatEvaluationAsUser),
+        },
+    ],
+});
+Common.Revealer.registerRevealer({
+    contextTypes() {
+        return [
+            Common.Console.Console,
+        ];
+    },
+    async loadRevealer() {
+        const Console = await loadConsoleModule();
+        return Console.ConsolePanel.ConsoleRevealer.instance();
+    },
+    destination: undefined,
+});
+//# sourceMappingURL=console-meta.js.map

@@ -1,1 +1,25 @@
-function e(e){return e.isDocument()?"ic_file_document":e.isImage()?"ic_file_image":e.isFont()?"ic_file_font":e.isScript()?"ic_file_script":e.isStyleSheet()?"ic_file_stylesheet":e.isWebbundle()?"ic_file_webbundle":"ic_file_default"}export{e as imageNameForResourceType};
+// Copyright 2021 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+export function imageNameForResourceType(resourceType) {
+    if (resourceType.isDocument()) {
+        return 'ic_file_document';
+    }
+    if (resourceType.isImage()) {
+        return 'ic_file_image';
+    }
+    if (resourceType.isFont()) {
+        return 'ic_file_font';
+    }
+    if (resourceType.isScript()) {
+        return 'ic_file_script';
+    }
+    if (resourceType.isStyleSheet()) {
+        return 'ic_file_stylesheet';
+    }
+    if (resourceType.isWebbundle()) {
+        return 'ic_file_webbundle';
+    }
+    return 'ic_file_default';
+}
+//# sourceMappingURL=utils.js.map
